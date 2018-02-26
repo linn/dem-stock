@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>Linn.DemStock.Domain</AssemblyName>
+    <RootNamespace>Linn.DemStock.Domain</RootNamespace>
+  </PropertyGroup>
+
+</Project>
