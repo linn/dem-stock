@@ -74,7 +74,7 @@ Resources:
   serviceTaskDefinition:
     Type: AWS::ECS::TaskDefinition
     Properties:
-      TaskRoleArn: !GetAtt role.Arn
+      TaskRoleArn: !GetAtt serviceRole.Arn
       ContainerDefinitions:
       - Name: dem-stock
         Cpu: '1'
