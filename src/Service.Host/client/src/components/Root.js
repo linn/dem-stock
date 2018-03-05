@@ -17,8 +17,8 @@ class Root extends Component {
                         <Navigation />
 
                         <Route path="/" render={() => { document.title = 'Dem Stock'; return false; }} />
-                        <Route exact path="/" render={() => <Redirect to="/dem-stock" />} />
-                        <Route exact path="/dem-stock" component={App} />
+                        <Route exact path="/" render={() => <Redirect to="/sales/dem-stock" />} />
+                        <Route exact path="/sales/dem-stock" component={App} />
                     </div>
                 </Router>
             </Provider>      
