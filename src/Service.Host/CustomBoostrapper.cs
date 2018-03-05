@@ -47,8 +47,8 @@
         {
             base.ConfigureConventions(conventions);
 
-            conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("dem-stock/assets", "client/assets"));
-            conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("dem-stock/build", "client/build"));
+            conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("sales/dem-stock/assets", "client/assets"));
+            conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("sales/dem-stock/build", "client/build"));
         }
 
         protected override void ConfigureApplicationContainer(ILifetimeScope existingContainer)
@@ -83,8 +83,7 @@
 
         private static void Log(Exception ex, ILog log)
         {
-            var exception = ex as AggregateException;
-            if (exception != null)
+            if (ex is AggregateException exception)
             {
                 foreach (var inner in exception.InnerExceptions)
                 {
