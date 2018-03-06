@@ -31,6 +31,12 @@
             this.UpdateRootProduct(rootProductUri, updatedByUri, quantity);
         }
 
+        public void SetLastReviewedDate(DateTime reviewedOn, string updatedByUri)
+        {
+            this.LastReviewedOn = reviewedOn;
+            this.Activities.Add(new UpdateLastReviewedOnActivity(updatedByUri, reviewedOn));
+        }
+
         private void UpdateRootProduct(string rootProductUri, string updatedByUri, int quantity)
         {
             var rootProduct = this.RootProducts.FirstOrDefault(r => r.RootProductUri.ToLower() == rootProductUri.ToLower());
