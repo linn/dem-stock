@@ -25,6 +25,11 @@
         public void SetQuantity(int quantity)
         {
             this.Quantity = quantity;
+            if (this.Quantity < 0)
+            {
+                this.Quantity = 0;
+            }
+
             this.UpdatedOn = DateTime.UtcNow;
         }
     }
