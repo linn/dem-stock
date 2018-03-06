@@ -8,6 +8,7 @@
         {
             this.RootProductUri = rootProductUri;
             this.Quantity = quantity;
+            this.UpdatedOn = DateTime.UtcNow;
         }
 
         private RootProduct()
@@ -17,8 +18,14 @@
 
         public string RootProductUri { get; set; }
 
-        public int Quantity { get; set; }
+        public int Quantity { get; private set; }
 
         public DateTime UpdatedOn { get; set; }
+
+        public void SetQuantity(int quantity)
+        {
+            this.Quantity = quantity;
+            this.UpdatedOn = DateTime.UtcNow;
+        }
     }
 }

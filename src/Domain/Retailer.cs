@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using Linn.DemStock.Domain.RetailerActivities;
 
@@ -15,8 +16,18 @@
 
         public void IncrementRootProductQuantity(string rootProductUri, string updatedByUri, int quantity = 1)
         {
-            this.RootProducts.Add(new RootProduct(rootProductUri));
-            this.Activities.Add(new UpdateRootProductActivity(updatedByUri, rootProductUri, quantity));
+            var rootProduct = this.RootProducts.FirstOrDefault(r => r.RootProductUri.ToLower() == rootProductUri.ToLower());
+            if (rootProduct == null)
+            {
+                rootProduct = new RootProduct(rootProductUri, quantity);
+                this.RootProducts.Add(rootProduct);
+            }
+            else
+            {
+                rootProduct.SetQuantity(rootProduct.Quantity + quantity);
+            }
+
+            this.Activities.Add(new UpdateRootProductActivity(updatedByUri, rootProductUri, rootProduct.Quantity));
         }
 
         public void SetRootProductQuantity(string rootProductUri, string updatedByUri, int quantity)
