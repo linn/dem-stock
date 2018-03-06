@@ -9,7 +9,7 @@
         [SetUp]
         public void SetUpContext()
         {
-            this.Sut = new Retailer();
+            this.Sut = new Retailer("/retailers/2");
         }
     }
 }

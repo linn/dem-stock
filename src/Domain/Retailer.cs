@@ -9,6 +9,16 @@
 
     public class Retailer : ActivityEntity<RetailerActivity>
     {
+        public Retailer(string retailerUri)
+        {
+            this.RetailerUri = retailerUri;
+        }
+
+        private Retailer()
+        {
+            // ef
+        }
+
         public string RetailerUri { get; set; }
 
         public DateTime? LastReviewedOn { get; set; }
