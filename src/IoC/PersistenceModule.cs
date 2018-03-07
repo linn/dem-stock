@@ -1,15 +1,15 @@
 ﻿namespace Linn.DemStock.IoC
 {
-    using Amazon.SQS;
     using Autofac;
 
-    using Linn.Common.Logging;
-    using Linn.Common.Logging.AmazonSqs;
+    using Linn.DemStock.Domain.Repositories;
+    using Linn.DemStock.Persistence.Repositories;
 
     public class PersistenceModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<RetailerDemListRepository>().As<IRetailerDemListRepository>();
         }
     }
 }

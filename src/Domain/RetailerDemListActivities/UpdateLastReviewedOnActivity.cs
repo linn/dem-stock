@@ -1,8 +1,8 @@
-﻿namespace Linn.DemStock.Domain.RetailerActivities
+﻿namespace Linn.DemStock.Domain.RetailerDemListActivities
 {
     using System;
 
-    public class UpdateLastReviewedOnActivity : RetailerActivity
+    public class UpdateLastReviewedOnActivity : RetailerDemListActivity
     {
         public UpdateLastReviewedOnActivity(string updatedByUri, DateTime lastReviewedOn) : base(updatedByUri)
         {
@@ -14,6 +14,6 @@
             // ef
         }
 
-        public DateTime LastReviewedOn { get; }
+        public DateTime LastReviewedOn { get; private set; }
     }
 }

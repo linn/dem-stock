@@ -5,7 +5,7 @@
 
     using FluentAssertions;
 
-    using Linn.DemStock.Domain.RetailerActivities;
+    using Linn.DemStock.Domain.RetailerDemListActivities;
 
     using NUnit.Framework;
 

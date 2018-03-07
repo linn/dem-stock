@@ -1,15 +1,15 @@
 ﻿namespace Linn.DemStock.IoC
 {
-    using Amazon.SQS;
     using Autofac;
 
-    using Linn.Common.Logging;
-    using Linn.Common.Logging.AmazonSqs;
+    using Linn.DemStock.Facade.Services;
 
     public class ServiceModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
+            // services
+            builder.RegisterType<DemStockService>().As<IDemStockService>();
         }
     }
 }

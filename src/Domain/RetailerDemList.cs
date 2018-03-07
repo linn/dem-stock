@@ -5,10 +5,20 @@
     using System.Linq;
 
     using Linn.DemStock.Domain.Exceptions;
-    using Linn.DemStock.Domain.RetailerActivities;
+    using Linn.DemStock.Domain.RetailerDemListActivities;
 
-    public class Retailer : ActivityEntity<RetailerActivity>
+    public class RetailerDemList : ActivityEntity<RetailerDemListActivity>
     {
+        public RetailerDemList(string retailerUri)
+        {
+            this.RetailerUri = retailerUri;
+        }
+
+        private RetailerDemList()
+        {
+            // ef
+        }
+
         public string RetailerUri { get; set; }
 
         public DateTime? LastReviewedOn { get; set; }
