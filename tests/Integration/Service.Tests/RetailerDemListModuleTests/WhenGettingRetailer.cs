@@ -1,5 +1,7 @@
 ﻿namespace Linn.DemStock.Service.Tests.RetailerDemListModuleTests
 {
+    using System.Linq;
+
     using FluentAssertions;
 
     using Linn.Common.Facade;
@@ -21,6 +23,7 @@
         public void SetUp()
         {
             this.retailerDemList = new RetailerDemList("/retailers/200");
+            this.retailerDemList.SetRootProductQuantity("/products/100", "/employees/50", 3);
             this.DemStockService.GetRetailer("/retailers/200")
                 .Returns(new SuccessResult<RetailerDemList>(this.retailerDemList));
 
@@ -48,8 +51,11 @@
         [Test]
         public void ShouldReturnResource()
         {
-            var resources = this.Response.Body.DeserializeJson<RetailerDemListResource>();
-            resources.RetailerUri.Should().Be(this.retailerDemList.RetailerUri);
+            var resource = this.Response.Body.DeserializeJson<RetailerDemListResource>();
+            resource.RetailerUri.Should().Be(this.retailerDemList.RetailerUri);
+            resource.RootProducts.Should().HaveCount(1);
+            resource.RootProducts.First().Quantity.Should().Be(3);
+            resource.RootProducts.First().RootProductUri.Should().Be("/products/100");
         }
     }
 }

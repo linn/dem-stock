@@ -10,12 +10,15 @@
 
     public class RetailerDemListResourceBuilder : IResourceBuilder<RetailerDemList>
     {
+        private readonly RootProductResourceBuilder rootProductResourceBuilder = new RootProductResourceBuilder();
+
         public RetailerDemListResource Build(RetailerDemList retailerDemList)
         {
             return new RetailerDemListResource
                        {
                            LastReviewedOn = retailerDemList.LastReviewedOn?.ToString("o"),
                            RetailerUri = retailerDemList.RetailerUri,
+                           RootProducts = retailerDemList.RootProducts.Select(r => this.rootProductResourceBuilder.Build(r)),
                            Links = this.BuildLinks(retailerDemList).ToArray()
                        };
         }
