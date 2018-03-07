@@ -26,7 +26,15 @@
 
         public IResult<RootProduct> SetRetailerListRootProduct(int retailerDemListId, string rootProductUri, int quantity)
         {
-            throw new System.NotImplementedException();
+            var retailerDemList = this.retailerDemListRepository.GetById(retailerDemListId);
+            if (retailerDemList == null)
+            {
+                return new NotFoundResult<RootProduct>();
+            }
+
+            var rootProduct = retailerDemList.SetRootProductQuantity(rootProductUri, null, quantity);
+
+            return new SuccessResult<RootProduct>(rootProduct);
         }
     }
 }
