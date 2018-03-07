@@ -15,7 +15,13 @@
 
         public IResult<RetailerDemList> GetRetailer(string retailerUri)
         {
-            throw new System.NotImplementedException();
+            var retailerDemList = this.retailerDemListRepository.GetByRetailerUri(retailerUri);
+            if (retailerDemList == null)
+            {
+                return new NotFoundResult<RetailerDemList>();
+            }
+
+            return new SuccessResult<RetailerDemList>(retailerDemList);
         }
     }
 }
