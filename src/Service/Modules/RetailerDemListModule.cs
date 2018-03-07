@@ -1,6 +1,7 @@
 ﻿namespace Linn.DemStock.Service.Modules
 {
     using Linn.DemStock.Facade;
+    using Linn.DemStock.Facade.Services;
     using Linn.DemStock.Resources.RequestResources;
 
     using Nancy;
@@ -13,7 +14,7 @@
         public RetailerDemListModule(IDemStockService demStockService)
         {
             this.demStockService = demStockService;
-            this.Get("/sales/dem-stock/retailers", _ => this.GetRetailer());
+            this.Get("/sales/dem-stock/retailer-lists", _ => this.GetRetailer());
         }
 
         private object GetRetailer()

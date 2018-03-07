@@ -13,8 +13,8 @@
             // ef
         }
 
-        public string RootProductUri { get; }
+        public string RootProductUri { get; private set; }
 
-        public int Quantity { get; }
+        public int Quantity { get; private set; }
     }
 }

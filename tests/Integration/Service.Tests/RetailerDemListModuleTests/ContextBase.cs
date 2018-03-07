@@ -4,6 +4,7 @@
     using Linn.DemStock.Domain;
     using Linn.DemStock.Facade;
     using Linn.DemStock.Facade.ResourceBuilders;
+    using Linn.DemStock.Facade.Services;
     using Linn.DemStock.Service.Modules;
     using Linn.DemStock.Service.ResponseProcessors;
 

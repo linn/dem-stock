@@ -14,6 +14,6 @@
             // ef
         }
 
-        public DateTime LastReviewedOn { get; }
+        public DateTime LastReviewedOn { get; private set; }
     }
 }

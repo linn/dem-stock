@@ -1,14 +1,8 @@
 ﻿namespace Linn.DemStock.IoC
 {
-    using Amazon.SQS;
     using Autofac;
 
-    using Linn.Common.Facade;
-    using Linn.Common.Logging;
-    using Linn.Common.Logging.AmazonSqs;
-    using Linn.DemStock.Domain;
-    using Linn.DemStock.Facade;
-    using Linn.DemStock.Facade.ResourceBuilders;
+    using Linn.DemStock.Facade.Services;
 
     public class ServiceModule : Module
     {
@@ -16,9 +10,6 @@
         {
             // services
             builder.RegisterType<DemStockService>().As<IDemStockService>();
-
-            // resource builders
-            builder.RegisterType<RetailerDemListResourceBuilder>().As<IResourceBuilder<RetailerDemList>>();
         }
     }
 }

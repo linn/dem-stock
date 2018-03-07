@@ -22,7 +22,7 @@
 
         object IResourceBuilder<RetailerDemList>.Build(RetailerDemList retailerDemList) => this.Build(retailerDemList);
 
-        public string GetLocation(RetailerDemList retailerDemList) => $"/sales/dem-stock/retailers/{retailerDemList.Id}";
+        public string GetLocation(RetailerDemList retailerDemList) => $"/sales/dem-stock/retailer-lists/{retailerDemList.Id}";
 
         private IEnumerable<LinkResource> BuildLinks(RetailerDemList retailerDemList)
         {

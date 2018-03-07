@@ -25,7 +25,7 @@
                 .Returns(new SuccessResult<RetailerDemList>(this.retailerDemList));
 
             this.Response = this.Browser.Get(
-                "/sales/dem-stock/retailers",
+                "/sales/dem-stock/retailer-lists",
                 with =>
                     {
                         with.Header("Accept", "application/json");
@@ -37,6 +37,12 @@
         public void ShouldReturnOk()
         {
             this.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        [Test]
+        public void ShouldCallService()
+        {
+            this.DemStockService.Received().GetRetailer("/retailers/200");
         }
 
         [Test]

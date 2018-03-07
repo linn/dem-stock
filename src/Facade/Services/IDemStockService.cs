@@ -1,4 +1,4 @@
-﻿namespace Linn.DemStock.Facade
+﻿namespace Linn.DemStock.Facade.Services
 {
     using Linn.Common.Facade;
     using Linn.DemStock.Domain;
