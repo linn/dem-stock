@@ -2,7 +2,6 @@
 {
     using Linn.Common.Facade;
     using Linn.DemStock.Domain;
-    using Linn.DemStock.Facade;
     using Linn.DemStock.Facade.ResourceBuilders;
     using Linn.DemStock.Facade.Services;
     using Linn.DemStock.Service.Modules;
@@ -28,8 +27,10 @@
                 {
                     with.Dependency(this.DemStockService);
                     with.Dependency<IResourceBuilder<RetailerDemList>>(new RetailerDemListResourceBuilder());
+                    with.Dependency<IResourceBuilder<RootProduct>>(new RootProductResourceBuilder());
                     with.Module<RetailerDemListModule>();
                     with.ResponseProcessor<RetailerDemListJsonResponseProcessor>();
+                    with.ResponseProcessor<RootProductJsonResponseProcessor>();
                 });
 
             this.Browser = new Browser(bootstrapper);

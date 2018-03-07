@@ -13,7 +13,7 @@
             this.retailerDemListRepository = retailerDemListRepository;
         }
 
-        public IResult<RetailerDemList> GetRetailer(string retailerUri)
+        public IResult<RetailerDemList> GetRetailerDemList(string retailerUri)
         {
             var retailerDemList = this.retailerDemListRepository.GetByRetailerUri(retailerUri);
             if (retailerDemList == null)
@@ -22,6 +22,11 @@
             }
 
             return new SuccessResult<RetailerDemList>(retailerDemList);
+        }
+
+        public IResult<RootProduct> SetRetailerListRootProduct(int retailerDemListId, string rootProductUri, int quantity)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

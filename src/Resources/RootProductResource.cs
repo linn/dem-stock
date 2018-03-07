@@ -1,4 +1,4 @@
-﻿namespace Linn.DemStock.Resources.RequestResources
+﻿namespace Linn.DemStock.Resources
 {
     using Linn.Common.Resources;
 
