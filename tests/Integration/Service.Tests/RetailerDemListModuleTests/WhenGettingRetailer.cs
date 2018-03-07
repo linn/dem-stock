@@ -1,4 +1,4 @@
-﻿namespace Linn.DemStock.Service.Tests
+﻿namespace Linn.DemStock.Service.Tests.RetailerDemListModuleTests
 {
     using FluentAssertions;
 
@@ -15,14 +15,14 @@
 
     public class WhenGettingRetailer : ContextBase
     {
-        private Retailer retailer;
+        private RetailerDemList retailerDemList;
 
         [SetUp]
         public void SetUp()
         {
-            this.retailer = new Retailer("/retailers/200");
+            this.retailerDemList = new RetailerDemList("/retailers/200");
             this.DemStockService.GetRetailer("/retailers/200")
-                .Returns(new SuccessResult<Retailer>(this.retailer));
+                .Returns(new SuccessResult<RetailerDemList>(this.retailerDemList));
 
             this.Response = this.Browser.Get(
                 "/sales/dem-stock/retailers",
@@ -42,8 +42,8 @@
         [Test]
         public void ShouldReturnResource()
         {
-            var resources = this.Response.Body.DeserializeJson<RetailerResource>();
-            resources.RetailerUri.Should().Be(this.retailer.RetailerUri);
+            var resources = this.Response.Body.DeserializeJson<RetailerDemListResource>();
+            resources.RetailerUri.Should().Be(this.retailerDemList.RetailerUri);
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     using Linn.Common.Resources;
 
-    public class RetailerResource : HypermediaResource
+    public class RetailerDemListResource : HypermediaResource
     {
         public string RetailerUri { get; set; }
 

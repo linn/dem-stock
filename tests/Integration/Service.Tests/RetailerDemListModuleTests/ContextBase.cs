@@ -1,4 +1,4 @@
-﻿namespace Linn.DemStock.Service.Tests
+﻿namespace Linn.DemStock.Service.Tests.RetailerDemListModuleTests
 {
     using Linn.Common.Facade;
     using Linn.DemStock.Domain;
@@ -26,9 +26,9 @@
                 with =>
                 {
                     with.Dependency(this.DemStockService);
-                    with.Dependency<IResourceBuilder<Retailer>>(new RetailerResourceBuilder());
-                    with.Module<RetailerModule>();
-                    with.ResponseProcessor<RetailerJsonResponseProcessor>();
+                    with.Dependency<IResourceBuilder<RetailerDemList>>(new RetailerDemListResourceBuilder());
+                    with.Module<RetailerDemListModule>();
+                    with.ResponseProcessor<RetailerDemListJsonResponseProcessor>();
                 });
 
             this.Browser = new Browser(bootstrapper);

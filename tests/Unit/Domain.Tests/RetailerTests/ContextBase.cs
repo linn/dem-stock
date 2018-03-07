@@ -4,12 +4,12 @@
 
     public abstract class ContextBase
     {
-        protected Retailer Sut { get; private set; }
+        protected RetailerDemList Sut { get; private set; }
 
         [SetUp]
         public void SetUpContext()
         {
-            this.Sut = new Retailer("/retailers/2");
+            this.Sut = new RetailerDemList("/retailers/2");
         }
     }
 }

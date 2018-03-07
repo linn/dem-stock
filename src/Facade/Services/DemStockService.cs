@@ -5,7 +5,7 @@
 
     public class DemStockService : IDemStockService
     {
-        public IResult<Retailer> GetRetailer(string retailerUri)
+        public IResult<RetailerDemList> GetRetailer(string retailerUri)
         {
             throw new System.NotImplementedException();
         }

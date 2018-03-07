@@ -1,6 +1,6 @@
-﻿namespace Linn.DemStock.Domain.RetailerActivities
+﻿namespace Linn.DemStock.Domain.RetailerDemListActivities
 {
-    public class UpdateRootProductActivity : RetailerActivity
+    public class UpdateRootProductActivity : RetailerDemListActivity
     {
         public UpdateRootProductActivity(string updatedByUri, string rootProductUri, int quantity) : base(updatedByUri)
         {

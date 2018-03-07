@@ -6,11 +6,11 @@
     using Nancy;
     using Nancy.ModelBinding;
 
-    public sealed class RetailerModule : NancyModule
+    public sealed class RetailerDemListModule : NancyModule
     {
         private readonly IDemStockService demStockService;
 
-        public RetailerModule(IDemStockService demStockService)
+        public RetailerDemListModule(IDemStockService demStockService)
         {
             this.demStockService = demStockService;
             this.Get("/sales/dem-stock/retailers", _ => this.GetRetailer());

@@ -5,16 +5,16 @@
     using System.Linq;
 
     using Linn.DemStock.Domain.Exceptions;
-    using Linn.DemStock.Domain.RetailerActivities;
+    using Linn.DemStock.Domain.RetailerDemListActivities;
 
-    public class Retailer : ActivityEntity<RetailerActivity>
+    public class RetailerDemList : ActivityEntity<RetailerDemListActivity>
     {
-        public Retailer(string retailerUri)
+        public RetailerDemList(string retailerUri)
         {
             this.RetailerUri = retailerUri;
         }
 
-        private Retailer()
+        private RetailerDemList()
         {
             // ef
         }
