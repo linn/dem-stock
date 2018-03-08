@@ -12,6 +12,7 @@
         {
             // resource builders
             builder.RegisterType<RetailerDemListResourceBuilder>().As<IResourceBuilder<RetailerDemList>>();
+            builder.RegisterType<RootProductResourceBuilder>().As<IResourceBuilder<RootProduct>>();
         }
     }
 }
