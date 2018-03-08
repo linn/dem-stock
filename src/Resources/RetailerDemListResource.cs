@@ -3,7 +3,6 @@
     using System.Collections.Generic;
 
     using Linn.Common.Resources;
-    using Linn.DemStock.Resources.RequestResources;
 
     public class RetailerDemListResource : HypermediaResource
     {

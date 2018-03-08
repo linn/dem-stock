@@ -8,7 +8,7 @@
 
     using NUnit.Framework;
 
-    public class WhenSettingRootProductQtyToZero : ContextBase
+    public class WhenSettingNonExistentRootProductQtyToZero : ContextBase
     {
         private string rootProductUri;
 
@@ -16,7 +16,6 @@
         public void SetUp()
         {
             this.rootProductUri = "/root-products/200";
-            this.Sut.RootProducts.Add(new RootProduct(this.rootProductUri, 3));
             this.RootProductResult = this.Sut.SetRootProductQuantity(this.rootProductUri, "/employees/2", 0);
         }
 

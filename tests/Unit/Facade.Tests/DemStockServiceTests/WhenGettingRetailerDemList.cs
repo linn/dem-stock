@@ -27,7 +27,7 @@
             this.retailerDemList = new RetailerDemList(this.retailerUri) { LastReviewedOn = 7.March(2018), Id = 20 };
             this.retailerDemList.SetRootProductQuantity("/products/123", "/employees/555", 3);
             this.DemListRepository.GetByRetailerUri(this.retailerUri).Returns(this.retailerDemList);
-            this.result = this.Sut.GetRetailer(this.retailerUri);
+            this.result = this.Sut.GetRetailerDemList(this.retailerUri);
         }
 
         [Test]

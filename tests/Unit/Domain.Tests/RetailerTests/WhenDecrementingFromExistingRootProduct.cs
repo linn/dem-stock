@@ -17,7 +17,14 @@
         {
             this.rootProductUri = "/root-products/200";
             this.Sut.RootProducts.Add(new RootProduct(this.rootProductUri, 3));
-            this.Sut.IncrementRootProductQuantity(this.rootProductUri, "/employees/2", -1);
+            this.RootProductResult = this.Sut.IncrementRootProductQuantity(this.rootProductUri, "/employees/2", -1);
+        }
+
+        [Test]
+        public void ShouldReturnRootProduct()
+        {
+            this.RootProductResult.Quantity.Should().Be(2);
+            this.RootProductResult.RootProductUri.Should().Be(this.rootProductUri);
         }
 
         [Test]

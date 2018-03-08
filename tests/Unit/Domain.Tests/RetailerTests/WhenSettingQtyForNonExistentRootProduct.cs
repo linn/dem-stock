@@ -16,7 +16,14 @@
         public void SetUp()
         {
             this.rootProductUri = "/root-products/200";
-            this.Sut.SetRootProductQuantity(this.rootProductUri, "/employees/2", 2);
+            this.RootProductResult = this.Sut.SetRootProductQuantity(this.rootProductUri, "/employees/2", 2);
+        }
+
+        [Test]
+        public void ShouldReturnRootProduct()
+        {
+            this.RootProductResult.Quantity.Should().Be(2);
+            this.RootProductResult.RootProductUri.Should().Be(this.rootProductUri);
         }
 
         [Test]

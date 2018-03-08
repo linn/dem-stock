@@ -6,6 +6,8 @@
     {
         protected RetailerDemList Sut { get; private set; }
 
+        protected RootProduct RootProductResult { get; set; }
+
         [SetUp]
         public void SetUpContext()
         {

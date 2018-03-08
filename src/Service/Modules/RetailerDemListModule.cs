@@ -1,6 +1,5 @@
 ﻿namespace Linn.DemStock.Service.Modules
 {
-    using Linn.DemStock.Facade;
     using Linn.DemStock.Facade.Services;
     using Linn.DemStock.Resources.RequestResources;
 
@@ -15,13 +14,26 @@
         {
             this.demStockService = demStockService;
             this.Get("/sales/dem-stock/retailer-lists", _ => this.GetRetailer());
+            this.Put("/sales/dem-stock/retailer-lists/{retailerListId:int}/products", parameters => this.SetRootProductQuantity(parameters.retailerListId));
+        }
+
+        private object SetRootProductQuantity(int retailerListId)
+        {
+            var resource = this.Bind<SetRootProductRequestResource>();
+
+            var rootProduct = this.demStockService.SetRetailerListRootProduct(
+                retailerListId,
+                resource.RootProductUri,
+                resource.Quantity);
+
+            return this.Negotiate.WithModel(rootProduct);
         }
 
         private object GetRetailer()
         {
             var resource = this.Bind<RetailerUriRequestResource>();
 
-            var retailer = this.demStockService.GetRetailer(resource.RetailerUri);
+            var retailer = this.demStockService.GetRetailerDemList(resource.RetailerUri);
 
             return this.Negotiate.WithModel(retailer);
         }

@@ -2,7 +2,7 @@
 {
     using Linn.Common.Facade;
     using Linn.DemStock.Domain;
-    using Linn.DemStock.Resources.RequestResources;
+    using Linn.DemStock.Resources;
 
     public class RootProductResourceBuilder : IResourceBuilder<RootProduct>
     {

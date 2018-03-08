@@ -24,7 +24,7 @@
         {
             this.retailerDemList = new RetailerDemList("/retailers/200");
             this.retailerDemList.SetRootProductQuantity("/products/100", "/employees/50", 3);
-            this.DemStockService.GetRetailer("/retailers/200")
+            this.DemStockService.GetRetailerDemList("/retailers/200")
                 .Returns(new SuccessResult<RetailerDemList>(this.retailerDemList));
 
             this.Response = this.Browser.Get(
@@ -45,7 +45,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.DemStockService.Received().GetRetailer("/retailers/200");
+            this.DemStockService.Received().GetRetailerDemList("/retailers/200");
         }
 
         [Test]
