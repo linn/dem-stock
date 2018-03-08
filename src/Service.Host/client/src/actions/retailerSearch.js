@@ -9,7 +9,7 @@ const requestRetailers = searchTerm => ({
 
 const receiveRetailers = (searchTerm, data) => ({
     type: actionTypes.RECEIVE_RETAILERS,
-    payload: { searchTerm, retailers: data.retailers }
+    payload: { searchTerm, retailers: data ? data.retailers : [] }
 });
 
 export const clearRetailerSearch = () => ({
@@ -27,6 +27,6 @@ export const searchRetailers = searchTerm => async dispatch => {
             alert(`Failed to search for retailer. Error: ${e.message}`);
         }
     } else {
-        dispatch(receiveRetailers('', []));
+        dispatch(receiveRetailers('', { retailers: [] }));
     }
 };

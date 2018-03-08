@@ -47,7 +47,7 @@ class RetailerSearch extends Component {
         timeoutId = setTimeout(() => searchRetailers(searchTerm), 500);
     }
 
-    handleRetailerClick(retailer) {
+    handleRetailerClick(retailer) {        
         const { clearRetailerSearch, history } = this.props;
         clearRetailerSearch();
         history.push(retailer.links.find(a => a.rel === 'self').href);
