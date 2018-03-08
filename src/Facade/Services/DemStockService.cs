@@ -24,7 +24,10 @@
             return new SuccessResult<RetailerDemList>(retailerDemList);
         }
 
-        public IResult<RootProduct> SetRetailerListRootProduct(int retailerDemListId, string rootProductUri, int quantity)
+        public IResult<RootProduct> SetRetailerListRootProduct(
+            int retailerDemListId,
+            string rootProductUri,
+            int quantity)
         {
             var retailerDemList = this.retailerDemListRepository.GetById(retailerDemListId);
             if (retailerDemList == null)

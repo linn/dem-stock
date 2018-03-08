@@ -25,10 +25,10 @@
 
         public IList<RootProduct> RootProducts { get; private set; } = new List<RootProduct>();
 
-        public void IncrementRootProductQuantity(string rootProductUri, string updatedByUri, int quantity = 1)
+        public RootProduct IncrementRootProductQuantity(string rootProductUri, string updatedByUri, int quantity = 1)
         {
             var rootProduct = this.RootProducts.FirstOrDefault(r => r.RootProductUri.ToLower() == rootProductUri.ToLower());
-            this.UpdateRootProduct(rootProductUri, updatedByUri, rootProduct?.Quantity + quantity ?? quantity);
+            return this.UpdateRootProduct(rootProductUri, updatedByUri, rootProduct?.Quantity + quantity ?? quantity);
         }
 
         public RootProduct SetRootProductQuantity(string rootProductUri, string updatedByUri, int quantity)
