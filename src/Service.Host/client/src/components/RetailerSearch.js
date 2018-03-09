@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { FormGroup, FormControl, ControlLabel, ListGroup, ListGroupItem, Label } from 'react-bootstrap';
 import { Loading } from './common';
+import { getSelfHref } from '../helpers/utilities';
 
 let timeoutId;
 
@@ -48,9 +49,9 @@ class RetailerSearch extends Component {
     }
 
     handleRetailerClick(retailer) {        
-        const { clearRetailerSearch, history } = this.props;
+        const { clearRetailerSearch, history, fetchRetailerDemList } = this.props;
         clearRetailerSearch();
-        history.push(retailer.links.find(a => a.rel === 'self').href);
+        fetchRetailerDemList(getSelfHref(retailer), history);
     }
 }
 
