@@ -13,8 +13,8 @@
         public RetailerDemListModule(IDemStockService demStockService)
         {
             this.demStockService = demStockService;
-            this.Get("/sales/dem-stock/retailer-lists", _ => this.GetRetailer());
-            this.Put("/sales/dem-stock/retailer-lists/{retailerListId:int}/products", parameters => this.SetRootProductQuantity(parameters.retailerListId));
+            this.Get("/sales/dem-stock/retailer-dem-lists", _ => this.GetRetailer());
+            this.Put("/sales/dem-stock/retailer-dem-lists/{retailerListId:int}/products", parameters => this.SetRootProductQuantity(parameters.retailerListId));
         }
 
         private object SetRootProductQuantity(int retailerListId)

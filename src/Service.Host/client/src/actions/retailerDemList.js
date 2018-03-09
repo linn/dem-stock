@@ -16,7 +16,7 @@ const receiveRetailerDemList = data => ({
 export const fetchRetailerDemList = (retailerUri, history) => async dispatch => {
     dispatch(requestRetailerDemList(retailerUri));
     try {
-        const data = await fetchJson(`${config.appRoot}/sales/dem-stock/retailer-lists?retailerUri=${retailerUri}`);
+        const data = await fetchJson(`${config.appRoot}/sales/dem-stock/retailer-dem-lists?retailerUri=${retailerUri}`);
         dispatch(receiveRetailerDemList(data));
         history.push(getSelfHref(data));
     } catch (e) {
