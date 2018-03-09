@@ -15,7 +15,7 @@
 
     using NUnit.Framework;
 
-    public class WhenGettingRetailer : ContextBase
+    public class WhenGettingRetailerDemList : ContextBase
     {
         private RetailerDemList retailerDemList;
 

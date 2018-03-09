@@ -13,12 +13,22 @@ const receiveRetailerDemList = data => ({
     payload: { data }
 });
 
-export const fetchRetailerDemList = (retailerUri, history) => async dispatch => {
+export const fetchRetailerDemListByRetailerUri = (retailerUri, history) => async dispatch => {
     dispatch(requestRetailerDemList(retailerUri));
     try {
         const data = await fetchJson(`${config.appRoot}/sales/dem-stock/retailer-dem-lists?retailerUri=${retailerUri}`);
         dispatch(receiveRetailerDemList(data));
         history.push(getSelfHref(data));
+    } catch (e) {
+        alert(`Failed to fetch retailer dem list. Error: ${e.message}`);
+    }
+}
+
+export const fetchRetailerDemList = retailerDemListUri => async dispatch => {
+    dispatch(requestRetailerDemList(retailerDemListUri));
+    try {
+        const data = await fetchJson(`${config.appRoot}${retailerDemListUri}`);
+        dispatch(receiveRetailerDemList(data));
     } catch (e) {
         alert(`Failed to fetch retailer dem list. Error: ${e.message}`);
     }

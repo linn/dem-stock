@@ -2,7 +2,7 @@
 import RetailerSearch from '../components/RetailerSearch';
 import { searchRetailers, clearRetailerSearch } from '../actions/retailerSearch';
 import { withRouter } from 'react-router'
-import { fetchRetailerDemList } from '../actions/retailerDemList';
+import { fetchRetailerDemListByRetailerUri } from '../actions/retailerDemList';
 
 const mapStateToProps = ({ retailerSearch }) => ({
     retailers: retailerSearch.items,
@@ -13,7 +13,7 @@ const mapStateToProps = ({ retailerSearch }) => ({
 const mapDispatchToProps = {
     clearRetailerSearch,
     searchRetailers,
-    fetchRetailerDemList
+    fetchRetailerDemListByRetailerUri
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(RetailerSearch));

@@ -49,9 +49,9 @@ class RetailerSearch extends Component {
     }
 
     handleRetailerClick(retailer) {        
-        const { clearRetailerSearch, history, fetchRetailerDemList } = this.props;
+        const { clearRetailerSearch, history, fetchRetailerDemListByRetailerUri } = this.props;
         clearRetailerSearch();
-        fetchRetailerDemList(getSelfHref(retailer), history);
+        fetchRetailerDemListByRetailerUri(getSelfHref(retailer), history);
     }
 }
 
