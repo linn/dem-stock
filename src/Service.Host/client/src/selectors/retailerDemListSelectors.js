@@ -5,3 +5,7 @@
 
     return retailerDemList.item;
 }
+
+export const getRetailerDemListRetailerUri = (retailerDemList) => {
+    return getRetailerDemList(retailerDemList) ? getRetailerDemList(retailerDemList).retailerUri : null;
+}

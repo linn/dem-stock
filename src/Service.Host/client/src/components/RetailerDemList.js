@@ -7,9 +7,9 @@ import { formatDate } from '../helpers/dates';
 class RetailerDemList extends Component {
 
     render() {
-        const { loading, retailerDemList } = this.props;
+        const { loading, retailerName } = this.props;
 
-        if (loading || !retailerDemList) {
+        if (loading) {
             return (<Loading />);
         }
 
@@ -20,10 +20,10 @@ class RetailerDemList extends Component {
                         <Col xs={10}>
                             <Row>
                                 <Col sm={10}>
-                                    <h2>{retailerDemList.retailerUri}</h2>
+                                    <h2>{retailerName}</h2>
                                 </Col>
                             </Row>
-                            <br />                            
+                            <br />
                         </Col>
                     </Row >
 

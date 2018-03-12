@@ -2,6 +2,7 @@
 import { getSelfHref } from '../helpers/utilities';
 import config from '../config';
 import * as actionTypes from './index';
+import { fetchRetailer } from '../actions/retailer';
 
 const requestRetailerDemList = retailerUri => ({
     type: actionTypes.REQUEST_RETAILER_DEM_LIST,
@@ -24,11 +25,12 @@ export const fetchRetailerDemListByRetailerUri = (retailerUri, history) => async
     }
 }
 
-export const fetchRetailerDemList = retailerDemListUri => async dispatch => {
+export const fetchRetailerDemList = retailerDemListUri => async dispatch => {    
     dispatch(requestRetailerDemList(retailerDemListUri));
     try {
         const data = await fetchJson(`${config.appRoot}${retailerDemListUri}`);
         dispatch(receiveRetailerDemList(data));
+        dispatch(fetchRetailer(data.retailerUri));
     } catch (e) {
         alert(`Failed to fetch retailer dem list. Error: ${e.message}`);
     }

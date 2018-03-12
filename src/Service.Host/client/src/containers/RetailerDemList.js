@@ -2,15 +2,19 @@
 import RetailerDemList from '../components/RetailerDemList';
 import initialiseOnMount from './common/initialiseOnMount';
 import { fetchRetailerDemList } from '../actions/retailerDemList';
-import { getRetailerDemList } from '../selectors/retailerDemListSelectors';
+import { fetchRetailer } from '../actions/retailer';
+import { getRetailerDemList, getRetailerDemListRetailerUri } from '../selectors/retailerDemListSelectors';
+import { getRetailerName } from '../selectors/retailerSelectors';
 
-const mapStateToProps = ({ retailerDemList }, { match }) => ({
+const mapStateToProps = ({ retailerDemList, retailer }, { match }) => ({
     retailerDemListUri: match.url,
     retailerDemList: getRetailerDemList(retailerDemList),
+    retailerDemListRetailerUri: getRetailerDemListRetailerUri(retailerDemList),
+    retailerName: getRetailerName(retailer),
     loading: retailerDemList.loading
 });
 
-const initialise = ({ retailerDemListUri, retailerDemList }) => dispatch => {
+const initialise = ({ retailerDemListUri }) => dispatch => {
     dispatch(fetchRetailerDemList(retailerDemListUri));
 };
 
