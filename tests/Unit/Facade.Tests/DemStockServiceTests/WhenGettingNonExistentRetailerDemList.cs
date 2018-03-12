@@ -1,8 +1,5 @@
 ﻿namespace Linn.DemStock.Facade.Tests.DemStockServiceTests
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
     using FluentAssertions;
 
     using Linn.Common.Facade;
@@ -14,22 +11,22 @@
 
     public class WhenGettingNonExistentRetailerDemList : ContextBase
     {
-        private string retailerUri;
+        private int retailerId;
 
         private IResult<RetailerDemList> result;
 
         [SetUp]
         public void SetUp()
         {
-            this.retailerUri = "/retailers/200";
-            this.DemListRepository.GetByRetailerUri(this.retailerUri).Returns((RetailerDemList)null);
-            this.result = this.Sut.GetRetailerDemList(this.retailerUri);
+            this.retailerId = 200;
+            this.DemListRepository.GetByRetailerId(this.retailerId).Returns((RetailerDemList)null);
+            this.result = this.Sut.GetRetailerDemList(this.retailerId);
         }
 
         [Test]
         public void ShouldTryToGetRetailerList()
         {
-            this.DemListRepository.Received().GetByRetailerUri("/retailers/200");
+            this.DemListRepository.Received().GetByRetailerId(200);
         }
 
         [Test]

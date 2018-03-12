@@ -6,7 +6,7 @@ describe('retailer dem list reducer', () => {
 
     test('when requesting a retailer dem list', () => {
         const state = {
-            retailerDemListUri: null,
+            retailerUri: null,
             loading: false,
             item: null
         };
@@ -14,12 +14,12 @@ describe('retailer dem list reducer', () => {
         const action = {
             type: actionTypes.REQUEST_RETAILER_DEM_LIST,
             payload: {
-                retailerDemListUri: '/sales/dem-stock/retailer-dem-lists/1'
+                retailerUri: '/retailers/11'
             }
         };
 
         const expected = {
-            retailerDemListUri: '/sales/dem-stock/retailer-dem-lists/1',
+            retailerUri: '/retailers/11',
             loading: true,            
             item: null
         };
@@ -31,7 +31,7 @@ describe('retailer dem list reducer', () => {
 
     test('when receiving a retailer dem list', () => {
         const state = {
-            retailerDemListUri: '/sales/dem-stock/retailer-dem-lists/1',
+            retailerUri: '/retailers/11',
             loading: true,
             item: null
         };
@@ -40,7 +40,7 @@ describe('retailer dem list reducer', () => {
             type: actionTypes.RECEIVE_RETAILER_DEM_LIST,
             payload: {
                 data: {
-                    retailerUri: '/retailers/734',
+                    retailerUri: '/retailers/11',
                     lastReviewedOn: '2018-03-09T00:00:00.0000000',
                     rootProducts: [
                         {
@@ -52,7 +52,7 @@ describe('retailer dem list reducer', () => {
                     ],
                     links: [
                         {
-                            href: '/sales/dem-stock/retailer-dem-lists/1',
+                            href: '/retailers/11/dem-stock',
                             rel: 'self'
                         }
                     ]
@@ -61,10 +61,10 @@ describe('retailer dem list reducer', () => {
         };
 
         const expected = {
-            retailerDemListUri: '/sales/dem-stock/retailer-dem-lists/1',
+            retailerUri: '/retailers/11',
             loading: false,            
             item: {
-                retailerUri: '/retailers/734',
+                retailerUri: '/retailers/11',
                 lastReviewedOn: '2018-03-09T00:00:00.0000000',
                 rootProducts: [
                     {
@@ -76,7 +76,7 @@ describe('retailer dem list reducer', () => {
                 ],
                 links: [
                     {
-                        href: '/sales/dem-stock/retailer-dem-lists/1',
+                        href: '/retailers/11/dem-stock',
                         rel: 'self'
                     }
                 ]

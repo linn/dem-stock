@@ -1,6 +1,5 @@
 ﻿namespace Linn.DemStock.Facade.Tests.DemStockServiceTests
 {
-    using System.Collections.Generic;
     using System.Linq;
 
     using FluentAssertions;
@@ -14,7 +13,7 @@
 
     public class WhenGettingRetailerDemList : ContextBase
     {
-        private string retailerUri;
+        private int retailerId;
 
         private IResult<RetailerDemList> result;
 
@@ -23,17 +22,17 @@
         [SetUp]
         public void SetUp()
         {
-            this.retailerUri = "/retailers/200";
-            this.retailerDemList = new RetailerDemList(this.retailerUri) { LastReviewedOn = 7.March(2018), Id = 20 };
+            this.retailerId = 200;
+            this.retailerDemList = new RetailerDemList(this.retailerId) { LastReviewedOn = 7.March(2018), Id = 20 };
             this.retailerDemList.SetRootProductQuantity("/products/123", "/employees/555", 3);
-            this.DemListRepository.GetByRetailerUri(this.retailerUri).Returns(this.retailerDemList);
-            this.result = this.Sut.GetRetailerDemList(this.retailerUri);
+            this.DemListRepository.GetByRetailerId(this.retailerId).Returns(this.retailerDemList);
+            this.result = this.Sut.GetRetailerDemList(this.retailerId);
         }
 
         [Test]
         public void ShouldGetRetailerList()
         {
-            this.DemListRepository.Received().GetByRetailerUri("/retailers/200");
+            this.DemListRepository.Received().GetByRetailerId(200);
         }
 
         [Test]
@@ -41,7 +40,7 @@
         {
             this.result.Should().BeOfType<SuccessResult<RetailerDemList>>();
             var dataResult = ((SuccessResult<RetailerDemList>)this.result).Data;
-            dataResult.RetailerUri.Should().Be(this.retailerDemList.RetailerUri);
+            dataResult.RetailerId.Should().Be(this.retailerDemList.RetailerId);
             dataResult.Id.Should().Be(this.retailerDemList.Id);
             dataResult.LastReviewedOn.Should().Be(this.retailerDemList.LastReviewedOn);
             dataResult.RootProducts.Should().HaveCount(1);

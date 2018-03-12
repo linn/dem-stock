@@ -7,5 +7,5 @@
 }
 
 export const getRetailerDemListRetailerUri = (retailerDemList) => {
-    return getRetailerDemList(retailerDemList) ? getRetailerDemList(retailerDemList).retailerUri : null;
+    return getRetailerDemList(retailerDemList) ? `/retailers/${getRetailerDemList(retailerDemList).retailerId}` : null;
 }

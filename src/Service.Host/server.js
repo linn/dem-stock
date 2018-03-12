@@ -7,7 +7,7 @@ new WebpackDevServer(webpack(config), {
     hot: true,
     historyApiFallback: true,
     proxy: {
-        '/sales/dem-stock/assets': {
+        '/retailers/dem-stock/assets': {
             target: 'http://localhost:51611',
             secure: false
         }

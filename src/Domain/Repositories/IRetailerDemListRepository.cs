@@ -2,9 +2,7 @@
 {
     public interface IRetailerDemListRepository
     {
-        RetailerDemList GetById(int id);
-
-        RetailerDemList GetByRetailerUri(string retailerUri);
+        RetailerDemList GetByRetailerId(int retailerId);
 
         void Add(RetailerDemList retailerDemList);
     }

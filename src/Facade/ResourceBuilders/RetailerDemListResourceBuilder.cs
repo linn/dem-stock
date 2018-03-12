@@ -17,7 +17,7 @@
             return new RetailerDemListResource
                        {
                            LastReviewedOn = retailerDemList.LastReviewedOn?.ToString("o"),
-                           RetailerUri = retailerDemList.RetailerUri,
+                           RetailerId = retailerDemList.RetailerId,
                            RootProducts = retailerDemList.RootProducts.Select(r => this.rootProductResourceBuilder.Build(r)),
                            Links = this.BuildLinks(retailerDemList).ToArray()
                        };
@@ -25,11 +25,13 @@
 
         object IResourceBuilder<RetailerDemList>.Build(RetailerDemList retailerDemList) => this.Build(retailerDemList);
 
-        public string GetLocation(RetailerDemList retailerDemList) => $"/sales/dem-stock/retailer-dem-lists/{retailerDemList.Id}";
+        public string GetLocation(RetailerDemList retailerDemList) => $"/retailers/{retailerDemList.RetailerId}/dem-stock";
 
         private IEnumerable<LinkResource> BuildLinks(RetailerDemList retailerDemList)
         {
             yield return new LinkResource("self", this.GetLocation(retailerDemList));
+
+            yield return new LinkResource("retailer", $"/retailers/{retailerDemList.RetailerId}");
         }
     }
 }

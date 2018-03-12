@@ -1,7 +1,5 @@
 ﻿namespace Linn.DemStock.Facade.Tests.DemStockServiceTests
 {
-    using System.Linq;
-
     using FluentAssertions;
 
     using Linn.Common.Facade;
@@ -18,14 +16,14 @@
         [SetUp]
         public void SetUp()
         {
-            this.DemListRepository.GetById(Arg.Any<int>()).Returns((RetailerDemList)null);
+            this.DemListRepository.GetByRetailerId(Arg.Any<int>()).Returns((RetailerDemList)null);
             this.result = this.Sut.SetRetailerListRootProduct(1, "/rp/50", 3);
         }
 
         [Test]
         public void ShouldTryToGetRetailerDemList()
         {
-            this.DemListRepository.Received().GetById(1);
+            this.DemListRepository.Received().GetByRetailerId(1);
         }
 
         [Test]

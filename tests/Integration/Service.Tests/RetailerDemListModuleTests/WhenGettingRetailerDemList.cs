@@ -22,17 +22,16 @@
         [SetUp]
         public void SetUp()
         {
-            this.retailerDemList = new RetailerDemList("/retailers/200");
+            this.retailerDemList = new RetailerDemList(200);
             this.retailerDemList.SetRootProductQuantity("/products/100", "/employees/50", 3);
-            this.DemStockService.GetRetailerDemList("/retailers/200")
+            this.DemStockService.GetRetailerDemList(200)
                 .Returns(new SuccessResult<RetailerDemList>(this.retailerDemList));
 
             this.Response = this.Browser.Get(
-                "/sales/dem-stock/retailer-dem-lists",
+                "/retailers/200/dem-stock",
                 with =>
                     {
                         with.Header("Accept", "application/json");
-                        with.Query("retailerUri", "/retailers/200");
                     }).Result;
         }
 
@@ -45,17 +44,22 @@
         [Test]
         public void ShouldCallService()
         {
-            this.DemStockService.Received().GetRetailerDemList("/retailers/200");
+            this.DemStockService.Received().GetRetailerDemList(200);
         }
 
         [Test]
         public void ShouldReturnResource()
         {
             var resource = this.Response.Body.DeserializeJson<RetailerDemListResource>();
-            resource.RetailerUri.Should().Be(this.retailerDemList.RetailerUri);
+            resource.RetailerId.Should().Be(this.retailerDemList.RetailerId);
             resource.RootProducts.Should().HaveCount(1);
             resource.RootProducts.First().Quantity.Should().Be(3);
             resource.RootProducts.First().RootProductUri.Should().Be("/products/100");
+            resource.Links.Length.Should().Be(2);
+            resource.Links.First(l => l.Rel == "self").Href.Should()
+                .Be($"/retailers/{this.retailerDemList.RetailerId}/dem-stock");
+            resource.Links.First(l => l.Rel == "retailer").Href.Should()
+                .Be($"/retailers/{this.retailerDemList.RetailerId}");
         }
     }
 }
