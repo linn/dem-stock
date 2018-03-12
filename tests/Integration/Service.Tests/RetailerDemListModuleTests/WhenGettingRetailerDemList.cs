@@ -55,6 +55,11 @@
             resource.RootProducts.Should().HaveCount(1);
             resource.RootProducts.First().Quantity.Should().Be(3);
             resource.RootProducts.First().RootProductUri.Should().Be("/products/100");
+            resource.Links.Length.Should().Be(2);
+            resource.Links.First(l => l.Rel == "self").Href.Should()
+                .Be($"/retailers/{this.retailerDemList.RetailerId}/dem-stock");
+            resource.Links.First(l => l.Rel == "retailer").Href.Should()
+                .Be($"/retailers/{this.retailerDemList.RetailerId}");
         }
     }
 }

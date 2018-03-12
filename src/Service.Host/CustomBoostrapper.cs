@@ -47,8 +47,8 @@
         {
             base.ConfigureConventions(conventions);
 
-            conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("sales/dem-stock/assets", "client/assets"));
-            conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("sales/dem-stock/build", "client/build"));
+            conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("retailers/dem-stock/assets", "client/assets"));
+            conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("retailers/dem-stock/build", "client/build"));
         }
 
         protected override void ConfigureApplicationContainer(ILifetimeScope existingContainer)

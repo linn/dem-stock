@@ -12,7 +12,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, 'client/build'),
         filename: 'app.js',
-        publicPath: '/sales/dem-stock/build/'
+        publicPath: '/retailers/dem-stock/build/'
     },
     module: {
         rules: [
