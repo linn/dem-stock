@@ -32,7 +32,7 @@
                 .Returns(new SuccessResult<RootProduct>(this.rootProduct));
 
             this.Response = this.Browser.Put(
-                "/sales/dem-stock/retailer-lists/234/products",
+                "/sales/dem-stock/retailer-dem-lists/234/products",
                 with =>
                     {
                         with.Header("Accept", "application/json");

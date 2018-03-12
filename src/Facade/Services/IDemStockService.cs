@@ -5,7 +5,9 @@
 
     public interface IDemStockService
     {
-        IResult<RetailerDemList> GetRetailerDemList(string retailerUri);
+        IResult<RetailerDemList> GetRetailerDemList(string retailerDemListUri);
+
+        IResult<RetailerDemList> GetRetailerDemListById(int retailerDemListId);
 
         IResult<RootProduct> SetRetailerListRootProduct(int retailerDemListId, string rootProductUri, int quantity);
     }

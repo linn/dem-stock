@@ -24,6 +24,17 @@
             return new SuccessResult<RetailerDemList>(retailerDemList);
         }
 
+        public IResult<RetailerDemList> GetRetailerDemListById(int retailerDemListId)
+        {
+            var retailerDemList = this.retailerDemListRepository.GetById(retailerDemListId);
+            if (retailerDemList == null)
+            {
+                return new NotFoundResult<RetailerDemList>();
+            }
+
+            return new SuccessResult<RetailerDemList>(retailerDemList);
+        }
+
         public IResult<RootProduct> SetRetailerListRootProduct(
             int retailerDemListId,
             string rootProductUri,

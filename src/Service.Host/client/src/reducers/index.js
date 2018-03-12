@@ -1,10 +1,14 @@
 ﻿import { combineReducers } from 'redux';
 import { routerReducer as router } from 'react-router-redux';
 import retailerSearch from './retailerSearch';
+import retailerDemList from './retailerDemList';
+import retailer from './retailer';
 
 const rootReducer = combineReducers({
     router,
-    retailerSearch
+    retailerSearch,
+    retailerDemList,
+    retailer
 });
 
 export default rootReducer;

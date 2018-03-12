@@ -15,7 +15,7 @@
 
     using NUnit.Framework;
 
-    public class WhenGettingRetailer : ContextBase
+    public class WhenGettingRetailerDemList : ContextBase
     {
         private RetailerDemList retailerDemList;
 
@@ -28,7 +28,7 @@
                 .Returns(new SuccessResult<RetailerDemList>(this.retailerDemList));
 
             this.Response = this.Browser.Get(
-                "/sales/dem-stock/retailer-lists",
+                "/sales/dem-stock/retailer-dem-lists",
                 with =>
                     {
                         with.Header("Accept", "application/json");
