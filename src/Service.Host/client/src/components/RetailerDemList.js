@@ -31,7 +31,7 @@ class RetailerDemList extends Component {
                         <Row style={{ marginTop: '20px' }}>
                             <Col xs={12}>
                                 <Well>
-                                    <LinkContainer to='/sales/dem-stock'>
+                                    <LinkContainer to='/retailers/dem-stock'>
                                         <Button bsStyle="link">Back</Button>
                                     </LinkContainer>
                                 </Well>

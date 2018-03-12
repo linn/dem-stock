@@ -48,10 +48,12 @@ class RetailerSearch extends Component {
         timeoutId = setTimeout(() => searchRetailers(searchTerm), 500);
     }
 
-    handleRetailerClick(retailer) {        
-        const { clearRetailerSearch, history, fetchRetailerDemListByRetailerUri } = this.props;
+    handleRetailerClick(retailer) {
+        const { clearRetailerSearch, history, fetchRetailerDemList } = this.props;
+        let retailerUri = getSelfHref(retailer);
         clearRetailerSearch();
-        fetchRetailerDemListByRetailerUri(getSelfHref(retailer), history);
+        fetchRetailerDemList(retailerUri);
+        history.push(`${retailerUri}/dem-stock`);
     }
 }
 

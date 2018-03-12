@@ -1,7 +1,7 @@
 ﻿import * as actionTypes from '../actions';
 
 const defaultState = {
-    retailerDemListUri: null,
+    retailerUri: null,
     loading: false,
     item: null
 }
@@ -12,7 +12,7 @@ const retailerDemList = (state = defaultState, action) => {
             return {
                 ...state,
                 item: null,
-                retailerDemListUri: action.payload.retailerDemListUri,
+                retailerUri: action.payload.retailerUri,
                 loading: true
             }
 
@@ -26,7 +26,6 @@ const retailerDemList = (state = defaultState, action) => {
         default:
             return state;
     }
-
 }
 
 export default retailerDemList;

@@ -4,7 +4,7 @@ describe('when selecting retailer dem list', () => {
     test('should return retailer dem list', () => {
        
         const retailerDemList = {
-            retailerDemListUri: '/sales/dem-stock/retailer-dem-lists/1',
+            retailerUri: '/retailers/734',
             loading: false,
             item: {
                 retailerUri: '/retailers/734',
@@ -19,7 +19,7 @@ describe('when selecting retailer dem list', () => {
                 ],
                 links: [
                     {
-                        href: '/sales/dem-stock/retailer-dem-lists/1',
+                        href: '/retailers/734/dem-stock',
                         rel: 'self'
                     }
                 ]
@@ -39,7 +39,7 @@ describe('when selecting retailer dem list', () => {
             ],
             links: [
                 {
-                    href: '/sales/dem-stock/retailer-dem-lists/1',
+                    href: '/retailers/734/dem-stock',
                     rel: 'self'
                 }
             ]            
@@ -59,10 +59,10 @@ describe('when selecting retailer dem list but not found', () => {
 describe('when selecting retailer uri', () => {
     test('should return retailer uri', () => {
         const retailerDemList = {
-            retailerDemListUri: '/sales/dem-stock/retailer-dem-lists/1',
+            retailerUri: '/retailers/734',
             loading: false,
             item: {
-                retailerUri: '/retailers/734',
+                retailerId: 734,
                 lastReviewedOn: '2018-03-09T00:00:00.0000000',
                 rootProducts: [
                     {
@@ -74,7 +74,7 @@ describe('when selecting retailer uri', () => {
                 ],
                 links: [
                     {
-                        href: '/sales/dem-stock/retailer-dem-lists/1',
+                        href: '/retailers/734/dem-stock',
                         rel: 'self'
                     }
                 ]
