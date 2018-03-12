@@ -9,9 +9,9 @@
 
     public class RetailerDemList : ActivityEntity<RetailerDemListActivity>
     {
-        public RetailerDemList(string retailerUri)
+        public RetailerDemList(int retailerId)
         {
-            this.RetailerUri = retailerUri;
+            this.RetailerId = retailerId;
         }
 
         private RetailerDemList()
@@ -19,7 +19,7 @@
             // ef
         }
 
-        public string RetailerUri { get; set; }
+        public int RetailerId { get; set; }
 
         public DateTime? LastReviewedOn { get; set; }
 

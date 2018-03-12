@@ -13,20 +13,9 @@
             this.retailerDemListRepository = retailerDemListRepository;
         }
 
-        public IResult<RetailerDemList> GetRetailerDemList(string retailerUri)
+        public IResult<RetailerDemList> GetRetailerDemList(int retailerId)
         {
-            var retailerDemList = this.retailerDemListRepository.GetByRetailerUri(retailerUri);
-            if (retailerDemList == null)
-            {
-                return new NotFoundResult<RetailerDemList>();
-            }
-
-            return new SuccessResult<RetailerDemList>(retailerDemList);
-        }
-
-        public IResult<RetailerDemList> GetRetailerDemListById(int retailerDemListId)
-        {
-            var retailerDemList = this.retailerDemListRepository.GetById(retailerDemListId);
+            var retailerDemList = this.retailerDemListRepository.GetByRetailerId(retailerId);
             if (retailerDemList == null)
             {
                 return new NotFoundResult<RetailerDemList>();
@@ -36,11 +25,11 @@
         }
 
         public IResult<RootProduct> SetRetailerListRootProduct(
-            int retailerDemListId,
+            int retailerId,
             string rootProductUri,
             int quantity)
         {
-            var retailerDemList = this.retailerDemListRepository.GetById(retailerDemListId);
+            var retailerDemList = this.retailerDemListRepository.GetByRetailerId(retailerId);
             if (retailerDemList == null)
             {
                 return new NotFoundResult<RootProduct>();

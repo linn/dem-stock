@@ -6,7 +6,7 @@
 
     public class RetailerDemListResource : HypermediaResource
     {
-        public string RetailerUri { get; set; }
+        public int RetailerId { get; set; }
 
         public string LastReviewedOn { get; set; }
 

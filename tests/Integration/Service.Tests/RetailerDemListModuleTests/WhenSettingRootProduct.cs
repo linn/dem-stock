@@ -1,7 +1,5 @@
 ﻿namespace Linn.DemStock.Service.Tests.RetailerDemListModuleTests
 {
-    using System.Linq;
-
     using FluentAssertions;
 
     using Linn.Common.Facade;
@@ -32,7 +30,7 @@
                 .Returns(new SuccessResult<RootProduct>(this.rootProduct));
 
             this.Response = this.Browser.Put(
-                "/sales/dem-stock/retailer-dem-lists/234/products",
+                "/retailers/234/dem-stock/products",
                 with =>
                     {
                         with.Header("Accept", "application/json");

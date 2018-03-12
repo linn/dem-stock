@@ -16,16 +16,10 @@
             this.serviceDbContext = serviceDbContext;
         }
 
-        public RetailerDemList GetById(int id)
+        public RetailerDemList GetByRetailerId(int retailerId)
         {
             return this.serviceDbContext.RetailerDemLists.Include(s => s.RootProducts)
-                .SingleOrDefault(s => s.Id == id);
-        }
-
-        public RetailerDemList GetByRetailerUri(string retailerUri)
-        {
-            return this.serviceDbContext.RetailerDemLists.Include(s => s.RootProducts)
-                .SingleOrDefault(s => s.RetailerUri.ToLower() == retailerUri.ToLower());
+                .SingleOrDefault(s => s.RetailerId == retailerId);
         }
 
         public void Add(RetailerDemList retailerDemList)

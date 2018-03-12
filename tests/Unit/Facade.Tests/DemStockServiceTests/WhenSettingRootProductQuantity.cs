@@ -13,7 +13,7 @@
 
     public class WhenSettingRootProductQuantity : ContextBase
     {
-        private int retailerDemListId;
+        private int retailerId;
 
         private IResult<RootProduct> result;
 
@@ -22,10 +22,10 @@
         [SetUp]
         public void SetUp()
         {
-            this.retailerDemListId = 1;
-            this.retailerDemList = new RetailerDemList("/retailers/50") { Id = this.retailerDemListId };
-            this.DemListRepository.GetById(this.retailerDemListId).Returns(this.retailerDemList);
-            this.result = this.Sut.SetRetailerListRootProduct(this.retailerDemListId, "/rp/50", 3);
+            this.retailerId = 50;
+            this.retailerDemList = new RetailerDemList(this.retailerId) { Id = 12 };
+            this.DemListRepository.GetByRetailerId(this.retailerId).Returns(this.retailerDemList);
+            this.result = this.Sut.SetRetailerListRootProduct(this.retailerId, "/rp/50", 3);
         }
 
         [Test]
@@ -39,7 +39,7 @@
         [Test]
         public void ShouldGetRetailerDemList()
         {
-            this.DemListRepository.Received().GetById(this.retailerDemListId);
+            this.DemListRepository.Received().GetByRetailerId(this.retailerId);
         }
 
         [Test]

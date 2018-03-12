@@ -11,7 +11,7 @@
         [SetUp]
         public void SetUpContext()
         {
-            this.Sut = new RetailerDemList("/retailers/2");
+            this.Sut = new RetailerDemList(2);
         }
     }
 }

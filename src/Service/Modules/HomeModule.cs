@@ -7,9 +7,8 @@
     {
         public HomeModule()
         {
-            this.Get("/", args => new RedirectResponse("/sales/dem-stock"));
-            this.Get("/sales", args => new RedirectResponse("/sales/dem-stock"));
-            this.Get("/sales/dem-stock", _ => this.GetApp());
+            this.Get("/", args => new RedirectResponse("/retailers/dem-stock"));
+            this.Get("/retailers/dem-stock", _ => this.GetApp());
         }
 
         private object GetApp()
