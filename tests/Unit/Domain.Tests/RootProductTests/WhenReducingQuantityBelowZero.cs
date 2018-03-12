@@ -1,7 +1,5 @@
 ﻿namespace Linn.DemStock.Domain.Tests.RootProductTests
 {
-    using System;
-
     using FluentAssertions;
 
     using NUnit.Framework;

@@ -3,13 +3,16 @@ import { Loading } from './common';
 import { Grid, Row, Col, Button, Label, Well } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { formatDate } from '../helpers/dates';
+import EditableItem from './EditableItem';
+import moment from 'moment';
+import RootProducts from './RootProducts';
 
 class RetailerDemList extends Component {
 
     render() {
-        const { loading, retailerName } = this.props;
+        const { loading, retailerDemList, retailerName } = this.props;
 
-        if (loading) {
+        if (loading  || !retailerDemList) {
             return (<Loading />);
         }
 
@@ -17,16 +20,16 @@ class RetailerDemList extends Component {
             <div>
                 <Grid fluid={false}>
                     <Row>
-                        <Col xs={10}>
-                            <Row>
-                                <Col sm={10}>
-                                    <h2>{retailerName}</h2>
-                                </Col>
-                            </Row>
-                            <br />
+                        <Col sm={2}> </Col>
+                        <Col sm={8}>
+                            <h2>{retailerName}</h2>
                         </Col>
-                    </Row >
-
+                    </Row>
+                    <br />
+            
+                    <EditableItem title="Last Reviewed On" value={moment(retailerDemList.lastReviewedOn).format('DD MMM YYYY')} displayOnly={true} />
+                    <EditableItem title="Root Products" value={<RootProducts rootProducts={retailerDemList.rootProducts} />} displayOnly={true} />
+                   
                     <div>
                         <Row style={{ marginTop: '20px' }}>
                             <Col xs={12}>
