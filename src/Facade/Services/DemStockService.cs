@@ -1,15 +1,21 @@
 ﻿namespace Linn.DemStock.Facade.Services
 {
     using Linn.Common.Facade;
+    using Linn.Common.Persistence;
     using Linn.DemStock.Domain;
     using Linn.DemStock.Domain.Repositories;
 
     public class DemStockService : IDemStockService
     {
+        private readonly ITransactionManager transactionManager;
+
         private readonly IRetailerDemListRepository retailerDemListRepository;
 
-        public DemStockService(IRetailerDemListRepository retailerDemListRepository)
+        public DemStockService(
+            ITransactionManager transactionManager,
+            IRetailerDemListRepository retailerDemListRepository)
         {
+            this.transactionManager = transactionManager;
             this.retailerDemListRepository = retailerDemListRepository;
         }
 
@@ -37,6 +43,7 @@
 
             var rootProduct = retailerDemList.SetRootProductQuantity(rootProductUri, null, quantity);
 
+            this.transactionManager.Commit();
             return new SuccessResult<RootProduct>(rootProduct);
         }
     }

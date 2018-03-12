@@ -43,6 +43,12 @@
         }
 
         [Test]
+        public void ShouldCommitChanges()
+        {
+            this.TransactionManager.Received().Commit();
+        }
+
+        [Test]
         public void ShouldReturnRootProduct()
         {
             this.result.Should().BeOfType<SuccessResult<RootProduct>>();
