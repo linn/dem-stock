@@ -10,7 +10,7 @@ import RootProducts from './RootProducts';
 class RetailerDemList extends Component {
 
     render() {
-        const { loading, retailerDemList, retailerName } = this.props;
+        const { loading, retailerDemList, retailerName, rootProducts } = this.props;
 
         if (loading  || !retailerDemList) {
             return (<Loading />);
@@ -28,7 +28,7 @@ class RetailerDemList extends Component {
                     <br />
             
                     <EditableItem title="Last Reviewed On" value={moment(retailerDemList.lastReviewedOn).format('DD MMM YYYY')} displayOnly={true} />
-                    <EditableItem title="Root Products" value={<RootProducts rootProducts={retailerDemList.rootProducts} />} displayOnly={true} />
+                    <EditableItem title="Root Products" value={<RootProducts rootProducts={retailerDemList.rootProducts} rootProductDetails={rootProducts} />} displayOnly={true} />
                    
                     <div>
                         <Row style={{ marginTop: '20px' }}>

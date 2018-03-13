@@ -5,9 +5,10 @@ import { fetchRetailerDemList } from '../actions/retailerDemList';
 import { getRetailerDemList, getRetailerDemListRetailerUri } from '../selectors/retailerDemListSelectors';
 import { getRetailerName } from '../selectors/retailerSelectors';
 
-const mapStateToProps = ({ retailerDemList, retailer }, { match }) => ({
+const mapStateToProps = ({ retailerDemList, retailer, rootProducts }, { match }) => ({
     retailerId: match.params.retailerId,
     retailerDemList: getRetailerDemList(retailerDemList),
+    rootProducts: rootProducts,
     retailerName: getRetailerName(retailer),
     loading: retailerDemList.loading
 });

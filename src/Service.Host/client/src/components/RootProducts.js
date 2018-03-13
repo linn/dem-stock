@@ -1,10 +1,11 @@
 ﻿import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
 import moment from 'moment';
+import { getRootProductName } from '../selectors/rootProductsSelectors';
 
 class RootProducts extends Component {
     render() {
-        const { rootProducts } = this.props;
+        const { rootProducts, rootProductDetails } = this.props;
 
         return rootProducts && rootProducts.length > 0
             ? (
@@ -20,7 +21,7 @@ class RootProducts extends Component {
                         <tbody>
                             {rootProducts.map((rootProduct, i) => (
                                 <tr key={i}>
-                                    <td>{rootProduct.rootProductUri}</td>
+                                    <td>{getRootProductName(rootProduct.rootProductUri, rootProductDetails)}</td>
                                     <td>{rootProduct.quantity}</td>
                                     <td>{moment(rootProduct.updatedOn).format('DD MMM YYYY')}</td>
                                 </tr>
