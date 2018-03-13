@@ -6,8 +6,19 @@ import { formatDate } from '../helpers/dates';
 import EditableItem from './EditableItem';
 import moment from 'moment';
 import RootProducts from './RootProducts';
+import RootProductSearch from '../containers/RootProductSearch';
+import { getRetailerDemListRetailerUri } from '../selectors/retailerDemListSelectors';
 
 class RetailerDemList extends Component {
+
+    handleAddRootProductClick() {
+        this.props.showRootProductSearch();
+    }
+
+    handleAddRootProduct(rootProductUri) {
+        const { setRootProduct, retailerUri } = this.props;
+        setRootProduct(rootProductUri, 1, retailerUri);
+    }
 
     render() {
         const { loading, retailerDemList, retailerName, rootProducts } = this.props;
@@ -29,7 +40,13 @@ class RetailerDemList extends Component {
             
                     <EditableItem title="Last Reviewed On" value={moment(retailerDemList.lastReviewedOn).format('DD MMM YYYY')} displayOnly={true} />
                     <EditableItem title="Root Products" value={<RootProducts rootProducts={retailerDemList.rootProducts} rootProductDetails={rootProducts} />} displayOnly={true} />
-                   
+                    <Row>
+                        <Col sm={4}> </Col>
+                        <Col sm={8}>
+                            <Button className="muted" bsStyle="success" onClick={() => this.handleAddRootProductClick()}>Add Root Product</Button>
+                        </Col>
+                    </Row>
+                    <RootProductSearch onSelect={rootProductUri => this.handleAddRootProduct(rootProductUri)} />
                     <div>
                         <Row style={{ marginTop: '20px' }}>
                             <Col xs={12}>
