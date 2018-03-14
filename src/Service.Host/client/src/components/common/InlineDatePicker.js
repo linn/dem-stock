@@ -27,7 +27,6 @@ const PortalDatePicker = ({selectedDate, onChange, display, className, placehold
                 dateFormat={displayFormat(display)}
                 selected={selectedDate}
                 isClearable={isClearable}
-                onChange={onChange}
                 onSelect={onChange}
                 onClickOutside={onChange} />
                 )}

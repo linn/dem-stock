@@ -25,6 +25,16 @@ const receiveSetRootProduct = data => ({
     payload: { data }
 });
 
+const requestUpdateDemListDetails = retailerUri => ({
+    type: actionTypes.REQUEST_UPDATE_DEM_LIST_DETAILS,
+    payload: { retailerUri }
+});
+
+const receiveUpdateDemListDetails = data => ({
+    type: actionTypes.RECEIVE_UPDATE_DEM_LIST_DETAILS,
+    payload: { data }
+});
+
 export const fetchRetailerDemList = retailerUri => async dispatch => {    
     dispatch(requestRetailerDemList(retailerUri));
     try {
@@ -47,5 +57,16 @@ export const setRootProduct = (rootProductUri, quantity, retailerUri) => async d
         dispatch(fetchRetailerDemList(retailerUri));
     } catch (e) {
         alert(`Failed to set root product. Error: ${e.message}`);
+    }
+}
+
+export const updateDemListDetails = (lastReviewedOn, retailerUri) => async dispatch => {
+    dispatch(requestUpdateDemListDetails(retailerUri));
+    try {
+        const body = { updatedDate: lastReviewedOn };
+        const data = await putJson(`${config.appRoot}${retailerUri}/dem-stock`, body);
+        dispatch(receiveUpdateDemListDetails(data));
+    } catch (e) {
+        alert(`Failed to update dem list details. Error: ${e.message}`);
     }
 }

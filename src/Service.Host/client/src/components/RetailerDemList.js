@@ -22,7 +22,8 @@ class RetailerDemList extends Component {
     }
 
     handleEditDateClick(d) {
-        
+        const { updateDemListDetails, retailerUri } = this.props;
+        updateDemListDetails(d.toISOString(), retailerUri);
     }
 
     render() {

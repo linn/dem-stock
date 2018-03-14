@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react'
 import { Grid, Row, Col, Button } from 'react-bootstrap';
-import PortalDatePicker from './common/PortalDatePicker';
+import InlineDatePicker from './common/InlineDatePicker';
 
 const styles = {
     title: {
@@ -46,7 +46,7 @@ export class EditableDateItem extends Component {
                         }
                     </Col>
                 </Row>
-                <PortalDatePicker selectedDate={value}
+                <InlineDatePicker selectedDate={value}
                                   placeholder='Set last reviewed date'
                                   display='date'
                                   isOpen={this.state.isOpen}
