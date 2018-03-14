@@ -40,7 +40,7 @@ export class EditableDateItem extends Component {
                     </Col>
                     <Col sm={6}>
                         {displayOnly
-                            ? value
+                            ? value.format('DD MMM YYYY')
                             : <Button bsStyle="link" style={styles.button} onClick={() => this.handleClick()}>{
                                 value.format('DD MMM YYYY')}</Button>
                         }
@@ -48,7 +48,6 @@ export class EditableDateItem extends Component {
                 </Row>
                 <InlineDatePicker selectedDate={value}
                                   placeholder='Set last reviewed date'
-                                  display='date'
                                   isOpen={this.state.isOpen}
                                   onChange={thedate => this.handleDateChange(thedate)} />
             </div>

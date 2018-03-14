@@ -3,17 +3,7 @@ import ReactDatePicker from 'react-datepicker';
 import classnames from 'classnames';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const displayFormat = (display) => {
-    switch (display) {
-    case 'date':
-        return 'DD MMM YYYY';
-    case 'month':
-        return 'MMMM YYYY';
-    }
-    return display ? display : 'DD MMM YYYY';
-};
-
-const PortalDatePicker = ({selectedDate, onChange, display, className, placeholder=null, isClearable=false, isOpen = false}) => (
+const PortalDatePicker = ({selectedDate, onChange, className, placeholder=null, isClearable=false, isOpen = false}) => (
     <div>
         {isOpen && (
             <ReactDatePicker
@@ -24,7 +14,6 @@ const PortalDatePicker = ({selectedDate, onChange, display, className, placehold
                 autoFocus
                 fixedHeight
                 todayButton={"Today"}
-                dateFormat={displayFormat(display)}
                 selected={selectedDate}
                 isClearable={isClearable}
                 onSelect={onChange}

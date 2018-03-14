@@ -47,7 +47,7 @@
             {
                 this.LastReviewedOn = reviewedOn;
                 this.Activities.Add(new UpdateLastReviewedOnActivity(updatedByUri, reviewedOn));
-            }            
+            }
         }
 
         private RootProduct UpdateRootProduct(string rootProductUri, string updatedByUri, int quantity)
