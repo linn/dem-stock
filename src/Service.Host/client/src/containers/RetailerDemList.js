@@ -22,7 +22,8 @@ const initialise = ({ retailerId }) => dispatch => {
 const mapDispatchToProps = {
     initialise,
     showRootProductSearch,
-    setRootProduct
+    setRootProduct,
+    setLastReviewedOn
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(RetailerDemList));
