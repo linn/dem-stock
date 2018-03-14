@@ -3,13 +3,27 @@ import { Loading } from './common';
 import { Grid, Row, Col, Button, Label, Well } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { formatDate } from '../helpers/dates';
+import EditableItem from './EditableItem';
+import moment from 'moment';
+import RootProducts from './RootProducts';
+import RootProductSearch from '../containers/RootProductSearch';
+import { getRetailerDemListRetailerUri } from '../selectors/retailerDemListSelectors';
 
 class RetailerDemList extends Component {
 
-    render() {
-        const { loading, retailerName } = this.props;
+    handleAddRootProductClick() {
+        this.props.showRootProductSearch();
+    }
 
-        if (loading) {
+    handleAddRootProduct(rootProductUri) {
+        const { setRootProduct, retailerUri } = this.props;
+        setRootProduct(rootProductUri, 1, retailerUri);
+    }
+
+    render() {
+        const { loading, retailerDemList, retailerName, rootProducts } = this.props;
+
+        if (loading  || !retailerDemList) {
             return (<Loading />);
         }
 
@@ -17,16 +31,22 @@ class RetailerDemList extends Component {
             <div>
                 <Grid fluid={false}>
                     <Row>
-                        <Col xs={10}>
-                            <Row>
-                                <Col sm={10}>
-                                    <h2>{retailerName}</h2>
-                                </Col>
-                            </Row>
-                            <br />
+                        <Col sm={2}> </Col>
+                        <Col sm={8}>
+                            <h2>{retailerName}</h2>
                         </Col>
-                    </Row >
-
+                    </Row>
+                    <br />
+            
+                    <EditableItem title="Last Reviewed On" value={moment(retailerDemList.lastReviewedOn).format('DD MMM YYYY')} displayOnly={true} />
+                    <EditableItem title="Root Products" value={<RootProducts rootProducts={retailerDemList.rootProducts} rootProductDetails={rootProducts} />} displayOnly={true} />
+                    <Row>
+                        <Col sm={4}> </Col>
+                        <Col sm={8}>
+                            <Button className="muted" bsStyle="success" onClick={() => this.handleAddRootProductClick()}>Add Root Product</Button>
+                        </Col>
+                    </Row>
+                    <RootProductSearch onSelect={rootProductUri => this.handleAddRootProduct(rootProductUri)} />
                     <div>
                         <Row style={{ marginTop: '20px' }}>
                             <Col xs={12}>

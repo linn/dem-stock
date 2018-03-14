@@ -11,3 +11,7 @@ export const getHref = (itemWithLinks, rel) => {
 
     return null;
 }
+
+export const distinct = (array) => {
+    return Array.from(new Set(array));
+}
