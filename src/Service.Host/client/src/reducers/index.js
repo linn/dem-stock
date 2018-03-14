@@ -4,13 +4,15 @@ import retailerSearch from './retailerSearch';
 import retailerDemList from './retailerDemList';
 import retailer from './retailer';
 import rootProducts from './rootProducts';
+import rootProductSearch from './rootProductSearch';
 
 const rootReducer = combineReducers({
     router,
     retailerSearch,
     retailerDemList,
     retailer,
-    rootProducts
+    rootProducts,
+    rootProductSearch
 });
 
 export default rootReducer;
