@@ -43,8 +43,11 @@
 
         public void SetLastReviewedDate(DateTime? reviewedOn, string updatedByUri)
         {
-            this.LastReviewedOn = reviewedOn;
-            this.Activities.Add(new UpdateLastReviewedOnActivity(updatedByUri, reviewedOn));
+            if (reviewedOn?.Date != this.LastReviewedOn?.Date)
+            {
+                this.LastReviewedOn = reviewedOn;
+                this.Activities.Add(new UpdateLastReviewedOnActivity(updatedByUri, reviewedOn));
+            }            
         }
 
         private RootProduct UpdateRootProduct(string rootProductUri, string updatedByUri, int quantity)
