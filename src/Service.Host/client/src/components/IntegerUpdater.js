@@ -40,8 +40,16 @@ export class IntegerUpdater extends Component {
         this.props.onChange(this.state.currentValue);
     }
 
+    saveDisabled() {
+        if (!this.state.currentValue && this.state.currentValue !== 0) {
+            return true;
+        }
+
+        return false;
+    }
+
     render() {
-        const { title, value, displayOnly, onChange } = this.props;
+        const { title, value, displayOnly, required = false } = this.props;
         return (
             <div>
                 {displayOnly
@@ -57,7 +65,7 @@ export class IntegerUpdater extends Component {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={() => this.handleClose()}>Close</Button>
-                        <Button bsStyle="primary" onClick={() => this.handleOKClick()}>OK</Button>
+                        <Button bsStyle="primary" onClick={() => this.handleOKClick()} disabled={this.saveDisabled()}>OK</Button>
                     </Modal.Footer>
                 </Modal>
             </div>
