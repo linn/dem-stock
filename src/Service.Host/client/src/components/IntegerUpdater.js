@@ -50,25 +50,18 @@ export class IntegerUpdater extends Component {
     }
 
     render() {
-        const { title, value, displayOnly } = this.props;
+        const { value, displayOnly } = this.props;
         return (
             <div>
-                {displayOnly
+                {this.state.isOpen 
+                    ? <IntegerInput value={this.state.currentValue} validationCondition={null} onChange={value => this.handleChanged(value)}
+                            onCancel={() => this.handleClose()}
+                            onClose={() => this.handleOKClick()} />
+                : displayOnly
                     ? value
                     : <Button bsStyle="link" style={styles.button} onClick={() => this.handleClick()}>{value}</Button>
                 }
-                <Modal show={this.state.isOpen} onExited={() => this.handleClose()} onHide={() => this.handleClose()} >
-                    <Modal.Header closeButton>
-                        <Modal.Title>{title}</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body style={{ overflowY: 'scroll', maxHeight: '80vh', minHeight: '50px' }}>
-                        <IntegerInput value={this.state.currentValue} validationCondition={null} onChange={value => this.handleChanged(value)} />
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button onClick={() => this.handleClose()}>Close</Button>
-                        <Button bsStyle="primary" onClick={() => this.handleOKClick()} disabled={this.saveDisabled()}>OK</Button>
-                    </Modal.Footer>
-                </Modal>
+            
             </div>
         );
     }
