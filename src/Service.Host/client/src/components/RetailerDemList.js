@@ -35,30 +35,28 @@ class RetailerDemList extends Component {
 
         return (
             <div>
-                <Grid fluid={false}>
-                    <Row>
-                        <Col sm={2}> </Col>
-                        <Col sm={8}>
-                            <h2>{retailerName}</h2>
-                        </Col>
-                    </Row>
+                <Grid fluid={false}>                    
+                    <DisplayItem
+                        value={<h2>{retailerName}</h2>} />
                     <br />
                     <EditableDateItem title="Last Reviewed On" value={moment(retailerDemList.lastReviewedOn)} displayOnly={false} onChange={(d) => this.handleEditDateClick(d)} />
                     <DisplayItem
                         title="Root Products"
-                        value={<RootProducts rootProducts={retailerDemList.rootProducts} rootProductDetails={rootProducts} setRootProduct={setRootProduct} retailerUri={retailerUri} />}
-                        displayOnly={true} />
-                    <Row>
-                        <Col sm={4}> </Col>
-                        <Col sm={8}>
-                            <Button className="muted" bsStyle="success" onClick={() => this.handleAddRootProductClick()}>Add Root Product</Button>
-                        </Col>
-                    </Row>
+                        valueWidth={7}
+                        value={<RootProducts
+                                    rootProducts={retailerDemList.rootProducts}
+                                    rootProductDetails={rootProducts}
+                                    setRootProduct={setRootProduct}
+                                    retailerUri={retailerUri} />}
+                    />
+                    <DisplayItem                        
+                        value={<Button className="muted" bsStyle="success" onClick={() => this.handleAddRootProductClick()}>Add Root Product</Button>}
+                    />                    
                     <RootProductSearch onSelect={rootProductUri => this.handleAddRootProduct(rootProductUri)} />
                     <div>
                         <Row style={{ marginTop: '20px' }}>
                             <Col xs={12}>
-                                <Well>
+                                <Well bsSize="small">
                                     <LinkContainer to='/retailers/dem-stock'>
                                         <Button bsStyle="link">Back</Button>
                                     </LinkContainer>

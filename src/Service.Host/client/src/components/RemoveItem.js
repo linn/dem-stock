@@ -27,7 +27,7 @@ export class RemoveItem extends Component {
         const { title } = this.props;
         return (
             <div>
-                <Button bsStyle="xs" onClick={() => this.handleClick()}>
+                <Button bsSize="xsmall" onClick={() => this.handleClick()}>
                     <Glyphicon glyph="remove" />
                 </Button>
 

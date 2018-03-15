@@ -19,14 +19,14 @@ export class EditableDateItem extends Component {
     }
 
     render() {
-        const { title, value, onChange } = this.props;
+        const { title, value, onChange, titleWidth = 3, valueWidth = 9  } = this.props;
         return (
             <div>
                 <Row>
-                    <Col sm={4} style={styles.title}>
+                    <Col sm={titleWidth} style={styles.title}>
                         <b>{title}</b>
                     </Col>
-                    <Col sm={6}>
+                    <Col sm={valueWidth}>
                         <DateUpdater displayOnly={false} value={value} onChange={thedate => onChange(thedate)} />
                     </Col>
                 </Row>

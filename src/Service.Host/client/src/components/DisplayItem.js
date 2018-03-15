@@ -14,13 +14,13 @@ const styles = {
 
 export class DisplayItem extends Component {
     render() {
-        const { title, value } = this.props;
+        const { title, value, titleWidth = 3, valueWidth = 9 } = this.props;
         return (
             <Row>
-                <Col sm={4} style={styles.title}>
+                <Col sm={titleWidth} style={styles.title}>
                     <b>{title}</b>
                 </Col>
-                <Col sm={6}>
+                <Col sm={valueWidth}>
                     {value}
                 </Col>
             </Row>
