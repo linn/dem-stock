@@ -25,7 +25,7 @@ class RootProducts extends Component {
                         <tbody>
                             {rootProducts.map((rootProduct, i) => (
                                 <tr key={i}>
-                                    <td>{getRootProductName(rootProduct.rootProductUri, rootProductDetails)}</td>
+                                    <td><a href={rootProduct.rootProductUri}>{getRootProductName(rootProduct.rootProductUri, rootProductDetails)}</a></td>
                                     <td><IntegerUpdater
                                         title={`Update ${getRootProductName(rootProduct.rootProductUri, rootProductDetails)} Quantity`}
                                         value={rootProduct.quantity}
