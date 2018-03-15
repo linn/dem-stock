@@ -9,6 +9,7 @@ const defaultState = {
 const retailerDemList = (state = defaultState, action) => {
     switch (action.type) {
         case actionTypes.REQUEST_RETAILER_DEM_LIST:
+        case actionTypes.REQUEST_UPDATE_DEM_LIST_DETAILS:
             return {
                 ...state,
                 item: null,
@@ -17,6 +18,7 @@ const retailerDemList = (state = defaultState, action) => {
             }
 
         case actionTypes.RECEIVE_RETAILER_DEM_LIST:
+        case actionTypes.RECEIVE_UPDATE_DEM_LIST_DETAILS:
             return {
                 ...state,
                 loading: false,

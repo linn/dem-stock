@@ -1,7 +1,7 @@
 ﻿import { connect } from 'react-redux';
 import RetailerDemList from '../components/RetailerDemList';
 import initialiseOnMount from './common/initialiseOnMount';
-import { fetchRetailerDemList, setRootProduct } from '../actions/retailerDemList';
+import { fetchRetailerDemList, setRootProduct, updateDemListDetails } from '../actions/retailerDemList';
 import { getRetailerDemList, getRetailerDemListRetailerUri } from '../selectors/retailerDemListSelectors';
 import { getRetailerName } from '../selectors/retailerSelectors';
 import { showRootProductSearch } from '../actions/rootProductSearch';
@@ -22,7 +22,8 @@ const initialise = ({ retailerId }) => dispatch => {
 const mapDispatchToProps = {
     initialise,
     showRootProductSearch,
-    setRootProduct
+    setRootProduct,
+    updateDemListDetails
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(RetailerDemList));

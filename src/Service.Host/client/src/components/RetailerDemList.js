@@ -4,6 +4,7 @@ import { Grid, Row, Col, Button, Label, Well } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { formatDate } from '../helpers/dates';
 import EditableItem from './EditableItem';
+import EditableDateItem from './EditableDateItem';
 import moment from 'moment';
 import RootProducts from './RootProducts';
 import RootProductSearch from '../containers/RootProductSearch';
@@ -18,6 +19,11 @@ class RetailerDemList extends Component {
     handleAddRootProduct(rootProductUri) {
         const { setRootProduct, retailerUri } = this.props;
         setRootProduct(rootProductUri, 1, retailerUri);
+    }
+
+    handleEditDateClick(d) {
+        const { updateDemListDetails, retailerUri } = this.props;
+        updateDemListDetails(d.toISOString(), retailerUri);
     }
 
     render() {
@@ -37,9 +43,8 @@ class RetailerDemList extends Component {
                         </Col>
                     </Row>
                     <br />
-            
-                    <EditableItem title="Last Reviewed On" value={moment(retailerDemList.lastReviewedOn).format('DD MMM YYYY')} displayOnly={true} />
-                    <EditableItem title="Root Products" value={<RootProducts rootProducts={retailerDemList.rootProducts} rootProductDetails={rootProducts} />} displayOnly={true} />
+                    <EditableDateItem title="Last Reviewed On" value={moment(retailerDemList.lastReviewedOn)} displayOnly={false} onChange={(d) => this.handleEditDateClick(d)} />
+                    <EditableItem title="Root Products" value={<RootProducts rootProducts={retailerDemList.rootProducts} rootProductDetails={rootProducts} />} displayOnly={true} />                    
                     <Row>
                         <Col sm={4}> </Col>
                         <Col sm={8}>

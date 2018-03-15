@@ -1,5 +1,7 @@
 ﻿namespace Linn.DemStock.Service.Modules
 {
+    using System;
+
     using Linn.DemStock.Facade.Services;
     using Linn.DemStock.Resources.RequestResources;
 
@@ -15,6 +17,20 @@
             this.demStockService = demStockService;
             this.Get("/retailers/{retailerId:int}/dem-stock", parameters => this.GetRetailerDemListById(parameters.retailerId));
             this.Put("/retailers/{retailerId:int}/dem-stock/products", parameters => this.SetRootProductQuantity(parameters.retailerId));
+            this.Put("/retailers/{retailerId:int}/dem-stock", parameters => this.SetLastReviewedDate(parameters.retailerId));
+        }
+
+        private object SetLastReviewedDate(int retailerId)
+        {
+            var resource = this.Bind<UpdateDateRequestResource>();
+
+            var reviewedDate = string.IsNullOrEmpty(resource.UpdatedDate)
+                                   ? (DateTime?)null
+                                   : DateTime.Parse(resource.UpdatedDate);
+
+            var retailerDemList = this.demStockService.UpdateRetailerDemListDetails(retailerId, reviewedDate);
+
+            return this.Negotiate.WithModel(retailerDemList);
         }
 
         private object GetRetailerDemListById(int retailerId)

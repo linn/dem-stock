@@ -21,7 +21,7 @@
 
         public int RetailerId { get; set; }
 
-        public DateTime? LastReviewedOn { get; set; }
+        public DateTime? LastReviewedOn { get; private set; }
 
         public IList<RootProduct> RootProducts { get; private set; } = new List<RootProduct>();
 
@@ -41,10 +41,13 @@
             return this.UpdateRootProduct(rootProductUri, updatedByUri, quantity);
         }
 
-        public void SetLastReviewedDate(DateTime reviewedOn, string updatedByUri)
+        public void SetLastReviewedDate(DateTime? reviewedOn, string updatedByUri)
         {
-            this.LastReviewedOn = reviewedOn;
-            this.Activities.Add(new UpdateLastReviewedOnActivity(updatedByUri, reviewedOn));
+            if (reviewedOn?.Date != this.LastReviewedOn?.Date)
+            {
+                this.LastReviewedOn = reviewedOn;
+                this.Activities.Add(new UpdateLastReviewedOnActivity(updatedByUri, reviewedOn));
+            }
         }
 
         private RootProduct UpdateRootProduct(string rootProductUri, string updatedByUri, int quantity)

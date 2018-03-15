@@ -23,7 +23,8 @@
         public void SetUp()
         {
             this.retailerId = 200;
-            this.retailerDemList = new RetailerDemList(this.retailerId) { LastReviewedOn = 7.March(2018), Id = 20 };
+            this.retailerDemList = new RetailerDemList(this.retailerId) { Id = 20 };
+            this.retailerDemList.SetLastReviewedDate(7.March(2018), "/employees/555");
             this.retailerDemList.SetRootProductQuantity("/products/123", "/employees/555", 3);
             this.DemListRepository.GetByRetailerId(this.retailerId).Returns(this.retailerDemList);
             this.result = this.Sut.GetRetailerDemList(this.retailerId);

@@ -1,4 +1,4 @@
-﻿namespace Linn.DemStock.Domain.Tests.RetailerTests
+﻿namespace Linn.DemStock.Domain.Tests.RetailerDemListTests
 {
     using System.Linq;
 
@@ -8,7 +8,7 @@
 
     using NUnit.Framework;
 
-    public class WhenDecrementingFromExistingRootProduct : ContextBase
+    public class WhenAddingToExistingRootProduct : ContextBase
     {
         private string rootProductUri;
 
@@ -16,8 +16,8 @@
         public void SetUp()
         {
             this.rootProductUri = "/root-products/200";
-            this.Sut.RootProducts.Add(new RootProduct(this.rootProductUri, 3));
-            this.RootProductResult = this.Sut.IncrementRootProductQuantity(this.rootProductUri, "/employees/2", -1);
+            this.Sut.RootProducts.Add(new RootProduct(this.rootProductUri));
+            this.RootProductResult = this.Sut.IncrementRootProductQuantity(this.rootProductUri, "/employees/2");
         }
 
         [Test]

@@ -1,5 +1,7 @@
 ﻿namespace Linn.DemStock.Facade.Services
 {
+    using System;
+
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
     using Linn.DemStock.Domain;
@@ -45,6 +47,20 @@
 
             this.transactionManager.Commit();
             return new SuccessResult<RootProduct>(rootProduct);
+        }
+
+        public IResult<RetailerDemList> UpdateRetailerDemListDetails(int retailerId, DateTime? lastReviewedOn)
+        {
+            var retailerDemList = this.retailerDemListRepository.GetByRetailerId(retailerId);
+            if (retailerDemList == null)
+            {
+                return new NotFoundResult<RetailerDemList>();
+            }
+
+            retailerDemList.SetLastReviewedDate(lastReviewedOn, null);
+
+            this.transactionManager.Commit();
+            return new SuccessResult<RetailerDemList>(retailerDemList);
         }
     }
 }

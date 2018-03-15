@@ -1,4 +1,4 @@
-﻿namespace Linn.DemStock.Domain.Tests.RetailerTests
+﻿namespace Linn.DemStock.Domain.Tests.RetailerDemListTests
 {
     using System;
 
