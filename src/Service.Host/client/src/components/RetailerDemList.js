@@ -44,7 +44,7 @@ class RetailerDemList extends Component {
                     </Row>
                     <br />
                     <EditableDateItem title="Last Reviewed On" value={moment(retailerDemList.lastReviewedOn)} displayOnly={false} onChange={(d) => this.handleEditDateClick(d)} />
-                    <EditableItem title="Root Products" value={<RootProducts rootProducts={retailerDemList.rootProducts} rootProductDetails={rootProducts} />} displayOnly={true} />                    
+                    <EditableItem title="Root Products" value={<RootProducts rootProducts={retailerDemList.rootProducts} rootProductDetails={rootProducts} />} displayOnly={true} />
                     <Row>
                         <Col sm={4}> </Col>
                         <Col sm={8}>
