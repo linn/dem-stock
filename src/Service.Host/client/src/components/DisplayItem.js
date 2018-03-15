@@ -12,23 +12,20 @@ const styles = {
     }
 }
 
-export class EditableItem extends Component {
+export class DisplayItem extends Component {
     render() {
-        const { title, value, handleClick, displayOnly } = this.props;
+        const { title, value } = this.props;
         return (
             <Row>
                 <Col sm={4} style={styles.title}>
                     <b>{title}</b>
                 </Col>
                 <Col sm={6}>
-                    {displayOnly
-                        ? value
-                        : <Button bsStyle="link" style={styles.button} onClick={() => handleClick()}>{value}</Button>
-                    }
+                    {value}
                 </Col>
             </Row>
         )
     }
 }
 
-export default EditableItem;
+export default DisplayItem;

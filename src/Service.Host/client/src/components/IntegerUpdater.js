@@ -41,7 +41,8 @@ export class IntegerUpdater extends Component {
     }
 
     saveDisabled() {
-        if (!this.state.currentValue && this.state.currentValue !== 0) {
+        const { required = false } = this.props;
+        if (required && !this.state.currentValue && this.state.currentValue !== 0) {
             return true;
         }
 
@@ -49,7 +50,7 @@ export class IntegerUpdater extends Component {
     }
 
     render() {
-        const { title, value, displayOnly, required = false } = this.props;
+        const { title, value, displayOnly } = this.props;
         return (
             <div>
                 {displayOnly

@@ -30,6 +30,7 @@ class RootProducts extends Component {
                                         title={`Update ${getRootProductName(rootProduct.rootProductUri, rootProductDetails)} Quantity`}
                                         value={rootProduct.quantity}
                                         displayOnly={false}
+                                        required={true}
                                         onChange={value => setRootProduct(rootProduct.rootProductUri, value, retailerUri)} /></td>
                                     <td>{moment(rootProduct.updatedOn).format('DD MMM YYYY')}</td>
                                     <td className="text-center"><RemoveItem
