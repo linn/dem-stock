@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, Alert } from 'react-bootstrap';
 import moment from 'moment';
 import { getRootProductName } from '../selectors/rootProductsSelectors';
 import { IntegerUpdater } from './IntegerUpdater';
@@ -7,9 +7,20 @@ import { RemoveItem } from './RemoveItem';
 
 class RootProducts extends Component {
 
+    compare(a, b, rootProductDetails) {
+        const nameA = getRootProductName(a.rootProductUri, rootProductDetails);
+        const nameB = getRootProductName(b.rootProductUri, rootProductDetails);
+
+        if (nameA < nameB)
+            return -1;
+        if (nameA > nameB)
+            return 1;
+        return 0;
+    }
+
     render() {
         const { rootProducts, rootProductDetails, setRootProduct, retailerUri } = this.props;
-
+        
         return rootProducts && rootProducts.length > 0
             ? (
                 <div>
@@ -17,13 +28,13 @@ class RootProducts extends Component {
                         <thead>
                             <tr>
                                 <th>Root Product</th>
-                                <th>Quantity</th>
+                                <th className="col-md-4">Quantity</th>
                                 <th>Last Changed</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {rootProducts.map((rootProduct, i) => (
+                            {rootProducts.sort((a,b) => this.compare(a,b,rootProductDetails)).map((rootProduct, i) => (
                                 <tr key={i}>
                                     <td><a href={rootProduct.rootProductUri}>{getRootProductName(rootProduct.rootProductUri, rootProductDetails)}</a></td>
                                     <td><IntegerUpdater

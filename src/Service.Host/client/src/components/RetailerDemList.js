@@ -3,8 +3,7 @@ import { Loading } from './common';
 import { Grid, Row, Col, Button, Label, Well } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { formatDate } from '../helpers/dates';
-import DisplayItem from './DisplayItem';
-import EditableDateItem from './EditableDateItem';
+import LastReviewedOn from './LastReviewedOn';
 import moment from 'moment';
 import RootProducts from './RootProducts';
 import RootProductSearch from '../containers/RootProductSearch';
@@ -17,8 +16,11 @@ class RetailerDemList extends Component {
     }
 
     handleAddRootProduct(rootProductUri) {
-        const { setRootProduct, retailerUri } = this.props;
-        setRootProduct(rootProductUri, 1, retailerUri);
+        const { setRootProduct, retailerUri, retailerDemList } = this.props;
+
+        if (!retailerDemList.rootProducts || !retailerDemList.rootProducts.some(r => r.rootProductUri === rootProductUri)) {
+            setRootProduct(rootProductUri, 1, retailerUri);
+        }
     }
 
     handleEditDateClick(d) {
@@ -27,32 +29,29 @@ class RetailerDemList extends Component {
     }
 
     render() {
-        const { loading, retailerDemList, retailerName, rootProducts, setRootProduct, retailerUri } = this.props;
+        const { retailerDemList, retailerName, rootProducts, setRootProduct, retailerUri } = this.props;
 
-        if (loading  || !retailerDemList) {
+        if (!retailerDemList) {
             return (<Loading />);
         }
 
         return (
             <div>
-                <Grid fluid={false}>                    
-                    <DisplayItem
-                        value={<h2>{retailerName}</h2>} />
+                <Grid fluid={false}> 
+                    <h2>{retailerName}</h2>
                     <br />
-                    <EditableDateItem title="Last Reviewed On" value={moment(retailerDemList.lastReviewedOn)} displayOnly={false} onChange={(d) => this.handleEditDateClick(d)} />
-                    <DisplayItem
-                        title="Root Products"
-                        valueWidth={7}
-                        value={<RootProducts
-                                    rootProducts={retailerDemList.rootProducts}
-                                    rootProductDetails={rootProducts}
-                                    setRootProduct={setRootProduct}
-                                    retailerUri={retailerUri} />}
-                    />
-                    <DisplayItem                        
-                        value={<Button className="muted" bsStyle="success" onClick={() => this.handleAddRootProductClick()}>Add Root Product</Button>}
-                    />                    
+                    <RootProducts
+                        rootProducts={retailerDemList.rootProducts}
+                        rootProductDetails={rootProducts}
+                        setRootProduct={setRootProduct}
+                        retailerUri={retailerUri} />
+                    <Button className="muted" bsStyle="success" onClick={() => this.handleAddRootProductClick()}>Add Root Product</Button>
                     <RootProductSearch onSelect={rootProductUri => this.handleAddRootProduct(rootProductUri)} />
+                    <LastReviewedOn
+                        title="Last reviewed on "
+                        value={retailerDemList.lastReviewedOn ? moment(retailerDemList.lastReviewedOn) : null}
+                        displayOnly={false}
+                        onChange={(d) => this.handleEditDateClick(d)} />
                     <div>
                         <Row style={{ marginTop: '20px' }}>
                             <Col xs={12}>

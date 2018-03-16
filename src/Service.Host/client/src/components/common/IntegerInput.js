@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { FormControl, FormGroup } from 'react-bootstrap';
+import { FormControl, Glyphicon, Button, FormGroup } from 'react-bootstrap';
 
 export class IntegerInput extends Component {
 
     render() {
-        const { value, validationCondition = (value || value === 0 ? null : "error")  } = this.props;
-        return (
-            <FormGroup style={{ margin: '0' }} validationState={validationCondition}>
-                <FormControl type="text" value={value} onChange={e => this.handleChange(e.target.value)} />
-            </FormGroup>
+        const { value, onClose, onCancel } = this.props;
+        return (<span>
+                    <input style={{ maxWidth: '5em', marginRight: '20px' }} type="number" value={value} onChange={e => this.handleChange(e.target.value)} />
+                    <Button style={{ marginRight: '10px' }} bsClass="btn btn-xs btn-danger muted" onClick={() => onCancel()}><Glyphicon glyph="remove" /></Button>
+                    <Button bsClass="btn btn-xs btn-success muted" onClick={() => onClose()}><Glyphicon glyph="saved" /></Button>
+                </span>
         );
     }
 

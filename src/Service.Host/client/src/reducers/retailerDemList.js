@@ -12,7 +12,6 @@ const retailerDemList = (state = defaultState, action) => {
         case actionTypes.REQUEST_UPDATE_DEM_LIST_DETAILS:
             return {
                 ...state,
-                item: null,
                 retailerUri: action.payload.retailerUri,
                 loading: true
             }
