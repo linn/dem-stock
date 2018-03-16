@@ -3,7 +3,7 @@ import ReactDatePicker from 'react-datepicker';
 import classnames from 'classnames';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const PortalDatePicker = ({selectedDate, onChange, className, placeholder=null, isClearable=false, isOpen = false}) => (
+const PortalDatePicker = ({selectedDate, onChange, onClose, className, placeholder=null, isClearable=false, isOpen = false}) => (
     <div>
         {isOpen && (
             <ReactDatePicker
@@ -17,7 +17,7 @@ const PortalDatePicker = ({selectedDate, onChange, className, placeholder=null, 
                 selected={selectedDate}
                 isClearable={isClearable}
                 onSelect={onChange}
-                onClickOutside={onChange} />
+                onClickOutside={onClose} />
                 )}
     </div>
 );

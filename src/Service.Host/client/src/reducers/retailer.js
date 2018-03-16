@@ -11,7 +11,6 @@ const retailer = (state = defaultState, action) => {
     case actionTypes.REQUEST_RETAILER:
         return {
             ...state,
-            item: null,
             retailerUri: action.payload.retailerUri,
             loading: true
         }

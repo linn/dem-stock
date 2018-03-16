@@ -59,7 +59,7 @@ export class IntegerUpdater extends Component {
                             onClose={() => this.handleOKClick()} />
                 : displayOnly
                     ? value
-                    : <Button bsStyle="link" style={styles.button} onClick={() => this.handleClick()}>{value}</Button>
+                        : <Button bsStyle="link" style={styles.button} onClick={() => this.handleClick()}>{value}</Button>
                 }
             
             </div>

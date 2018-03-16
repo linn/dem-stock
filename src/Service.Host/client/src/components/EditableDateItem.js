@@ -1,11 +1,12 @@
 ﻿import React, { Component } from 'react'
 import { Grid, Row, Col, Button } from 'react-bootstrap';
-import DateUpdater from './DateUpdater';
+import DateUpdaterButton from './DateUpdaterButton';
 
 const styles = {
     title: {
-        textAlign: 'right',
-        marginBottom: '6px'
+        textAlign: 'left',
+        marginBottom: '6px',
+        marginTop: '20px'
     },
     button: {
         padding: '0',
@@ -23,12 +24,12 @@ export class EditableDateItem extends Component {
         return (
             <div>
                 <Row>
-                    <Col sm={titleWidth} style={styles.title}>
-                        <b>{title}</b>
+                    <Col sm={12} style={styles.title}>
+                        {title}
+                        {value.format('DD MMM YYYY ')}
+                        <DateUpdaterButton displayOnly={false} value={value} onChange={thedate => onChange(thedate)} />
                     </Col>
-                    <Col sm={valueWidth}>
-                        <DateUpdater displayOnly={false} value={value} onChange={thedate => onChange(thedate)} />
-                    </Col>
+                    
                 </Row>
             </div>
         );

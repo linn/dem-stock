@@ -1,5 +1,5 @@
 ﻿export const getRetailerName = (retailer) => {
-    if (!retailer || !retailer.item || retailer.loading) {
+    if (!retailer || !retailer.item ) {
         return null;
     }
 

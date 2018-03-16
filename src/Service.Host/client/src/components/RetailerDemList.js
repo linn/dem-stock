@@ -29,20 +29,20 @@ class RetailerDemList extends Component {
     render() {
         const { loading, retailerDemList, retailerName, rootProducts, setRootProduct, retailerUri } = this.props;
 
-        if (loading  || !retailerDemList) {
+        if (!retailerDemList) {
             return (<Loading />);
         }
 
         return (
             <div>
-                <Grid fluid={false}>                    
+                <Grid fluid={false}> 
                     <DisplayItem
+                        titleWidth={0}
                         value={<h2>{retailerName}</h2>} />
                     <br />
-                    <EditableDateItem title="Last Reviewed On" value={moment(retailerDemList.lastReviewedOn)} displayOnly={false} onChange={(d) => this.handleEditDateClick(d)} />
                     <DisplayItem
-                        title="Root Products"
-                        valueWidth={7}
+                        titleWidth={0}
+                        valueWidth={12}
                         value={<RootProducts
                                     rootProducts={retailerDemList.rootProducts}
                                     rootProductDetails={rootProducts}
@@ -51,8 +51,17 @@ class RetailerDemList extends Component {
                     />
                     <DisplayItem                        
                         value={<Button className="muted" bsStyle="success" onClick={() => this.handleAddRootProductClick()}>Add Root Product</Button>}
+                        titleWidth={0}
+                        valueWidth={12}
                     />                    
                     <RootProductSearch onSelect={rootProductUri => this.handleAddRootProduct(rootProductUri)} />
+                    <EditableDateItem
+                        titleWidth={3}
+                        valueWidth={9}
+                        title="Last reviewed on "
+                        value={moment(retailerDemList.lastReviewedOn)}
+                        displayOnly={false}
+                        onChange={(d) => this.handleEditDateClick(d)} />
                     <div>
                         <Row style={{ marginTop: '20px' }}>
                             <Col xs={12}>

@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { FormGroup, FormControl, ControlLabel, Button, Modal, ListGroup, DropdownButton, Dropdown, MenuItem, InputGroup, ListGroupItem, Label, OverlayTrigger, Popover, Checkbox, Alert } from 'react-bootstrap';
+import { FormGroup, Glyphicon, FormControl, ControlLabel, Button, Modal, ListGroup, DropdownButton, Dropdown, MenuItem, InputGroup, ListGroupItem, Label, OverlayTrigger, Popover, Checkbox, Alert } from 'react-bootstrap';
 import { Loading } from './common';
 
 class RootProductSearch extends Component {
@@ -33,14 +33,10 @@ class RootProductSearch extends Component {
                             ? (
                                 <ListGroup>
                                     {rootProducts.map((product, i) => (
-                                        <OverlayTrigger key={i} placement="right" overlay={<Popover id={`popover-${product.name}`} title={product.name}>{product.description}</Popover>}>
-                                            <ListGroupItem key={i} onClick={() => this.handleProductClick(product)}>
-                                                {product.name}
-                                                <Label className="pull-right" bsStyle="primary">{product.type}</Label>
-                                                {product.phasedOutOn && <Label style={{ marginRight: '10px' }} className="pull-right" bsStyle="warning">Phased Out</Label>}
-                                            </ListGroupItem>
-                                        </OverlayTrigger>
-                                    ))}
+                                        <ListGroupItem key={i} onClick={() => this.handleProductClick(product)}>
+                                            <b>{product.name}</b> : {product.description}
+                                        </ListGroupItem>
+                                    ))}                                    
                                 </ListGroup>
                             )
                             : loading

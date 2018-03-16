@@ -5,11 +5,11 @@ export class IntegerInput extends Component {
 
     render() {
         const { value, onClose, onCancel } = this.props;
-        return (<div>
-                    <input type="number" value={value} onChange={e => this.handleChange(e.target.value)} />
-                    <Button bsStyle="link" onClick={() => onCancel()}>Cancel</Button>
-                    <Button bsStyle="link" onClick={() => onClose()}>Save</Button>
-                </div>
+        return (<span>
+                    <input style={{ maxWidth: '5em', marginRight: '10px' }} type="number" value={value} onChange={e => this.handleChange(e.target.value)} />
+                    <Button bsClass="btn btn-xs btn-danger muted" onClick={() => onCancel()}><Glyphicon glyph="remove" /></Button>
+                    <Button bsClass="btn btn-xs btn-success muted" onClick={() => onClose()}><Glyphicon glyph="ok" /></Button>
+                </span>
         );
     }
 
