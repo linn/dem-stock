@@ -17,8 +17,11 @@ class RetailerDemList extends Component {
     }
 
     handleAddRootProduct(rootProductUri) {
-        const { setRootProduct, retailerUri } = this.props;
-        setRootProduct(rootProductUri, 1, retailerUri);
+        const { setRootProduct, retailerUri, retailerDemList } = this.props;
+
+        if (!retailerDemList.rootProducts || !retailerDemList.rootProducts.some(r => r.rootProductUri === rootProductUri)) {
+            setRootProduct(rootProductUri, 1, retailerUri);
+        }
     }
 
     handleEditDateClick(d) {
