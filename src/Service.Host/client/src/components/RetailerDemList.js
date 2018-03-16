@@ -3,7 +3,6 @@ import { Loading } from './common';
 import { Grid, Row, Col, Button, Label, Well } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { formatDate } from '../helpers/dates';
-import DisplayItem from './DisplayItem';
 import LastReviewedOn from './LastReviewedOn';
 import moment from 'moment';
 import RootProducts from './RootProducts';
@@ -39,28 +38,16 @@ class RetailerDemList extends Component {
         return (
             <div>
                 <Grid fluid={false}> 
-                    <DisplayItem
-                        titleWidth={0}
-                        value={<h2>{retailerName}</h2>} />
+                    <h2>{retailerName}</h2>
                     <br />
-                    <DisplayItem
-                        titleWidth={0}
-                        valueWidth={12}
-                        value={<RootProducts
-                                    rootProducts={retailerDemList.rootProducts}
-                                    rootProductDetails={rootProducts}
-                                    setRootProduct={setRootProduct}
-                                    retailerUri={retailerUri} />}
-                    />
-                    <DisplayItem                        
-                        value={<Button className="muted" bsStyle="success" onClick={() => this.handleAddRootProductClick()}>Add Root Product</Button>}
-                        titleWidth={0}
-                        valueWidth={12}
-                    />                    
+                    <RootProducts
+                        rootProducts={retailerDemList.rootProducts}
+                        rootProductDetails={rootProducts}
+                        setRootProduct={setRootProduct}
+                        retailerUri={retailerUri} />
+                    <Button className="muted" bsStyle="success" onClick={() => this.handleAddRootProductClick()}>Add Root Product</Button>
                     <RootProductSearch onSelect={rootProductUri => this.handleAddRootProduct(rootProductUri)} />
                     <LastReviewedOn
-                        titleWidth={3}
-                        valueWidth={9}
                         title="Last reviewed on "
                         value={retailerDemList.lastReviewedOn ? moment(retailerDemList.lastReviewedOn) : null}
                         displayOnly={false}
