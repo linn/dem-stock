@@ -16,21 +16,6 @@ describe('when selecting retailer', () => {
     });
 });
 
-describe('when retailer is loading', () => {
-    test('should return null', () => {
-
-        const retailer = {
-            retailerDemListUri: '/retailers/1',
-            loading: true,
-            item: {
-                name: 'Tyson Newcastle'
-            }
-        };
-
-        expect(getRetailerName(retailer)).toEqual(null);
-    });
-});
-
 describe('when selecting retailer but not found', () => {
     test('should return null', () => {
         const retailer = {}

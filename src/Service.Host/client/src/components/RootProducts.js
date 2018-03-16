@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, Alert } from 'react-bootstrap';
 import moment from 'moment';
 import { getRootProductName } from '../selectors/rootProductsSelectors';
 import { IntegerUpdater } from './IntegerUpdater';
@@ -17,7 +17,6 @@ class RootProducts extends Component {
             return 1;
         return 0;
     }
-
 
     render() {
         const { rootProducts, rootProductDetails, setRootProduct, retailerUri } = this.props;

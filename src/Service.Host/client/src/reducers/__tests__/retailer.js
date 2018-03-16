@@ -8,7 +8,7 @@ describe('retailer reducer', () => {
         const state = {
             retailerUri: null,
             loading: false,
-            item: null
+            item: { name: 'Tyson Newcastle' }
         };
 
         const action = {
@@ -21,7 +21,7 @@ describe('retailer reducer', () => {
         const expected = {
             retailerUri: '/retailers/1',
             loading: true,            
-            item: null
+            item: { name: 'Tyson Newcastle' }
         };
 
         deepFreeze(state);

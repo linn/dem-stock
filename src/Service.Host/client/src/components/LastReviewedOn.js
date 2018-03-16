@@ -14,19 +14,18 @@ const styles = {
     }
 }
 
-export class EditableDateItem extends Component {
+export class LastReviewedOn extends Component {
     constructor(props) {
         super(props);
     }
 
     render() {
-        const { title, value, onChange, titleWidth = 3, valueWidth = 9  } = this.props;
+        const { title, value, onChange } = this.props;
         return (
             <div>
                 <Row>
                     <Col sm={12} style={styles.title}>
-                        {title}
-                        {value.format('DD MMM YYYY ')}
+                        {value ? <span>{ title } {value.format('DD MMM YYYY ')}</span> : 'This retailer\'s dem stock has not been reviewed '}
                         <DateUpdaterButton displayOnly={false} value={value} onChange={thedate => onChange(thedate)} />
                     </Col>
                     
@@ -36,4 +35,4 @@ export class EditableDateItem extends Component {
     }
 }
 
-export default EditableDateItem;
+export default LastReviewedOn;

@@ -4,7 +4,7 @@ import { Grid, Row, Col, Button, Label, Well } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { formatDate } from '../helpers/dates';
 import DisplayItem from './DisplayItem';
-import EditableDateItem from './EditableDateItem';
+import LastReviewedOn from './LastReviewedOn';
 import moment from 'moment';
 import RootProducts from './RootProducts';
 import RootProductSearch from '../containers/RootProductSearch';
@@ -27,7 +27,7 @@ class RetailerDemList extends Component {
     }
 
     render() {
-        const { loading, retailerDemList, retailerName, rootProducts, setRootProduct, retailerUri } = this.props;
+        const { retailerDemList, retailerName, rootProducts, setRootProduct, retailerUri } = this.props;
 
         if (!retailerDemList) {
             return (<Loading />);
@@ -55,11 +55,11 @@ class RetailerDemList extends Component {
                         valueWidth={12}
                     />                    
                     <RootProductSearch onSelect={rootProductUri => this.handleAddRootProduct(rootProductUri)} />
-                    <EditableDateItem
+                    <LastReviewedOn
                         titleWidth={3}
                         valueWidth={9}
                         title="Last reviewed on "
-                        value={moment(retailerDemList.lastReviewedOn)}
+                        value={retailerDemList.lastReviewedOn ? moment(retailerDemList.lastReviewedOn) : null}
                         displayOnly={false}
                         onChange={(d) => this.handleEditDateClick(d)} />
                     <div>
