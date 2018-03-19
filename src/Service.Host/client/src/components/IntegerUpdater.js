@@ -40,11 +40,11 @@ export class IntegerUpdater extends Component {
         this.props.onChange(this.state.currentValue);
     }
 
-    handleKeyPress(keyCode) {        
-        if (!this.saveDisabled() && keyCode === 13) {            
+    handleKeyPress(e) {
+        if (!this.saveDisabled() && e.key === 'Enter') {            
             this.handleOkClick();
         }
-        else if (keyCode === 27) {
+        else if (e.key === 'Escape') {
             this.handleClose();
         }
     }
@@ -67,7 +67,7 @@ export class IntegerUpdater extends Component {
                             onCancel={() => this.handleClose()}
                             onClose={() => this.handleOkClick()} 
                             okDisabled={() => this.saveDisabled()} 
-                            onKeyDown={(k) => this.handleKeyPress(k)} />
+                            onKeyDown={(e) => this.handleKeyPress(e)} />
                 : displayOnly
                     ? value
                         : <Button bsStyle="link" style={styles.button} onClick={() => this.handleClick()}>{value}</Button>

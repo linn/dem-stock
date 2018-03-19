@@ -11,7 +11,7 @@ export class IntegerInput extends Component {
                         type="number" 
                         value={value} 
                         onChange={e => this.handleChange(e.target.value)} 
-                        onKeyDown={key => onKeyDown(key.keyCode)}
+                        onKeyDown={e => onKeyDown(e)}
                         ref={(input) => this.numberInput=input}/>
                     <Button style={{ marginRight: '10px' }} bsClass="btn btn-xs btn-danger muted" onClick={() => onCancel()}><Glyphicon glyph="remove" /></Button>
                     <Button bsClass="btn btn-xs btn-success muted" onClick={() => onClose()} disabled={okDisabled()}><Glyphicon glyph="saved" /></Button>
