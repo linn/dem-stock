@@ -67,7 +67,7 @@ export class IntegerUpdater extends Component {
                             onCancel={() => this.handleClose()}
                             onClose={() => this.handleOkClick()} 
                             okDisabled={() => this.saveDisabled()} 
-                            onKeyPress={(k) => this.handleKeyPress(k)}/>
+                            onKeyDown={(k) => this.handleKeyPress(k)}/>
                 : displayOnly
                     ? value
                         : <Button bsStyle="link" style={styles.button} onClick={() => this.handleClick()}>{value}</Button>
