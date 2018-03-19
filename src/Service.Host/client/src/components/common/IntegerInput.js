@@ -8,9 +8,11 @@ export class IntegerInput extends Component {
         return (<span>
                     <input 
                         style={{ maxWidth: '5em', marginRight: '20px' }} 
-                        type="number" value={value} 
+                        type="number" 
+                        value={value} 
                         onChange={e => this.handleChange(e.target.value)} 
-                        onKeyDown={key => onKeyDown(key.keyCode)}/>
+                        onKeyDown={key => onKeyDown(key.keyCode)}
+                        ref={(input) => this.numberInput=input}/>
                     <Button style={{ marginRight: '10px' }} bsClass="btn btn-xs btn-danger muted" onClick={() => onCancel()}><Glyphicon glyph="remove" /></Button>
                     <Button bsClass="btn btn-xs btn-success muted" onClick={() => onClose()} disabled={okDisabled()}><Glyphicon glyph="saved" /></Button>
                 </span>
@@ -23,5 +25,9 @@ export class IntegerInput extends Component {
         if (regex.test(value)) {
             onChange(value); 
         }
-    }  
+    }
+
+    componentDidMount() {        
+        this.numberInput.select();
+    }
 }
