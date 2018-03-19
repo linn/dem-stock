@@ -56,7 +56,8 @@ export class IntegerUpdater extends Component {
                 {this.state.isOpen 
                     ? <IntegerInput value={this.state.currentValue} validationCondition={null} onChange={value => this.handleChanged(value)}
                             onCancel={() => this.handleClose()}
-                            onClose={() => this.handleOKClick()} />
+                            onClose={() => this.handleOKClick()} 
+                            okDisabled={() => this.saveDisabled()} />
                 : displayOnly
                     ? value
                         : <Button bsStyle="link" style={styles.button} onClick={() => this.handleClick()}>{value}</Button>
