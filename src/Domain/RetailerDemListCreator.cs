@@ -1,8 +1,5 @@
 ﻿namespace Linn.DemStock.Domain
 {
-    using System;
-    using System.Data.SqlTypes;
-
     using Linn.Common.Persistence;
     using Linn.DemStock.Domain.Exceptions;
     using Linn.DemStock.Domain.Repositories;
@@ -13,7 +10,9 @@
         private readonly ITransactionManager transactionManager;
         private readonly IRetailerDemListRepository retailerDemListRepository;
 
-        public RetailerDemListCreator(ITransactionManager transactionManager, IRetailerDemListRepository retailerDemListRepository)
+        public RetailerDemListCreator(
+            ITransactionManager transactionManager,
+            IRetailerDemListRepository retailerDemListRepository)
         {
             this.transactionManager = transactionManager;
             this.retailerDemListRepository = retailerDemListRepository;

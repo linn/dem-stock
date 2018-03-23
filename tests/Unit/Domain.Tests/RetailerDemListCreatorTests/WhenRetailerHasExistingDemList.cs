@@ -25,7 +25,7 @@
 
             this.DemListRepository.GetByRetailerId(this.retailerId).Returns(existingDemList);
 
-            this.action = () => this.Sut.CreateRetailerDemList(this.retailerId, "employee/200");            
+            this.action = () => this.Sut.CreateRetailerDemList(this.retailerId, "employee/200");
         }
 
         [Test]
