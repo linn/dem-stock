@@ -40,8 +40,8 @@
         {
             this.result.RetailerId.Should().Be(this.retailerId);
             this.Sut.Activities.Count.Should().Be(1);
-            this.Sut.Activities.First(a => a is CreateRetailerDemListActivity).As<CreateRetailerDemListActivity>().
-                UpdatedByUri.Should().Be("employee/200");
+            this.Sut.Activities.First(a => a is CreateRetailerDemListActivity).As<CreateRetailerDemListActivity>()
+                .UpdatedByUri.Should().Be("employee/200");
         }
     }
 }
