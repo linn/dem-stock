@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="4.19.4" />
+    <PackageReference Include="Linn.Common.Persistence" Version="1.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.2.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.2.0" />
@@ -18,12 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Domain\Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Linn.Common.Persistence">
-      <HintPath>..\..\..\..\..\Users\AdamC\.nuget\packages\linn.common.persistence\1.0.0\lib\netstandard2.0\Linn.Common.Persistence.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>
