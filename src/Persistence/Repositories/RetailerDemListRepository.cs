@@ -19,6 +19,7 @@
         public RetailerDemList GetByRetailerId(int retailerId)
         {
             return this.serviceDbContext.RetailerDemLists.Include(s => s.RootProducts)
+                .Include(s => s.Activities)
                 .SingleOrDefault(s => s.RetailerId == retailerId);
         }
 

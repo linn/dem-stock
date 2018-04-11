@@ -12,6 +12,8 @@
     {
         private readonly RootProductResourceBuilder rootProductResourceBuilder = new RootProductResourceBuilder();
 
+        private readonly RetailerDemListActivityResourceBuilder retailerDemListActivityResourceBuilder = new RetailerDemListActivityResourceBuilder();
+
         public RetailerDemListResource Build(RetailerDemList retailerDemList)
         {
             return new RetailerDemListResource
@@ -19,6 +21,7 @@
                            LastReviewedOn = retailerDemList.LastReviewedOn?.ToString("o"),
                            RetailerId = retailerDemList.RetailerId,
                            RootProducts = retailerDemList.RootProducts.Select(r => this.rootProductResourceBuilder.Build(r)),
+                           Activities = retailerDemList.Activities.Select(a => this.retailerDemListActivityResourceBuilder.Build(a)),
                            Links = this.BuildLinks(retailerDemList).ToArray()
                        };
         }

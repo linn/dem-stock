@@ -48,6 +48,7 @@
             dataResult.RootProducts.First().RootProductUri.Should()
                 .Be(this.retailerDemList.RootProducts.First().RootProductUri);
             dataResult.RootProducts.First().Quantity.Should().Be(this.retailerDemList.RootProducts.First().Quantity);
+            dataResult.Activities.Count.Should().Be(2);
         }
     }
 }
