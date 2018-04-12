@@ -6,6 +6,7 @@ import { formatDate } from '../helpers/dates';
 import LastReviewedOn from './LastReviewedOn';
 import moment from 'moment';
 import RootProducts from './RootProducts';
+import Activities from './Activities';
 import RootProductSearch from '../containers/RootProductSearch';
 import { getRetailerDemListRetailerUri } from '../selectors/retailerDemListSelectors';
 
@@ -29,7 +30,7 @@ class RetailerDemList extends Component {
     }
 
     render() {
-        const { retailerDemList, retailerName, rootProducts, setRootProduct, retailerUri } = this.props;
+        const { retailerDemList, retailerName, rootProducts, setRootProduct, retailerUri, activities } = this.props;
 
         if (!retailerDemList) {
             return (<Loading />);
@@ -51,7 +52,7 @@ class RetailerDemList extends Component {
                         title="Last reviewed on "
                         value={retailerDemList.lastReviewedOn ? moment(retailerDemList.lastReviewedOn) : null}
                         displayOnly={false}
-                        onChange={(d) => this.handleEditDateClick(d)} />
+                        onChange={(d) => this.handleEditDateClick(d)} />                    
                     <div>
                         <Row style={{ marginTop: '20px' }}>
                             <Col xs={12}>
@@ -63,7 +64,8 @@ class RetailerDemList extends Component {
                             </Col>
                         </Row>
                     </div>
-                </Grid>                
+                    <Activities activities={activities} rootProductDetails={rootProducts} />
+                </Grid>
             </div>
         );
     }

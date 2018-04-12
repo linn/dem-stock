@@ -35,13 +35,14 @@ const receiveUpdateDemListDetails = data => ({
     payload: { data }
 });
 
-export const fetchRetailerDemList = retailerUri => async dispatch => {    
+export const fetchRetailerDemList = retailerUri => async dispatch => {
     dispatch(requestRetailerDemList(retailerUri));
     try {
         const data = await fetchJson(`${config.appRoot}${retailerUri}/dem-stock`);
         dispatch(receiveRetailerDemList(data));
         dispatch(fetchRetailer(retailerUri));
-        const rootProductUris = data.rootProducts.map(rp => rp.rootProductUri);
+        const activityRootProdUris = data.activities.map(a => a.rootProductUri).filter(r => r !== undefined);
+        const rootProductUris = data.rootProducts.map(rp => rp.rootProductUri).concat(activityRootProdUris);
         dispatch(fetchRootProducts(rootProductUris));
     } catch (e) {
         alert(`Failed to fetch retailer dem list. Error: ${e.message}`);

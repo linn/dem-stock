@@ -2,6 +2,7 @@
 {
     using Linn.Common.Facade;
     using Linn.DemStock.Domain;
+    using Linn.DemStock.Domain.Exceptions;
     using Linn.DemStock.Domain.RetailerDemListActivities;
     using Linn.DemStock.Resources;
 
@@ -9,35 +10,28 @@
     {
         public RetailerDemListActivityResource Build(Activity activity)
         {
-            if (activity is UpdateRootProductActivity updateRootProductActivity)
+            switch (activity)
             {
-                return new UpdateRootProductActivityResource
-                           {
-                               ActivityType = updateRootProductActivity.GetType().Name,
-                               UpdatedByUri = updateRootProductActivity.UpdatedByUri,
-                               ChangedOn = updateRootProductActivity.ChangedOn.ToString("o"),
-                               RootProductUri = updateRootProductActivity.RootProductUri,
-                               Quantity = updateRootProductActivity.Quantity
-                           };
+                case UpdateRootProductActivity updateRootProductActivity:
+                    return new UpdateRootProductActivityResource
+                               {
+                                   ActivityType = updateRootProductActivity.GetType().Name,
+                                   UpdatedByUri = updateRootProductActivity.UpdatedByUri,
+                                   ChangedOn = updateRootProductActivity.ChangedOn.ToString("o"),
+                                   RootProductUri = updateRootProductActivity.RootProductUri,
+                                   Quantity = updateRootProductActivity.Quantity
+                               };
+                case UpdateLastReviewedOnActivity updateLastReviewedOnActivity:
+                    return new UpdateLastReviewedOnActivityResource
+                               {
+                                   ActivityType = updateLastReviewedOnActivity.GetType().Name,
+                                   UpdatedByUri = updateLastReviewedOnActivity.UpdatedByUri,
+                                   ChangedOn = updateLastReviewedOnActivity.ChangedOn.ToString("o"),
+                                   LastReviewedOn = updateLastReviewedOnActivity.LastReviewedOn?.ToString("o")
+                               };
+                default:
+                    throw new InvalidActivityException($"Invalid activity: {activity.GetType().Name} ");
             }
-
-            if (activity is UpdateLastReviewedOnActivity updateLastReviewedOnActivity)
-            {
-                return new UpdateLastReviewedOnActivityResource()
-                           {
-                               ActivityType = updateLastReviewedOnActivity.GetType().Name,
-                               UpdatedByUri = updateLastReviewedOnActivity.UpdatedByUri,
-                               ChangedOn = updateLastReviewedOnActivity.ChangedOn.ToString("o"),
-                               LastReviewedOn = updateLastReviewedOnActivity.LastReviewedOn?.ToString("o")
-                           };
-            }
-
-            return new RetailerDemListActivityResource()
-                       {
-                           ActivityType = activity.GetType().Name,
-                           UpdatedByUri = activity.UpdatedByUri,
-                           ChangedOn = activity.ChangedOn.ToString("o"),
-            };
         }
 
         public string GetLocation(Activity model)
