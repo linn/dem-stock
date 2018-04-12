@@ -4,6 +4,6 @@
     {
         public string RootProductUri { get; set; }
 
-        public int? Quantity { get; set; }
+        public int Quantity { get; set; }
     }
 }

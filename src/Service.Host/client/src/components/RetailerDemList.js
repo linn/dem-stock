@@ -52,7 +52,7 @@ class RetailerDemList extends Component {
                         title="Last reviewed on "
                         value={retailerDemList.lastReviewedOn ? moment(retailerDemList.lastReviewedOn) : null}
                         displayOnly={false}
-                        onChange={(d) => this.handleEditDateClick(d)} />                    
+                        onChange={(d) => this.handleEditDateClick(d)} />
                     <div>
                         <Row style={{ marginTop: '20px' }}>
                             <Col xs={12}>
