@@ -1,7 +1,6 @@
 ﻿namespace Linn.DemStock.Service.Tests.RetailerDemListModuleTests
 {
     using System;
-    using System.Linq;
 
     using FluentAssertions;
 
