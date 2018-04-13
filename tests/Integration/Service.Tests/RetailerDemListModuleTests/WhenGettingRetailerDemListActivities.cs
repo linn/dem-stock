@@ -1,11 +1,13 @@
 ﻿namespace Linn.DemStock.Service.Tests.RetailerDemListModuleTests
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     using FluentAssertions;
 
     using Linn.Common.Facade;
     using Linn.DemStock.Domain;
+    using Linn.DemStock.Domain.RetailerDemListActivities;
     using Linn.DemStock.Resources;
 
     using Nancy;
@@ -15,7 +17,7 @@
 
     using NUnit.Framework;
 
-    public class WhenGettingRetailerDemList : ContextBase
+    public class WhenGettingRetailerDemListActivities : ContextBase
     {
         private RetailerDemList retailerDemList;
 
@@ -24,11 +26,15 @@
         {
             this.retailerDemList = new RetailerDemList(200);
             this.retailerDemList.SetRootProductQuantity("/products/100", "/employees/50", 3);
+            this.retailerDemList.SetLastReviewedDate(13.April(2018), "/employees/21");
             this.DemStockService.GetRetailerDemList(200)
                 .Returns(new SuccessResult<RetailerDemList>(this.retailerDemList));
 
+            this.DemStockService.GetRetailerDemListActivities(200).Returns(
+                new SuccessResult<IEnumerable<RetailerDemListActivity>>(this.retailerDemList.Activities));
+
             this.Response = this.Browser.Get(
-                "/retailers/200/dem-stock",
+                "/retailers/200/dem-stock/activities",
                 with =>
                     {
                         with.Header("Accept", "application/json");
@@ -44,22 +50,18 @@
         [Test]
         public void ShouldCallService()
         {
-            this.DemStockService.Received().GetRetailerDemList(200);
+            this.DemStockService.Received().GetRetailerDemListActivities(200);
         }
 
         [Test]
         public void ShouldReturnResource()
         {
-            var resource = this.Response.Body.DeserializeJson<RetailerDemListResource>();
-            resource.RetailerId.Should().Be(this.retailerDemList.RetailerId);
-            resource.RootProducts.Should().HaveCount(1);
-            resource.RootProducts.First().Quantity.Should().Be(3);
-            resource.RootProducts.First().RootProductUri.Should().Be("/products/100");
-            resource.Links.Length.Should().Be(2);
-            resource.Links.First(l => l.Rel == "self").Href.Should()
-                .Be($"/retailers/{this.retailerDemList.RetailerId}/dem-stock");
-            resource.Links.First(l => l.Rel == "retailer").Href.Should()
-                .Be($"/retailers/{this.retailerDemList.RetailerId}");
+            var resource = this.Response.Body.DeserializeJson<RetailerDemListActivitiesResource>();
+            resource.Activities.Count().Should().Be(2);
+            resource.Activities.First().ActivityType.Should().Be("UpdateRootProductActivity");
+            resource.Activities.First().UpdatedByUri.Should().Be("/employees/50");
+            resource.Activities.Last().ActivityType.Should().Be("UpdateLastReviewedOnActivity");
+            resource.Activities.Last().UpdatedByUri.Should().Be("/employees/21");
         }
     }
 }

@@ -61,8 +61,6 @@
             var resource = this.Response.Body.DeserializeJson<RetailerDemListResource>();
             resource.RetailerId.Should().Be(this.retailerDemList.RetailerId);
             resource.LastReviewedOn.Should().Be(1.April(2018).ToString("o"));
-            resource.Activities.Count().Should().Be(1);
-            resource.Activities.First().ActivityType.Should().Be("UpdateLastReviewedOnActivity");
         }
     }
 }

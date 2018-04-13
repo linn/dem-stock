@@ -11,7 +11,5 @@
         public string LastReviewedOn { get; set; }
 
         public IEnumerable<RootProductResource> RootProducts { get; set; }
-
-        public IEnumerable<RetailerDemListActivityResource> Activities { get; set; }
     }
 }
