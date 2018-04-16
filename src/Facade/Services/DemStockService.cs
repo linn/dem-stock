@@ -1,11 +1,13 @@
 ﻿namespace Linn.DemStock.Facade.Services
 {
     using System;
+    using System.Collections.Generic;
 
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
     using Linn.DemStock.Domain;
     using Linn.DemStock.Domain.Repositories;
+    using Linn.DemStock.Domain.RetailerDemListActivities;
 
     public class DemStockService : IDemStockService
     {
@@ -61,6 +63,19 @@
 
             this.transactionManager.Commit();
             return new SuccessResult<RetailerDemList>(retailerDemList);
+        }
+
+        public IResult<IEnumerable<RetailerDemListActivity>> GetRetailerDemListActivities(int retailerId)
+        {
+            var retailerDemList = this.retailerDemListRepository.GetByRetailerId(retailerId);
+            if (retailerDemList == null)
+            {
+                return new NotFoundResult<IEnumerable<RetailerDemListActivity>>();
+            }
+
+            var activities = retailerDemList.Activities;
+
+            return new SuccessResult<IEnumerable<RetailerDemListActivity>>(activities);
         }
     }
 }

@@ -4,6 +4,8 @@ import config from '../config';
 import * as actionTypes from './index';
 import { fetchRetailer } from './retailer';
 import { fetchRootProducts } from './rootProducts';
+import { fetchActivities } from './activities';
+import { getActivities } from '../selectors/activitySelectors';
 
 const requestRetailerDemList = retailerUri => ({
     type: actionTypes.REQUEST_RETAILER_DEM_LIST,
@@ -35,13 +37,17 @@ const receiveUpdateDemListDetails = data => ({
     payload: { data }
 });
 
-export const fetchRetailerDemList = retailerUri => async dispatch => {    
+export const fetchRetailerDemList = retailerUri => async (dispatch, getState) => {
     dispatch(requestRetailerDemList(retailerUri));
     try {
         const data = await fetchJson(`${config.appRoot}${retailerUri}/dem-stock`);
         dispatch(receiveRetailerDemList(data));
         dispatch(fetchRetailer(retailerUri));
-        const rootProductUris = data.rootProducts.map(rp => rp.rootProductUri);
+        await dispatch(fetchActivities(retailerUri));
+        const state = getState();
+        const activities = getActivities(state.activities);
+        const activityRootProdUris = state.activities.map(a => a.rootProductUri).filter(r => r !== undefined);
+        const rootProductUris = data.rootProducts.map(rp => rp.rootProductUri).concat(activityRootProdUris);
         dispatch(fetchRootProducts(rootProductUris));
     } catch (e) {
         alert(`Failed to fetch retailer dem list. Error: ${e.message}`);

@@ -6,6 +6,7 @@ import { formatDate } from '../helpers/dates';
 import LastReviewedOn from './LastReviewedOn';
 import moment from 'moment';
 import RootProducts from './RootProducts';
+import Activities from './Activities';
 import RootProductSearch from '../containers/RootProductSearch';
 import { getRetailerDemListRetailerUri } from '../selectors/retailerDemListSelectors';
 
@@ -29,7 +30,7 @@ class RetailerDemList extends Component {
     }
 
     render() {
-        const { retailerDemList, retailerName, rootProducts, setRootProduct, retailerUri } = this.props;
+        const { retailerDemList, retailerName, rootProducts, setRootProduct, retailerUri, activities } = this.props;
 
         if (!retailerDemList) {
             return (<Loading />);
@@ -63,7 +64,8 @@ class RetailerDemList extends Component {
                             </Col>
                         </Row>
                     </div>
-                </Grid>                
+                    <Activities activities={activities} rootProductDetails={rootProducts} />
+                </Grid>
             </div>
         );
     }

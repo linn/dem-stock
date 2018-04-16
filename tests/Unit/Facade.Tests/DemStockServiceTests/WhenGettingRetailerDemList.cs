@@ -48,6 +48,9 @@
             dataResult.RootProducts.First().RootProductUri.Should()
                 .Be(this.retailerDemList.RootProducts.First().RootProductUri);
             dataResult.RootProducts.First().Quantity.Should().Be(this.retailerDemList.RootProducts.First().Quantity);
+            dataResult.Activities.Count.Should().Be(2);
+            dataResult.Activities.First().UpdatedByUri.Should().Be("/employees/555");
+            dataResult.Activities.Last().UpdatedByUri.Should().Be("/employees/555");
         }
     }
 }

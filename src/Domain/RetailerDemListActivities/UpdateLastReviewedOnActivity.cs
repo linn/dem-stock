@@ -15,5 +15,10 @@
         }
 
         public DateTime? LastReviewedOn { get; private set; }
+
+        public override T Accept<T>(IRetailerDemListActivityVisitor<T> visitor)
+        {
+            return visitor.Visit(this);
+        }
     }
 }

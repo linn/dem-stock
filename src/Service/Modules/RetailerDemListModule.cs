@@ -16,6 +16,7 @@
         {
             this.demStockService = demStockService;
             this.Get("/retailers/{retailerId:int}/dem-stock", parameters => this.GetRetailerDemListById(parameters.retailerId));
+            this.Get("/retailers/{retailerId:int}/dem-stock/activities", parameters => this.GetRetailerDemListActivitiesById(parameters.retailerId));
             this.Put("/retailers/{retailerId:int}/dem-stock/products", parameters => this.SetRootProductQuantity(parameters.retailerId));
             this.Put("/retailers/{retailerId:int}/dem-stock", parameters => this.SetLastReviewedDate(parameters.retailerId));
         }
@@ -38,6 +39,13 @@
             var retailerDemList = this.demStockService.GetRetailerDemList(retailerId);
 
             return this.Negotiate.WithModel(retailerDemList).WithView("Index");
+        }
+
+        private object GetRetailerDemListActivitiesById(int retailerId)
+        {
+            var activities = this.demStockService.GetRetailerDemListActivities(retailerId);
+
+            return this.Negotiate.WithModel(activities);
         }
 
         private object SetRootProductQuantity(int retailerId)

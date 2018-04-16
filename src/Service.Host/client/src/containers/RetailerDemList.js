@@ -4,15 +4,17 @@ import initialiseOnMount from './common/initialiseOnMount';
 import { fetchRetailerDemList, setRootProduct, updateDemListDetails } from '../actions/retailerDemList';
 import { getRetailerDemList, getRetailerDemListRetailerUri } from '../selectors/retailerDemListSelectors';
 import { getRetailerName } from '../selectors/retailerSelectors';
+import { getActivities } from '../selectors/activitySelectors';
 import { showRootProductSearch } from '../actions/rootProductSearch';
 
-const mapStateToProps = ({ retailerDemList, retailer, rootProducts }, { match }) => ({
+const mapStateToProps = ({ retailerDemList, retailer, rootProducts, activities }, { match }) => ({
     retailerId: match.params.retailerId,
     retailerDemList: getRetailerDemList(retailerDemList),
     retailerUri: getRetailerDemListRetailerUri(retailerDemList),
     rootProducts: rootProducts,
     retailerName: getRetailerName(retailer),
-    loading: retailerDemList.loading
+    loading: retailerDemList.loading,
+    activities: getActivities(activities)
 });
 
 const initialise = ({ retailerId }) => dispatch => {

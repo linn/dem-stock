@@ -11,5 +11,7 @@
         protected RetailerDemListActivity()
         {
         }
+
+        public abstract T Accept<T>(IRetailerDemListActivityVisitor<T> visitor);
     }
 }
