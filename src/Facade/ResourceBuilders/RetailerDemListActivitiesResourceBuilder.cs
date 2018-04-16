@@ -10,13 +10,13 @@
 
     public class RetailerDemListActivitiesResourceBuilder : IResourceBuilder<IEnumerable<RetailerDemListActivity>>
     {
-        private readonly RetailerDemListActivityResourceBuilder retailerDemListActivityResourceBuilder = new RetailerDemListActivityResourceBuilder();
+        private readonly ResourceBuildingRetailerDemListActivityVisitor visitor = new ResourceBuildingRetailerDemListActivityVisitor();
 
         public RetailerDemListActivitiesResource Build(IEnumerable<RetailerDemListActivity> activities)
         {
             return new RetailerDemListActivitiesResource
                        {
-                           Activities = activities.Select(a => this.retailerDemListActivityResourceBuilder.Build(a))
+                           Activities = activities.Select(a => a.Accept(this.visitor))
                        };
         }
 
