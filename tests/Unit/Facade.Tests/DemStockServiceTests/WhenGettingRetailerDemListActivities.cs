@@ -43,7 +43,9 @@
         {
             this.result.Should().BeOfType<SuccessResult<IEnumerable<RetailerDemListActivity>>>();
             var dataResult = ((SuccessResult<IEnumerable<RetailerDemListActivity>>)this.result).Data;
-            // dataResult.Count.Should().Be(2);
+            dataResult.Count().Should().Be(2);
+            dataResult.First().GetType().Name.Should().Be("UpdateLastReviewedOnActivity");
+            dataResult.Last().GetType().Name.Should().Be("UpdateRootProductActivity");
         }
     }
 }
