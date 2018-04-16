@@ -1,5 +1,6 @@
 ﻿import { combineReducers } from 'redux';
 import { routerReducer as router } from 'react-router-redux';
+import activities from './activities';
 import retailerSearch from './retailerSearch';
 import retailerDemList from './retailerDemList';
 import retailer from './retailer';
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     retailerDemList,
     retailer,
     rootProducts,
-    rootProductSearch
+    rootProductSearch,
+    activities
 });
 
 export default rootReducer;

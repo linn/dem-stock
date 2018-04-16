@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { ListGroup, ListGroupItem, Button } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, Button, Alert } from 'react-bootstrap';
 import moment from 'moment';
 import ActivityItem from './ActivityItem';
 
