@@ -28,5 +28,16 @@
                            Quantity = activity.Quantity
                        };
         }
+
+        public RetailerDemListActivityResource Visit(CreateRetailerDemListActivity activity)
+        {
+            return new CreateRetailerDemListActivityResource
+                       {
+                           ActivityType = activity.GetType().Name,
+                           UpdatedByUri = activity.UpdatedByUri,
+                           ChangedOn = activity.ChangedOn.ToString("o"),
+                           RetailerId = activity.RetailerId
+                       };
+        }
     }
 }

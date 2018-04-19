@@ -6,6 +6,7 @@
 
     using Linn.Common.Facade;
     using Linn.DemStock.Domain;
+    using Linn.DemStock.Domain.RetailerDemListActivities;
 
     using NSubstitute;
 
@@ -48,8 +49,9 @@
             dataResult.RootProducts.First().RootProductUri.Should()
                 .Be(this.retailerDemList.RootProducts.First().RootProductUri);
             dataResult.RootProducts.First().Quantity.Should().Be(this.retailerDemList.RootProducts.First().Quantity);
-            dataResult.Activities.Count.Should().Be(2);
-            dataResult.Activities.First().UpdatedByUri.Should().Be("/employees/555");
+            dataResult.Activities.Count.Should().Be(3);
+            dataResult.Activities.First(a => a is CreateRetailerDemListActivity).As<CreateRetailerDemListActivity>();
+            dataResult.Activities.ElementAt(1).UpdatedByUri.Should().Be("/employees/555");
             dataResult.Activities.Last().UpdatedByUri.Should().Be("/employees/555");
         }
     }
