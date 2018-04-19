@@ -21,7 +21,7 @@
         {
             this.retailerId = 231;
 
-            var existingDemList = new RetailerDemList(this.retailerId);
+            var existingDemList = new RetailerDemList(this.retailerId, "employee/200");
 
             this.DemListRepository.GetByRetailerId(this.retailerId).Returns(existingDemList);
 

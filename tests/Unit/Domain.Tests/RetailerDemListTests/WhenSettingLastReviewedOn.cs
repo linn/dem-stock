@@ -24,7 +24,8 @@
         public void ShouldUpdateLastReviewedOn()
         {
             this.Sut.LastReviewedOn.Should().Be(this.reviewedOn);
-            this.Sut.Activities.Count.Should().Be(1);
+            this.Sut.Activities.Count.Should().Be(2);
+            this.Sut.Activities.First(a => a is CreateRetailerDemListActivity).As<CreateRetailerDemListActivity>().RetailerId.Should().Be(2);
             this.Sut.Activities.First(a => a is UpdateLastReviewedOnActivity).As<UpdateLastReviewedOnActivity>()
                 .LastReviewedOn.Should().Be(this.reviewedOn);
             this.Sut.Activities.First(a => a is UpdateLastReviewedOnActivity).As<UpdateLastReviewedOnActivity>().UpdatedByUri
