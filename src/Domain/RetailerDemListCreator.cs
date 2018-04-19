@@ -5,7 +5,7 @@
     using Linn.DemStock.Domain.Repositories;
     using Linn.DemStock.Domain.RetailerDemListActivities;
 
-    public class RetailerDemListCreator : ActivityEntity<RetailerDemListActivity>
+    public class RetailerDemListCreator
     {
         private readonly ITransactionManager transactionManager;
         private readonly IRetailerDemListRepository retailerDemListRepository;
@@ -30,9 +30,7 @@
                 throw new DuplicateRetailerDemListException($"Retailer {retailerId} already has a Dem List");
             }
 
-            var retailerDemList = new RetailerDemList(retailerId);
-
-            this.Activities.Add(new CreateRetailerDemListActivity(createdBy));
+            var retailerDemList = new RetailerDemList(retailerId, createdBy);
 
             this.retailerDemListRepository.Add(retailerDemList);
 

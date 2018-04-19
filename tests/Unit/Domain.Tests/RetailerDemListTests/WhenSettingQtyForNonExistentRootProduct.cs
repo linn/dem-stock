@@ -31,7 +31,8 @@
         {
             this.Sut.RootProducts.Count.Should().Be(1);
             this.Sut.RootProducts.Should().Contain(r => r.RootProductUri == this.rootProductUri && r.Quantity == 2);
-            this.Sut.Activities.Count.Should().Be(1);
+            this.Sut.Activities.Count.Should().Be(2);
+            this.Sut.Activities.First(a => a is CreateRetailerDemListActivity).As<CreateRetailerDemListActivity>().RetailerId.Should().Be(2);
             this.Sut.Activities.First(a => a is UpdateRootProductActivity).As<UpdateRootProductActivity>().Quantity
                 .Should().Be(2);
             this.Sut.Activities.First(a => a is UpdateRootProductActivity).As<UpdateRootProductActivity>().UpdatedByUri

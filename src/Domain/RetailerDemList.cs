@@ -9,9 +9,10 @@
 
     public class RetailerDemList : ActivityEntity<RetailerDemListActivity>
     {
-        public RetailerDemList(int retailerId)
+        public RetailerDemList(int retailerId, string updatedByUri)
         {
             this.RetailerId = retailerId;
+            this.Activities.Add(new CreateRetailerDemListActivity(updatedByUri, retailerId));
         }
 
         private RetailerDemList()

@@ -27,7 +27,7 @@
         {
             this.requestResource = new UpdateDateRequestResource { UpdatedDate = "2018-03-14T13:45:33+00:00" };
 
-            this.retailerDemList = new RetailerDemList(234);
+            this.retailerDemList = new RetailerDemList(234, "/employee/200");
             this.retailerDemList.SetLastReviewedDate(1.April(2018), "/employees/21");
 
             this.DemStockService.UpdateRetailerDemListDetails(234, Arg.Any<DateTime?>())

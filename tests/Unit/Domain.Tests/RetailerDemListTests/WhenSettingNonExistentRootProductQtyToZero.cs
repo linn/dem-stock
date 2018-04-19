@@ -30,7 +30,8 @@
         public void ShouldRemoveRootProduct()
         {
             this.Sut.RootProducts.Count.Should().Be(0);
-            this.Sut.Activities.Count.Should().Be(1);
+            this.Sut.Activities.Count.Should().Be(2);
+            this.Sut.Activities.First(a => a is CreateRetailerDemListActivity).As<CreateRetailerDemListActivity>().RetailerId.Should().Be(2);
             this.Sut.Activities.First(a => a is UpdateRootProductActivity).As<UpdateRootProductActivity>().Quantity
                 .Should().Be(0);
             this.Sut.Activities.First(a => a is UpdateRootProductActivity).As<UpdateRootProductActivity>().UpdatedByUri
