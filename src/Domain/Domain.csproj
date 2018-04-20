@@ -6,4 +6,8 @@
     <RootNamespace>Linn.DemStock.Domain</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Linn.Common.Persistence" Version="1.0.0" />
+  </ItemGroup>
+
 </Project>

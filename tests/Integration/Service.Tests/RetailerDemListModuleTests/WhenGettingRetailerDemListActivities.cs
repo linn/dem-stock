@@ -24,7 +24,7 @@
         [SetUp]
         public void SetUp()
         {
-            this.retailerDemList = new RetailerDemList(200);
+            this.retailerDemList = new RetailerDemList(200, "/employee/200");
             this.retailerDemList.SetRootProductQuantity("/products/100", "/employees/50", 3);
             this.retailerDemList.SetLastReviewedDate(13.April(2018), "/employees/21");
             this.DemStockService.GetRetailerDemList(200)
@@ -57,9 +57,10 @@
         public void ShouldReturnResource()
         {
             var resource = this.Response.Body.DeserializeJson<RetailerDemListActivitiesResource>();
-            resource.Activities.Count().Should().Be(2);
-            resource.Activities.First().ActivityType.Should().Be("UpdateRootProductActivity");
-            resource.Activities.First().UpdatedByUri.Should().Be("/employees/50");
+            resource.Activities.Count().Should().Be(3);
+            resource.Activities.First().ActivityType.Should().Be("CreateRetailerDemListActivity");
+            resource.Activities.ElementAt(1).ActivityType.Should().Be("UpdateRootProductActivity");
+            resource.Activities.ElementAt(1).UpdatedByUri.Should().Be("/employees/50");
             resource.Activities.Last().ActivityType.Should().Be("UpdateLastReviewedOnActivity");
             resource.Activities.Last().UpdatedByUri.Should().Be("/employees/21");
         }

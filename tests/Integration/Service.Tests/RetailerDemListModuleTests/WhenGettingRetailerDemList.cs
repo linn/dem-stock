@@ -22,7 +22,7 @@
         [SetUp]
         public void SetUp()
         {
-            this.retailerDemList = new RetailerDemList(200);
+            this.retailerDemList = new RetailerDemList(200, "/employee/200");
             this.retailerDemList.SetRootProductQuantity("/products/100", "/employees/50", 3);
             this.DemStockService.GetRetailerDemList(200)
                 .Returns(new SuccessResult<RetailerDemList>(this.retailerDemList));

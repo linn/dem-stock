@@ -21,7 +21,7 @@
         public void SetUp()
         {
             this.retailerId = 50;
-            this.retailerDemList = new RetailerDemList(this.retailerId) { Id = 12 };
+            this.retailerDemList = new RetailerDemList(this.retailerId, "employee/200") { Id = 12 };
             this.DemListRepository.GetByRetailerId(this.retailerId).Returns(this.retailerDemList);
             this.result = this.Sut.UpdateRetailerDemListDetails(this.retailerId, 1.April(2018));
         }
