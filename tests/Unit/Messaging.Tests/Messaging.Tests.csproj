@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Messaging\Messaging.csproj" />
+    <ProjectReference Include="..\..\..\src\Resources\Resources.csproj" />
   </ItemGroup>
 
 </Project>

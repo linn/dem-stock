@@ -4,6 +4,7 @@
 
     using Linn.Common.Messaging.RabbitMQ.Autofac;
     using Linn.DemStock.IoC;
+    using Linn.DemStock.Messaging.Handlers;
 
     public static class Configuration
     {
@@ -20,6 +21,7 @@
             builder.RegisterReceiver("dem-stock.q", "dem-stock.dlx");
 
             builder.RegisterType<Listener>().AsSelf();
+            builder.RegisterType<RetailerCreatedHandler>().AsSelf();
 
             return builder.Build();
         }

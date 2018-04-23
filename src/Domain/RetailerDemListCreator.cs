@@ -1,20 +1,14 @@
 ﻿namespace Linn.DemStock.Domain
 {
-    using Linn.Common.Persistence;
     using Linn.DemStock.Domain.Exceptions;
     using Linn.DemStock.Domain.Repositories;
-    using Linn.DemStock.Domain.RetailerDemListActivities;
 
     public class RetailerDemListCreator
     {
-        private readonly ITransactionManager transactionManager;
         private readonly IRetailerDemListRepository retailerDemListRepository;
 
-        public RetailerDemListCreator(
-            ITransactionManager transactionManager,
-            IRetailerDemListRepository retailerDemListRepository)
+        public RetailerDemListCreator(IRetailerDemListRepository retailerDemListRepository)
         {
-            this.transactionManager = transactionManager;
             this.retailerDemListRepository = retailerDemListRepository;
         }
 
@@ -33,8 +27,6 @@
             var retailerDemList = new RetailerDemList(retailerId, createdBy);
 
             this.retailerDemListRepository.Add(retailerDemList);
-
-            this.transactionManager.Commit();
 
             return retailerDemList;
         }
