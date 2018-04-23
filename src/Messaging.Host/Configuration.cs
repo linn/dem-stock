@@ -13,9 +13,10 @@
             builder.RegisterModule<AmazonCredentialsModule>();
             builder.RegisterModule<AmazonSqsModule>();
             builder.RegisterModule<LoggingModule>();
-            //builder.RegisterModule<MessagingModule>();
-            //builder.RegisterModule<PersistenceModule>();
-            //builder.RegisterModule<ServiceModule>();
+            builder.RegisterModule<MessagingModule>();
+            builder.RegisterModule<MessagingDatabaseModule>();
+            builder.RegisterModule<PersistenceModule>();
+
             builder.RegisterReceiver("dem-stock.q", "dem-stock.dlx");
 
             builder.RegisterType<Listener>().AsSelf();
