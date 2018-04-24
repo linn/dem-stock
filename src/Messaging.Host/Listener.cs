@@ -45,7 +45,7 @@
             }
             catch (Exception e)
             {
-                this.logger.Error($"Logger Exception {e.Message} {e.InnerException.Message}");
+                this.logger.Error($"Logger Exception {e.Message} {e.InnerException?.Message}");
                 Thread.Sleep(1000);
             }
         }
