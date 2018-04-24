@@ -46,7 +46,7 @@ export const fetchRetailerDemList = retailerUri => async (dispatch, getState) =>
         await dispatch(fetchActivities(retailerUri));
         const state = getState();
         const activities = getActivities(state.activities);
-        const activityRootProdUris = state.activities.map(a => a.rootProductUri).filter(r => r !== undefined);
+        const activityRootProdUris = activities.map(a => a.rootProductUri).filter(r => r !== undefined);
         const rootProductUris = data.rootProducts.map(rp => rp.rootProductUri).concat(activityRootProdUris);
         dispatch(fetchRootProducts(rootProductUris));
     } catch (e) {

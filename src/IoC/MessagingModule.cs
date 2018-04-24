@@ -11,7 +11,6 @@
             builder.RegisterConnectionBuilder();
             builder.RegisterInfiniteRetryStrategy();
             builder.RegisterConnector();
-            builder.RegisterMessageDispatcher();
             builder.RegisterConfiguration();
             builder.RegisterTerminator();
         }
