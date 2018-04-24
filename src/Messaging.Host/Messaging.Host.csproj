@@ -8,8 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="linn.common.configuration" Version="1.1.2" />
     <PackageReference Include="Linn.Common.Logging" Version="1.1.1" />
-    <PackageReference Include="Linn.Common.Messaging.RabbitMQ.Autofac" Version="1.1.2" />
+    <PackageReference Include="Linn.Common.Messaging.RabbitMQ" Version="1.1.2" />
+    <PackageReference Include="Linn.Common.Messaging.RabbitMQ.Autofac" Version="1.1.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
   </ItemGroup>
 

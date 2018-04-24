@@ -8,6 +8,7 @@
     using Linn.Common.Logging;
     using Linn.Common.Messaging.RabbitMQ;
     using Linn.Common.Messaging.RabbitMQ.Unicast;
+    using Linn.DemStock.Messaging.Handlers;
 
     public class Listener
     {
@@ -21,16 +22,15 @@
             this.receiver = scope.Resolve<IReceiver>();
             this.consumer = new DedupingMessageConsumer(new MessageConsumer(this.receiver), this.receiver);
 
-            this.logger.Info("Started pricing-listener");
+            this.logger.Info("Started dem stock listener");
 
-            this.consumer.For("dem-stock.some-type")
+            this.consumer.For("retailers.retailer.created")
                 .OnConsumed(m =>
                     {
                         using (var handlerScope = scope.BeginLifetimeScope("messageHandler"))
                         {
-                            //var handler = handlerScope.Resolve<DiscountCacheHandler>();
-                            //return handler.Execute(m);
-                            return true;
+                            var handler = handlerScope.Resolve<RetailerCreatedHandler>();
+                            return handler.Execute(m);
                         }
                     })
                 .OnRejected(this.LogRejection);

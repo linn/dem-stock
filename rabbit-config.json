@@ -1,0 +1,69 @@
+{
+  "users": [],
+  "vhosts": [],
+  "permissions": [],
+  "queues": [    {
+      "name": "dem-stock.dlq",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "dem-stock.q",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-ha-policy": "all",
+        "x-dead-letter-exchange": "dem-stock.dlx"
+      }
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "dem-stock.x",
+      "vhost": "/",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "dem-stock.dlx",
+      "vhost": "/",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "retailers.x",
+      "vhost": "/",
+      "destination": "dem-stock.q",
+      "destination_type": "queue",
+      "routing_key": "retailers.retailer.created",
+      "arguments": {}
+    },
+    {
+      "source": "dem-stock.x",
+      "vhost": "/",
+      "destination": "dem-stock.q",
+      "destination_type": "queue",
+      "routing_key": "#",
+      "arguments": {}
+    },
+    {
+      "source": "dem-stock.dlx",
+      "vhost": "/",
+      "destination": "dem-stock.dlq",
+      "destination_type": "queue",
+      "routing_key": "#",
+      "arguments": {}
+    }
+  ]
+}
