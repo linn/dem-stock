@@ -51,12 +51,6 @@
         }
 
         [Test]
-        public void ShouldTerminateRabbitConnection()
-        {
-            this.RabbitTerminator.Received(1).Close();
-        }
-
-        [Test]
         public void ShouldCommitTransaction()
         {
             this.TransactionManager.Received(1).Commit();
