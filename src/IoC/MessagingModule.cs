@@ -12,7 +12,6 @@
             builder.RegisterInfiniteRetryStrategy();
             builder.RegisterConnector();
             builder.RegisterConfiguration();
-            builder.RegisterTerminator();
         }
     }
 }

@@ -18,19 +18,15 @@
 
         private readonly ILog log;
 
-        private readonly IRabbitTerminator rabbitTerminator;
-
         private readonly IRetailerDemListRepository retailerDemListRepository;
 
         public RetailerCreatedHandler(
             ITransactionManager transactionManager,
             ILog log,
-            IRabbitTerminator rabbitTerminator,
             IRetailerDemListRepository retailerDemListRepository)
         {
             this.transactionManager = transactionManager;
             this.log = log;
-            this.rabbitTerminator = rabbitTerminator;
             this.retailerDemListRepository = retailerDemListRepository;
         }
 
@@ -43,7 +39,6 @@
             var factory = new RetailerDemListCreator(this.retailerDemListRepository);
             factory.CreateRetailerDemList(resource.Id, "/employees/100");
 
-            this.rabbitTerminator.Close();
             this.transactionManager.Commit();
 
             return true;
