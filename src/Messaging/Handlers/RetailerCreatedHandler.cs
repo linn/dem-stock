@@ -2,6 +2,7 @@
 {
     using System.Text;
 
+    using Linn.Common.Logging;
     using Linn.Common.Messaging.RabbitMQ;
     using Linn.Common.Messaging.RabbitMQ.Unicast;
     using Linn.Common.Persistence;
@@ -15,16 +16,20 @@
     {
         private readonly ITransactionManager transactionManager;
 
+        private readonly ILog log;
+
         private readonly IRabbitTerminator rabbitTerminator;
 
         private readonly IRetailerDemListRepository retailerDemListRepository;
 
         public RetailerCreatedHandler(
             ITransactionManager transactionManager,
+            ILog log,
             IRabbitTerminator rabbitTerminator,
             IRetailerDemListRepository retailerDemListRepository)
         {
             this.transactionManager = transactionManager;
+            this.log = log;
             this.rabbitTerminator = rabbitTerminator;
             this.retailerDemListRepository = retailerDemListRepository;
         }
@@ -33,9 +38,9 @@
         {
             var content = Encoding.UTF8.GetString(message.Body);
             var resource = JsonConvert.DeserializeObject<RetailerResource>(content);
+            this.log.Info($"Creating dem list for retailer {resource.Id} {resource.Name}");
 
             var factory = new RetailerDemListCreator(this.retailerDemListRepository);
-
             factory.CreateRetailerDemList(resource.Id, "/employees/100");
 
             this.rabbitTerminator.Close();

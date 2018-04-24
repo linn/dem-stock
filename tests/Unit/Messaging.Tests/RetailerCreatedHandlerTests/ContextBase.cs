@@ -1,5 +1,6 @@
 ﻿namespace Linn.DemStock.Messaging.Tests.RetailerCreatedHandlerTests
 {
+    using Linn.Common.Logging;
     using Linn.Common.Messaging.RabbitMQ;
     using Linn.Common.Persistence;
     using Linn.DemStock.Domain.Repositories;
@@ -17,6 +18,8 @@
 
         protected IRabbitTerminator RabbitTerminator { get; private set; }
 
+        protected ILog Log { get; private set; }
+
         protected IRetailerDemListRepository RetailerDemListRepository { get; private set; }
 
         [SetUp]
@@ -24,10 +27,12 @@
         {
             this.TransactionManager = Substitute.For<ITransactionManager>();
             this.RabbitTerminator = Substitute.For<IRabbitTerminator>();
+            this.Log = Substitute.For<ILog>();
             this.RetailerDemListRepository = Substitute.For<IRetailerDemListRepository>();
 
             this.Sut = new RetailerCreatedHandler(
                 this.TransactionManager,
+                this.Log,
                 this.RabbitTerminator,
                 this.RetailerDemListRepository);
         }
