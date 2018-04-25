@@ -17,6 +17,7 @@
             builder.RegisterModule<MessagingModule>();
             builder.RegisterModule<MessagingDatabaseModule>();
             builder.RegisterModule<PersistenceModule>();
+            builder.RegisterModule<ServiceModule>();
 
             builder.RegisterReceiver("dem-stock.q", "dem-stock.dlx");
 

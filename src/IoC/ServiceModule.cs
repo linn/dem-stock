@@ -3,6 +3,7 @@
     using Autofac;
 
     using Linn.DemStock.Facade.Services;
+    using Linn.DemStock.Proxy;
 
     public class ServiceModule : Module
     {
@@ -10,6 +11,9 @@
         {
             // services
             builder.RegisterType<DemStockService>().As<IDemStockService>();
+
+            // proxies
+            builder.RegisterType<RetailerProxy>().As<IRetailerProxy>();
         }
     }
 }

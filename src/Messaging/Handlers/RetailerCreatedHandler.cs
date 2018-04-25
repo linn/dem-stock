@@ -3,7 +3,6 @@
     using System.Text;
 
     using Linn.Common.Logging;
-    using Linn.Common.Messaging.RabbitMQ;
     using Linn.Common.Messaging.RabbitMQ.Unicast;
     using Linn.Common.Persistence;
     using Linn.DemStock.Domain;
