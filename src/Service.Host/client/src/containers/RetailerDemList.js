@@ -1,7 +1,7 @@
 ﻿import { connect } from 'react-redux';
 import RetailerDemList from '../components/RetailerDemList';
 import initialiseOnMount from './common/initialiseOnMount';
-import { fetchRetailerDemList, setRootProduct, updateDemListDetails } from '../actions/retailerDemList';
+import { fetchRetailerDemList, setRootProduct, updateDemListDetails, fetchRetailerDemListDetails } from '../actions/retailerDemList';
 import { getRetailerDemList, getRetailerDemListRetailerUri } from '../selectors/retailerDemListSelectors';
 import { getRetailerName } from '../selectors/retailerSelectors';
 import { getActivities } from '../selectors/activitySelectors';

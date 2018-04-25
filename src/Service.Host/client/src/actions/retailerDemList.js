@@ -37,18 +37,22 @@ const receiveUpdateDemListDetails = data => ({
     payload: { data }
 });
 
-export const fetchRetailerDemList = retailerUri => async (dispatch, getState) => {
+export const fetchRetailerDemList = retailerUri => async (dispatch) => {
     dispatch(requestRetailerDemList(retailerUri));
     try {
         const data = await fetchJson(`${config.appRoot}${retailerUri}/dem-stock`);
         dispatch(receiveRetailerDemList(data));
         dispatch(fetchRetailer(retailerUri));
+<<<<<<< HEAD
         await dispatch(fetchActivities(retailerUri));
         const state = getState();
         const activities = getActivities(state.activities);
         const activityRootProdUris = activities.map(a => a.rootProductUri).filter(r => r !== undefined);
         const rootProductUris = data.rootProducts.map(rp => rp.rootProductUri).concat(activityRootProdUris);
         dispatch(fetchRootProducts(rootProductUris));
+=======
+        dispatch(fetchActivities(retailerUri));
+>>>>>>> adding middleware and root products selectors
     } catch (e) {
         alert(`Failed to fetch retailer dem list. Error: ${e.message}`);
     }

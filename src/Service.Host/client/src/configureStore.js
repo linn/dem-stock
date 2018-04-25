@@ -2,10 +2,11 @@
 import { routerMiddleware } from 'react-router-redux';
 import thunkMiddleware from 'redux-thunk';
 import history from './history';
+import { rootProductsMiddleware } from './middleware';
 
 export default function createStoreFunction(reducer, initialState) {
 
-    const middleware = applyMiddleware(thunkMiddleware, routerMiddleware(history));
+    const middleware = applyMiddleware(thunkMiddleware, routerMiddleware(history), rootProductsMiddleware);
 
     const enhancers = window.__REDUX_DEVTOOLS_EXTENSION__ && process.env.NODE_ENV !== 'production'
         ? compose(
