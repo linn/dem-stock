@@ -52,7 +52,12 @@
             }
 
             var retailerId = this.retailerProxy.GetRetailerId(invoiceResource.links.First(l => l.Rel == "sales-customer").Href);
-            var retailerDemList = this.retailerDemListRepository.GetByRetailerId(retailerId);
+            if (!retailerId.HasValue)
+            {
+                return;
+            }
+
+            var retailerDemList = this.retailerDemListRepository.GetByRetailerId(retailerId.Value);
             this.log.Info($"Adding {rootProducts.Count} root products from invoice {invoiceResource.id} to dem list {retailerDemList} for retailer {retailerId}.");
 
             foreach (var rootProduct in rootProducts)

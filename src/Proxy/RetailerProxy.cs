@@ -22,7 +22,7 @@
             this.rootUri = rootUri;
         }
 
-        public int GetRetailerId(string salesCustomerUri)
+        public int? GetRetailerId(string salesCustomerUri)
         {
             var uri = new Uri($"{this.rootUri}/retailers?salesCustomer={salesCustomerUri}", UriKind.RelativeOrAbsolute);
             var response = this.restClient.Get(
@@ -33,13 +33,18 @@
 
             if (response.StatusCode != HttpStatusCode.OK)
             {
-                throw new ProxyException($"Error getting retailer for sales customer {salesCustomerUri}.");
+                throw new ProxyException($"Error trying to find retailer for sales customer {salesCustomerUri}.");
             }
 
             var json = new JsonSerializer();
-            var retailer = json.Deserialize<RetailerResource>(response.Value);
+            var retailers = json.Deserialize<RetailerResources>(response.Value);
 
-            return retailer.Id;
+            if (retailers.Retailers.Length > 0)
+            {
+                return retailers.Retailers[0].Id;
+            }
+
+            return null;
         }
     }
 }

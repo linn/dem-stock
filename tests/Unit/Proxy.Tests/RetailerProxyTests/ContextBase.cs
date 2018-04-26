@@ -10,7 +10,7 @@
     {
         protected RetailerProxy Sut { get; private set; }
 
-        protected int RetailerId { get; set; }
+        protected int? RetailerId { get; set; }
 
         protected IRestClient RestClient { get; private set; }
 

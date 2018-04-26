@@ -2,6 +2,6 @@
 {
     public interface IRetailerProxy
     {
-        int GetRetailerId(string salesCustomerUri);
+        int? GetRetailerId(string salesCustomerUri);
     }
 }

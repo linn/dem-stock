@@ -15,7 +15,7 @@
 
     using NUnit.Framework;
 
-    public class WhenGettingRetailerId : ContextBase
+    public class WhenGettingNoRetailerForCustomerUri : ContextBase
     {
         private RestResponse<string> response;
 
@@ -25,7 +25,7 @@
         public void SetUp()
         {
             var json = new JsonSerializer();
-            var resource = new RetailerResources { Retailers = new[] { new RetailerResource { Id = 123, Name = "Audio Projects" } } };
+            var resource = new RetailerResources { Retailers = new RetailerResource[0] };
             this.response = new RestResponse<string> { StatusCode = HttpStatusCode.OK, Value = json.Serialize(resource) };
             this.salesCustomerUri = "/sales/customers/808";
 
@@ -40,9 +40,9 @@
         }
 
         [Test]
-        public void ShouldReturnRetailerId()
+        public void ShouldReturnNull()
         {
-            this.RetailerId.Should().Be(123);
+            this.RetailerId.Should().BeNull();
         }
     }
 }
