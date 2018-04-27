@@ -17,11 +17,13 @@
             builder.RegisterModule<MessagingModule>();
             builder.RegisterModule<MessagingDatabaseModule>();
             builder.RegisterModule<PersistenceModule>();
+            builder.RegisterModule<ServiceModule>();
 
             builder.RegisterReceiver("dem-stock.q", "dem-stock.dlx");
 
             builder.RegisterType<Listener>().AsSelf();
             builder.RegisterType<RetailerCreatedHandler>().AsSelf();
+            builder.RegisterType<InvoiceCreatedHandler>().AsSelf();
 
             return builder.Build();
         }

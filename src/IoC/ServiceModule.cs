@@ -2,7 +2,9 @@
 {
     using Autofac;
 
+    using Linn.Common.Configuration;
     using Linn.DemStock.Facade.Services;
+    using Linn.DemStock.Proxy;
 
     public class ServiceModule : Module
     {
@@ -10,6 +12,10 @@
         {
             // services
             builder.RegisterType<DemStockService>().As<IDemStockService>();
+
+            // proxies
+            builder.RegisterType<RetailerProxy>().As<IRetailerProxy>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
+            builder.RegisterType<ProductsProxy>().As<IProductsProxy>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
         }
     }
 }

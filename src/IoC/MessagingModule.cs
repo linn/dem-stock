@@ -3,6 +3,7 @@
     using Autofac;
 
     using Linn.Common.Messaging.RabbitMQ.Autofac;
+    using Linn.DemStock.Messaging;
 
     public class MessagingModule : Module
     {
@@ -12,6 +13,8 @@
             builder.RegisterInfiniteRetryStrategy();
             builder.RegisterConnector();
             builder.RegisterConfiguration();
+
+            builder.RegisterType<InvoiceProcessingService>().As<IInvoiceProcessingService>();
         }
     }
 }

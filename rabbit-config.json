@@ -2,7 +2,8 @@
   "users": [],
   "vhosts": [],
   "permissions": [],
-  "queues": [    {
+  "queues": [
+    {
       "name": "dem-stock.dlq",
       "vhost": "/",
       "durable": true,
@@ -63,6 +64,14 @@
       "destination": "dem-stock.dlq",
       "destination_type": "queue",
       "routing_key": "#",
+      "arguments": {}
+    },
+    {
+      "source": "linnapps-api.x",
+      "vhost": "/",
+      "destination": "dem-stock.q",
+      "destination_type": "queue",
+      "routing_key": "invoicing.invoice.created",
       "arguments": {}
     }
   ]
