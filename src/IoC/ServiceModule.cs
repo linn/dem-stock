@@ -16,7 +16,6 @@
             // proxies
             builder.RegisterType<RetailerProxy>().As<IRetailerProxy>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
             builder.RegisterType<ProductsProxy>().As<IProductsProxy>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
-
         }
     }
 }
