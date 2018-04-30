@@ -1,9 +1,12 @@
-﻿export const getActivities = (activities) => {    
-    if (!activities) {
+﻿import { getRootProductName } from './rootProductsSelectors';
+
+export const getActivities = (activities, rootProducts) => {
+    if (!activities || !rootProducts) {
         return null;
     }
-
-    return activities;
+    let activitiesWithRootProductName = [...activities];
+    activitiesWithRootProductName.forEach(a => a.rootProductName = getRootProductName(a.rootProductUri, rootProducts));
+    return activitiesWithRootProductName;
 }
 
 export const getActivityRootProductUris = (activities) => {

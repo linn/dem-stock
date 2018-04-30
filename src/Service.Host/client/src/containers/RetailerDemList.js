@@ -1,7 +1,7 @@
 ﻿import { connect } from 'react-redux';
 import RetailerDemList from '../components/RetailerDemList';
 import initialiseOnMount from './common/initialiseOnMount';
-import { fetchRetailerDemList, setRootProduct, updateDemListDetails, fetchRetailerDemListDetails } from '../actions/retailerDemList';
+import { setRootProduct, updateDemListDetails, fetchRetailerDemListDetails } from '../actions/retailerDemList';
 import { getRetailerDemList, getRetailerDemListRetailerUri } from '../selectors/retailerDemListSelectors';
 import { getRetailerName } from '../selectors/retailerSelectors';
 import { getActivities } from '../selectors/activitySelectors';
@@ -14,11 +14,11 @@ const mapStateToProps = ({ retailerDemList, retailer, rootProducts, activities }
     rootProducts: rootProducts,
     retailerName: getRetailerName(retailer),
     loading: retailerDemList.loading,
-    activities: getActivities(activities)
+    activities: getActivities(activities, rootProducts)
 });
 
 const initialise = ({ retailerId }) => dispatch => {
-    dispatch(fetchRetailerDemList(`/retailers/${retailerId}`));
+    dispatch(fetchRetailerDemListDetails(`/retailers/${retailerId}`));
 };
 
 const mapDispatchToProps = {

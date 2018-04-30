@@ -37,13 +37,16 @@ const receiveUpdateDemListDetails = data => ({
     payload: { data }
 });
 
+export const fetchRetailerDemListDetails = retailerUri => async (dispatch) => {
+    dispatch(fetchRetailerDemList(retailerUri));
+    dispatch(fetchRetailer(retailerUri));
+}
+
 export const fetchRetailerDemList = retailerUri => async (dispatch) => {
     dispatch(requestRetailerDemList(retailerUri));
     try {
         const data = await fetchJson(`${config.appRoot}${retailerUri}/dem-stock`);
         dispatch(receiveRetailerDemList(data));
-        dispatch(fetchRetailer(retailerUri));
-        dispatch(fetchActivities(retailerUri));
     } catch (e) {
         alert(`Failed to fetch retailer dem list. Error: ${e.message}`);
     }
@@ -55,7 +58,6 @@ export const setRootProduct = (rootProductUri, quantity, retailerUri) => async d
         const body = { rootProductUri, quantity };
         const data = await putJson(`${config.appRoot}${retailerUri}/dem-stock/products`, body);
         dispatch(receiveSetRootProduct(data));
-        dispatch(fetchRetailerDemList(retailerUri));
     } catch (e) {
         alert(`Failed to set root product. Error: ${e.message}`);
     }
