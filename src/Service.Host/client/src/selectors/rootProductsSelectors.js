@@ -23,6 +23,7 @@ export const getRootProductUris = (rootProducts) => {
     if (!rootProducts) {
         return null;
     }
+    
     return rootProducts.map(r => r.rootProductUri);
 }
 

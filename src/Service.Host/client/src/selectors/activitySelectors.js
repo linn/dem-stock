@@ -4,6 +4,7 @@ export const getActivities = (activities, rootProducts) => {
     if (!activities || !rootProducts) {
         return null;
     }
+    
     let activitiesWithRootProductName = [...activities];
     activitiesWithRootProductName.forEach(a => a.rootProductName = getRootProductName(a.rootProductUri, rootProducts));
     return activitiesWithRootProductName;
