@@ -17,7 +17,7 @@ class Activities extends Component {
     }
 
     render() {
-        const { activities, rootProductDetails } = this.props;
+        const { activities } = this.props;
 
         return activities && activities.length > 0
             ? (
@@ -32,7 +32,7 @@ class Activities extends Component {
                                 {activities
                                     .sort((a,b) => this.compare(a,b))
                                     .map((activity, i) => (
-                                        <ActivityItem activity={activity} rootProductDetails={rootProductDetails} key={i} />
+                                        <ActivityItem activity={activity} key={i} />
                                 ))}
                             </ListGroup>) 
                         : (

@@ -8,7 +8,6 @@ import moment from 'moment';
 import RootProducts from './RootProducts';
 import Activities from './Activities';
 import RootProductSearch from '../containers/RootProductSearch';
-import { getRetailerDemListRetailerUri } from '../selectors/retailerDemListSelectors';
 
 class RetailerDemList extends Component {
 
@@ -64,7 +63,7 @@ class RetailerDemList extends Component {
                             </Col>
                         </Row>
                     </div>
-                    <Activities activities={activities} rootProductDetails={rootProducts} />
+                    <Activities activities={activities} />
                 </Grid>
             </div>
         );

@@ -1,15 +1,14 @@
 ﻿import React, { Component } from 'react';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import moment from 'moment';
-import { getRootProductName } from '../selectors/rootProductsSelectors';
 
 class ActivityItem extends Component {
     render() {
-        const { activity, rootProductDetails } = this.props;
+        const { activity } = this.props;
 
         return activity.activityType === 'UpdateRootProductActivity'
             ? (<ListGroupItem>
-                    <b>{getRootProductName(activity.rootProductUri, rootProductDetails)} </b>
+                    <b>{activity.rootProductName ? activity.rootProductName : 'Unknown root product'} </b>
                     quantity updated to <b>{activity.quantity} </b>
                     by <b>{activity.updatedBy ? activity.updatedBy : 'unknown user'}</b>
                     <span className="small pull-right text-muted">{moment(activity.changedOn).startOf('hour').fromNow()
