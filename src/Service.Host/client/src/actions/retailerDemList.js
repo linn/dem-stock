@@ -6,70 +6,85 @@ import { fetchRetailer } from './retailer';
 import { fetchRootProducts } from './rootProducts';
 import { fetchActivities } from './activities';
 import { getActivities } from '../selectors/activitySelectors';
-
-const requestRetailerDemList = retailerUri => ({
-    type: actionTypes.REQUEST_RETAILER_DEM_LIST,
-    payload: { retailerUri }
-});
-
-const receiveRetailerDemList = data => ({
-    type: actionTypes.RECEIVE_RETAILER_DEM_LIST,
-    payload: { data }
-});
-
-const requestSetRootProduct = (rootProductUri, quantity) => ({
-    type: actionTypes.REQUEST_SET_ROOT_PRODUCT,
-    payload: { rootProductUri, quantity }
-});
-
-const receiveSetRootProduct = data => ({
-    type: actionTypes.RECEIVE_SET_ROOT_PRODUCT,
-    payload: { data }
-});
-
-const requestUpdateDemListDetails = retailerUri => ({
-    type: actionTypes.REQUEST_UPDATE_DEM_LIST_DETAILS,
-    payload: { retailerUri }
-});
-
-const receiveUpdateDemListDetails = data => ({
-    type: actionTypes.RECEIVE_UPDATE_DEM_LIST_DETAILS,
-    payload: { data }
-});
+import { CALL_API } from 'redux-api-middleware';
 
 export const fetchRetailerDemListDetails = retailerUri => async (dispatch) => {
     dispatch(fetchRetailerDemList(retailerUri));
     dispatch(fetchRetailer(retailerUri));
 }
 
-export const fetchRetailerDemList = retailerUri => async (dispatch) => {
-    dispatch(requestRetailerDemList(retailerUri));
-    try {
-        const data = await fetchJson(`${config.appRoot}${retailerUri}/dem-stock`);
-        dispatch(receiveRetailerDemList(data));
-    } catch (e) {
-        alert(`Failed to fetch retailer dem list. Error: ${e.message}`);
+export const fetchRetailerDemList = retailerUri => ({
+    [CALL_API]: {
+        endpoint: `${config.appRoot}${retailerUri}/dem-stock`,
+        method: 'GET',
+        headers: {
+            Accept: 'application/json'
+        },
+        types: [
+            {
+                type: actionTypes.REQUEST_RETAILER_DEM_LIST,
+                payload: { retailerUri }
+            },
+            {
+                type: actionTypes.RECEIVE_RETAILER_DEM_LIST,
+                payload: async (action, state, res) => ({ data: await res.json() })
+            },
+            {
+                type: actionTypes.FETCH_ERROR,
+                payload: (action, state, res) => res ? `Retailer Dem List - ${res.status} ${res.statusText}` : `Network request failed`,
+            }
+        ],
     }
-}
+});
 
-export const setRootProduct = (rootProductUri, quantity, retailerUri) => async dispatch => {
-    dispatch(requestSetRootProduct(rootProductUri, quantity));
-    try {
-        const body = { rootProductUri, quantity };
-        const data = await putJson(`${config.appRoot}${retailerUri}/dem-stock/products`, body);
-        dispatch(receiveSetRootProduct(data));
-    } catch (e) {
-        alert(`Failed to set root product. Error: ${e.message}`);
+export const setRootProduct = (rootProductUri, quantity, retailerUri) => ({
+    [CALL_API]: {
+        endpoint: `${config.appRoot}${retailerUri}/dem-stock/products`,
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            Accept: 'application/json'
+        },
+        body: JSON.stringify({ rootProductUri, quantity }),
+        types: [
+            {
+                type: actionTypes.REQUEST_SET_ROOT_PRODUCT,
+                payload: { rootProductUri, quantity }
+            },
+            {
+                type: actionTypes.RECEIVE_SET_ROOT_PRODUCT,
+                payload: async (action, state, res) => ({ data: await res.json() })
+            },
+            {
+                type: actionTypes.FETCH_ERROR,
+                payload: (action, state, res) => res ? `Root Product - ${res.status} ${res.statusText}` : `Network request failed`,
+            }
+        ]
     }
-}
+});
 
-export const updateDemListDetails = (lastReviewedOn, retailerUri) => async dispatch => {
-    dispatch(requestUpdateDemListDetails(retailerUri));
-    try {
-        const body = { updatedDate: lastReviewedOn };
-        const data = await putJson(`${config.appRoot}${retailerUri}/dem-stock`, body);
-        dispatch(receiveUpdateDemListDetails(data));
-    } catch (e) {
-        alert(`Failed to update dem list details. Error: ${e.message}`);
+export const updateDemListDetails = (lastReviewedOn, retailerUri) => ({
+    [CALL_API]: {
+        endpoint: `${config.appRoot}${retailerUri}/dem-stock`,
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            Accept: 'application/json'
+        },
+        body: JSON.stringify({ updatedDate: lastReviewedOn }),
+        types: [
+            {
+                type: actionTypes.REQUEST_UPDATE_DEM_LIST_DETAILS,
+                payload: { retailerUri }
+            },
+            {
+                type: actionTypes.RECEIVE_UPDATE_DEM_LIST_DETAILS,
+                payload: async (action, state, res) => ({ data: await res.json() })
+            },
+            {
+                type: actionTypes.FETCH_ERROR,
+                payload: (action, state, res) => res ? `Retailer Dem List - ${res.status} ${res.statusText}` : `Network request failed`,
+            }
+        ]
     }
-}
+});

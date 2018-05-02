@@ -1,13 +1,20 @@
 ﻿namespace Linn.DemStock.Service.Host
 {
     using System;
+    using System.Runtime.InteropServices.ComTypes;
+    using System.Security.Claims;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     using Autofac;
+
+    using IdentityModel.Client;
 
     using Linn.Common.Logging;
     using Linn.DemStock.IoC;
 
     using Nancy;
+    using Nancy.Authentication.Stateless;
     using Nancy.Bootstrapper;
     using Nancy.Bootstrappers.Autofac;
     using Nancy.Configuration;
@@ -26,6 +33,25 @@
         {
             base.ApplicationStartup(lifetimeScope, pipelines);
 
+            var configuration = new StatelessAuthenticationConfiguration(ctx =>
+                {
+                    var accessToken = ctx.Request.Headers?.Authorization?.Replace("Bearer ", string.Empty, StringComparison.InvariantCultureIgnoreCase);
+
+                    if (!string.IsNullOrEmpty(accessToken))
+                    {
+                        var response = DiscoveryClient.GetAsync("https://www-sys.linn.co.uk/auth/.well-known/openid-configuration").Result;
+                        var userInfoClient = new UserInfoClient(response.UserInfoEndpoint);
+
+                        var userInfoResponse = userInfoClient.GetAsync(accessToken, new CancellationToken()).Result;
+
+                        return new ClaimsPrincipal(new ClaimsIdentity(userInfoResponse.Claims));
+                    }
+
+                    return null;
+                });
+
+            StatelessAuthentication.Enable(pipelines, configuration);
+
             pipelines.OnError += (ctx, ex) =>
             {
                 Log(ex, lifetimeScope.Resolve<ILog>());
@@ -36,11 +62,18 @@
         protected override void RequestStartup(ILifetimeScope lifetimeScope, IPipelines pipelines, NancyContext context)
         {
             base.RequestStartup(lifetimeScope, pipelines, context);
+
             pipelines.AfterRequest += ctx => ctx.Response.Headers.Add("Access-Control-Allow-Origin", "*");
             pipelines.AfterRequest += ctx => ctx.Response.Headers.Add("Access-Control-Allow-Credentials", "true");
             pipelines.AfterRequest += ctx => ctx.Response.Headers.Add("Access-Control-Allow-Headers", "Accept,Origin,Content-Type,Access-Control-Allow-Origin,Access-Control-Allow-Headers,Access-Control-Allow-Methods");
             pipelines.AfterRequest += ctx => ctx.Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
             pipelines.AfterRequest += ctx => ctx.Response.Headers.Add("Access-Control-Expose-Headers", "Accept,Origin,Content-type");
+        }
+
+        private Task<Nancy.Response> Jam(NancyContext ctx, CancellationToken cancellationToken)
+        {
+            ctx.CurrentUser = new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim("test", "sandy") }));
+            return Task.FromResult((Nancy.Response)null);
         }
 
         protected override void ConfigureConventions(NancyConventions conventions)

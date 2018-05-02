@@ -6,15 +6,17 @@ import { getRetailerDemList, getRetailerDemListRetailerUri } from '../selectors/
 import { getRetailerName } from '../selectors/retailerSelectors';
 import { getActivities } from '../selectors/activitySelectors';
 import { showRootProductSearch } from '../actions/rootProductSearch';
+import { getEmployeeName } from '../selectors/oidcSelectors';
 
-const mapStateToProps = ({ retailerDemList, retailer, rootProducts, activities }, { match }) => ({
+const mapStateToProps = ({ retailerDemList, retailer, rootProducts, activities, oidc }, { match }) => ({
     retailerId: match.params.retailerId,
     retailerDemList: getRetailerDemList(retailerDemList),
     retailerUri: getRetailerDemListRetailerUri(retailerDemList),
     rootProducts: rootProducts,
     retailerName: getRetailerName(retailer),
     loading: retailerDemList.loading,
-    activities: getActivities(activities, rootProducts)
+    activities: getActivities(activities, rootProducts),
+    employeeName: getEmployeeName(oidc)
 });
 
 const initialise = ({ retailerId }) => dispatch => {

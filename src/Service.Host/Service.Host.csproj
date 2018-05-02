@@ -5,6 +5,7 @@
     <RootNamespace>Linn.DemStock.Service.Host</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="Extensions\" />
     <Folder Include="views\" />
     <Folder Include="Properties\" />
     <Compile Remove="client\build\**" />
@@ -21,12 +22,16 @@
     <None Remove="node_modules\**" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="2.6.0" />
     <PackageReference Include="Linn.Common.Configuration" Version="1.1.2" />
     <PackageReference Include="Linn.Common.Logging" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.1.0-preview2-final" />
     <PackageReference Include="Microsoft.AspNetCore.Owin" Version="2.0.1" />
     <PackageReference Include="Nancy" Version="2.0.0-clinteastwood" />
+    <PackageReference Include="Nancy.Authentication.Stateless" Version="2.0.0-clinteastwood" />
     <PackageReference Include="Nancy.Bootstrappers.Autofac" Version="2.0.0-clinteastwood" />
+    <PackageReference Include="Thinktecture.IdentityModel.Client" Version="4.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IoC\IoC.csproj" />

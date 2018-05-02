@@ -1,6 +1,7 @@
 ﻿import { fetchJson } from '../helpers/fetchJson';
 import config from '../config';
 import * as actionTypes from './index';
+import { CALL_API } from 'redux-api-middleware';
 
 const requestRetailer = retailerUri => ({
     type: actionTypes.REQUEST_RETAILER,

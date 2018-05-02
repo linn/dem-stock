@@ -28,7 +28,7 @@ export const getRootProductUris = (rootProducts) => {
 }
 
 export const getRootProductsToFetch = (state) => {
-    const urisToFetch = distinct(getActivityRootProductUris(state.activities).concat(getRetailerDemListRootProductUris(state.retailerDemList)));
+    const urisToFetch = distinct(getActivityRootProductUris(state.activities).concat(getRetailerDemListRootProductUris(state.retailerDemList))).filter(n => n != undefined);
 
     if (!state.rootProducts) {
         return urisToFetch;

@@ -6,6 +6,7 @@ import history from '../history';
 import Navigation from './Navigation';
 import App from './App';
 import RetailerDemList from '../containers/RetailerDemList';
+import Callback from '../containers/Callback';
 
 class Root extends Component {
     render() {
@@ -19,6 +20,7 @@ class Root extends Component {
 
                         <Route path="/" render={() => { document.title = 'Dem Stock'; return false; }} />
                         <Route exact path="/" render={() => <Redirect to="/retailers/dem-stock" />} />
+                        <Route exact path="/retailers/dem-stock/signin-oidc" component={Callback} />
                         <Route exact path="/retailers/dem-stock" component={App} />
                         <Route exact path="/retailers/:retailerId/dem-stock" component={RetailerDemList} />
                     </div>
