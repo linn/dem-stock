@@ -10,23 +10,14 @@
     {
         public RetailerDemListActivityResource Visit(UpdateLastReviewedOnActivity activity)
         {
-            if (activity.LastReviewedOn != null)
-            {
-                return new UpdateLastReviewedOnActivityResource
-                           {
-                               ActivityType = activity.GetType().Name,
-                               UpdatedByUri = activity.UpdatedByUri,
-                               ChangedOn = DateTime.SpecifyKind(activity.ChangedOn, DateTimeKind.Utc).ToString("o"),
-                               LastReviewedOn = DateTime.SpecifyKind((DateTime)activity.LastReviewedOn, DateTimeKind.Utc).ToString("o"),
-                           };
-            }
-
             return new UpdateLastReviewedOnActivityResource
                        {
                            ActivityType = activity.GetType().Name,
                            UpdatedByUri = activity.UpdatedByUri,
                            ChangedOn = DateTime.SpecifyKind(activity.ChangedOn, DateTimeKind.Utc).ToString("o"),
-                           LastReviewedOn = activity.LastReviewedOn?.ToString("o"),
+                           LastReviewedOn = activity.LastReviewedOn.HasValue
+                                                ? DateTime.SpecifyKind((DateTime)activity.LastReviewedOn, DateTimeKind.Utc).ToString("o")
+                                                : activity.LastReviewedOn?.ToString("o")
                        };
         }
 
