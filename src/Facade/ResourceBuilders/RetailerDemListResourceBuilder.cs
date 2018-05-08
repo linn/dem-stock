@@ -17,7 +17,6 @@
         {
             return new RetailerDemListResource
                        {
-                           // LastReviewedOn = retailerDemList.LastReviewedOn?.ToString("o"),
                            LastReviewedOn = retailerDemList.LastReviewedOn == null
                                                 ? string.Empty
                                                 : DateTime.SpecifyKind(retailerDemList.LastReviewedOn.Value, DateTimeKind.Utc).ToString("o"),

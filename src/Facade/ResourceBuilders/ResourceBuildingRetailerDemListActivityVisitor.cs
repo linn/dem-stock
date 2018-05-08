@@ -16,7 +16,7 @@
                            UpdatedByUri = activity.UpdatedByUri,
                            ChangedOn = DateTime.SpecifyKind(activity.ChangedOn, DateTimeKind.Utc).ToString("o"),
                            LastReviewedOn = activity.LastReviewedOn.HasValue
-                                                ? DateTime.SpecifyKind((DateTime)activity.LastReviewedOn, DateTimeKind.Utc).ToString("o")
+                                                ? DateTime.SpecifyKind(activity.LastReviewedOn.Value, DateTimeKind.Utc).ToString("o")
                                                 : activity.LastReviewedOn?.ToString("o")
                        };
         }
