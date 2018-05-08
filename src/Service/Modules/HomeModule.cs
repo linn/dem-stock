@@ -2,6 +2,7 @@
 {
     using Nancy;
     using Nancy.Responses;
+    using Nancy.Security;
 
     public sealed class HomeModule : NancyModule
     {
@@ -9,8 +10,10 @@
         {
             this.Get("/", args => new RedirectResponse("/retailers/dem-stock"));
             this.Get("/retailers/dem-stock", _ => this.GetApp());
-            this.Get("/retailers/dem-stock/signin-oidc", _ => this.GetApp());
+            this.Get("/retailers/dem-stock/signin-oidc-client", _ => this.GetApp());
             this.Get("/retailers/dem-stock/signin-oidc-silent", _ => this.GetApp());
+
+            this.RequiresAuthentication();
         }
 
         private object GetApp()

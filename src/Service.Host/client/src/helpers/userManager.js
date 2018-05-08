@@ -8,7 +8,7 @@ var oidcConfig = {
     client_id: 'app',
     response_type: 'id_token token',
     scope: 'openid profile email associations',
-    redirect_uri: `${host}/retailers/dem-stock/signin-oidc`,
+    redirect_uri: `${host}/retailers/dem-stock/signin-oidc-client`,
     post_logout_redirect_uri: `${host}`,
     silent_redirect_uri: `${host}/retailers/dem-stock/signin-oidc-silent`,
     automaticSilentRenew: true,

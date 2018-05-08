@@ -1,19 +1,20 @@
 namespace Linn.DemStock.Service.Host
 {
-    using System.Linq;
-    using System.Net;
-    using System.Security.Claims;
-
-    using IdentityServer4.AccessTokenValidation;
-
-    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.DependencyInjection;
+
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+    using Linn.DemStock.Service.Host.Extensions;
+    using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Authentication.Cookies;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Authentication.OpenIdConnect;
     using Microsoft.Extensions.Logging;
     using Microsoft.IdentityModel.Tokens;
-
+    using Nancy;
     using Nancy.Owin;
 
     public class Startup
@@ -24,12 +25,67 @@ namespace Linn.DemStock.Service.Host
         {
             services.AddCors();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
+            services.AddAuthentication
+                (options =>
+                {
+                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+                })
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
+                {
+                    options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+
+                    options.Scope.Add("email associations");
+
+                    options.Authority = "https://www-sys.linn.co.uk/auth/";
+
+                    options.RequireHttpsMetadata = false;
+
+                    options.ClientId = "app";
+                    options.Events.OnTokenValidated = context =>
                     {
-                        options.TokenValidationParameters = new TokenValidationParameters { ValidateAudience = false };
-                        options.Authority = "https://www-sys.linn.co.uk/auth/";
-                    });
+                        //context.HttpContext.User = context.Principal;
+
+                        return Task.CompletedTask;
+                    };
+                    options.SaveTokens = true;
+                    options.ResponseType = "id_token token";
+                })
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+                {
+                    options.RequireHttpsMetadata = false;
+
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateAudience = false
+                    };
+
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnTokenValidated = async context =>
+                        {
+                            var accessToken = context.Request.GetAccessToken();
+
+                            var userClaims = await UserInfoHelper.GetUserClaimsAsync(accessToken);
+
+                            context.Principal.AddIdentity(new ClaimsIdentity(userClaims));
+
+                            context.HttpContext.User = context.Principal;
+                        },
+                        OnAuthenticationFailed = context =>
+                        {
+                            context.Response.StatusCode = 403;
+
+                            return Task.CompletedTask;
+                        }
+                    };
+
+                    options.Authority = "https://www-sys.linn.co.uk/auth/";
+                    options.SaveToken = true;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +102,14 @@ namespace Linn.DemStock.Service.Host
 
             app.UseAuthentication();
 
-            app.UseOwin(x => x.UseNancy());
+            app.UseBearerTokenAuthentication();
+
+            app.UseOwin(x => x.UseNancy(config =>
+            {
+                config.PassThroughWhenStatusCodesAre(HttpStatusCode.Unauthorized, HttpStatusCode.Forbidden);
+            }));
+
+            app.Use((context, next) => context.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme));
         }
     }
 }
