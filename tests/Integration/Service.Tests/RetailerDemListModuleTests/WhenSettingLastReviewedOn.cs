@@ -59,7 +59,7 @@
         {
             var resource = this.Response.Body.DeserializeJson<RetailerDemListResource>();
             resource.RetailerId.Should().Be(this.retailerDemList.RetailerId);
-            resource.LastReviewedOn.Should().Be(1.April(2018).ToString("o"));
+            resource.LastReviewedOn.Should().Be("2018-04-01T00:00:00.0000000Z");
         }
     }
 }
