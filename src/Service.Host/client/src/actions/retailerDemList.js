@@ -3,9 +3,6 @@ import { getSelfHref } from '../helpers/utilities';
 import config from '../config';
 import * as actionTypes from './index';
 import { fetchRetailer } from './retailer';
-import { fetchRootProducts } from './rootProducts';
-import { fetchActivities } from './activities';
-import { getActivities } from '../selectors/activitySelectors';
 import { CALL_API } from 'redux-api-middleware';
 
 export const fetchRetailerDemListDetails = retailerUri => async (dispatch) => {
@@ -17,6 +14,7 @@ export const fetchRetailerDemList = retailerUri => ({
     [CALL_API]: {
         endpoint: `${config.appRoot}${retailerUri}/dem-stock`,
         method: 'GET',
+        options: { requiresAuth: true },
         headers: {
             Accept: 'application/json'
         },
@@ -41,6 +39,7 @@ export const setRootProduct = (rootProductUri, quantity, retailerUri) => ({
     [CALL_API]: {
         endpoint: `${config.appRoot}${retailerUri}/dem-stock/products`,
         method: 'PUT',
+        options: { requiresAuth: true },
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
             Accept: 'application/json'
@@ -67,6 +66,7 @@ export const updateDemListDetails = (lastReviewedOn, retailerUri) => ({
     [CALL_API]: {
         endpoint: `${config.appRoot}${retailerUri}/dem-stock`,
         method: 'PUT',
+        options: { requiresAuth: true },
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
             Accept: 'application/json'

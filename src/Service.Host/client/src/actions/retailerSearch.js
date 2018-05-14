@@ -1,32 +1,47 @@
-﻿import { fetchJson } from '../helpers/fetchJson';
-import config from '../config';
+﻿import config from '../config';
 import * as actionTypes from './index';
-
-const requestRetailers = searchTerm => ({
-    type: actionTypes.REQUEST_RETAILERS,
-    payload: { searchTerm }
-});
-
-const receiveRetailers = (searchTerm, data) => ({
-    type: actionTypes.RECEIVE_RETAILERS,
-    payload: { searchTerm, retailers: data ? data.retailers : [] }
-});
+import { CALL_API } from 'redux-api-middleware';
 
 export const clearRetailerSearch = () => ({
     type: actionTypes.CLEAR_RETAILER_SEARCH,
     payload: {}
 });
 
+let timeoutId;
+
 export const searchRetailers = searchTerm => async dispatch => {
     if (searchTerm) {
-        dispatch(requestRetailers(searchTerm));
-        try {
-            const data = await fetchJson(`${config.proxyRoot}/retailers?name=${searchTerm}`);
-            dispatch(receiveRetailers(searchTerm, data));
-        } catch (e) {
-            alert(`Failed to search for retailer. Error: ${e.message}`);
+        if (timeoutId) {
+            clearTimeout(timeoutId);
         }
+        timeoutId = setTimeout(async () => {
+            dispatch(performRetailerSearch(searchTerm));
+        }, 500);
     } else {
-        dispatch(receiveRetailers('', { retailers: [] }));
+        dispatch(clearRetailerSearch());
     }
 };
+
+const performRetailerSearch = searchTerm => ({
+    [CALL_API]: {
+        endpoint: `${config.proxyRoot}/retailers?name=${searchTerm}`,
+        method: 'GET',
+        headers: {
+            Accept: 'application/json'
+        },
+        types: [
+            {
+                type: actionTypes.REQUEST_RETAILERS,
+                payload: { searchTerm }
+            },
+            {
+                type: actionTypes.RECEIVE_RETAILERS,
+                payload: async (action, state, res) => ({ searchTerm, data: await res.json() })
+            },
+            {
+                type: actionTypes.FETCH_ERROR,
+                payload: (action, state, res) => res ? `Retailers - ${res.status} ${res.statusText}` : `Network request failed`,
+            }
+        ]
+    }
+});

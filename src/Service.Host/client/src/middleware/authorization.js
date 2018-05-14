@@ -3,10 +3,12 @@ import { getAccessToken } from '../selectors/getAccessToken';
 
 export default ({ getState }) => next => action => {
     if (action[CALL_API]) {
-        action[CALL_API].headers = {
-            Authorization: 'Bearer ' + getAccessToken(getState()),
-            ...action[CALL_API].headers
-        };
+        if (action[CALL_API].options && action[CALL_API].options.requiresAuth) {
+            action[CALL_API].headers = {
+                Authorization: 'Bearer ' + getAccessToken(getState()),
+                ...action[CALL_API].headers
+            };
+        }
     }
 
     return next(action);

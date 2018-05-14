@@ -7,6 +7,7 @@ import retailerDemList from './retailerDemList';
 import retailer from './retailer';
 import rootProducts from './rootProducts';
 import rootProductSearch from './rootProductSearch';
+import employees from './employees';
 
 const rootReducer = combineReducers({
     oidc,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     retailer,
     rootProducts,
     rootProductSearch,
-    activities
+    activities,
+    employees
 });
 
 export default rootReducer;

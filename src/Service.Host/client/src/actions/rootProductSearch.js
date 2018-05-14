@@ -1,16 +1,6 @@
-﻿import { fetchJson } from '../helpers/fetchJson';
-import config from '../config';
+﻿import config from '../config';
 import * as actionTypes from './index';
-
-const requestSearchRootProducts= () => ({
-    type: actionTypes.REQUEST_SEARCH_ROOT_PRODUCTS,
-    payload: {}
-});
-
-const receiveSearchRootProducts = (rootProducts, searchTerm) => ({
-    type: actionTypes.RECEIVE_SEARCH_ROOT_PRODUCTS,
-    payload: { rootProducts, searchTerm }
-});
+import { CALL_API } from 'redux-api-middleware';
 
 const clearSearchRootProducts = () => ({
     type: actionTypes.CLEAR_SEARCH_ROOT_PRODUCTS,
@@ -37,6 +27,30 @@ export const setRootProductSearchTerm = searchTerm => dispatch => {
     dispatch(searchRootProducts());
 };
 
+const performRootProductsSearch = searchTerm => ({
+    [CALL_API]: {
+        endpoint: `${config.proxyRoot}/products/?query=${searchTerm}&filters=root-product&showPhasedOut=true`,
+        method: 'GET',
+        headers: {
+            Accept: 'application/json'
+        },
+        types: [
+            {
+                type: actionTypes.REQUEST_SEARCH_ROOT_PRODUCTS,
+                payload: {}
+            },
+            {
+                type: actionTypes.RECEIVE_SEARCH_ROOT_PRODUCTS,
+                payload: async (action, state, res) => ({ searchTerm, rootProducts: await res.json() })
+            },
+            {
+                type: actionTypes.FETCH_ERROR,
+                payload: (action, state, res) => res ? `Root Products - ${res.status} ${res.statusText}` : `Network request failed`,
+            }
+        ]
+    }
+});
+
 let timeoutId;
 
 const searchRootProducts = () => async (dispatch, getState) => {
@@ -46,18 +60,10 @@ const searchRootProducts = () => async (dispatch, getState) => {
         if (timeoutId) {
             clearTimeout(timeoutId);
         }
-
         timeoutId = setTimeout(async () => {
-            dispatch(requestSearchRootProducts());
-            try {
-                const data = await fetchJson(`${config.proxyRoot}/products/?query=${searchTerm}&filters=root-product&showPhasedOut=true`);
-                dispatch(receiveSearchRootProducts(data, searchTerm));
-            } catch (e) {
-                alert(`Failed to search for root products. Error: ${e.message}`);
-            }
+            dispatch(performRootProductsSearch(searchTerm));
         }, 500);
     } else {
         dispatch(clearSearchRootProducts());
     }
 };
-

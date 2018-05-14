@@ -22,7 +22,7 @@ const retailerSearch = (state = defaultState, action) => {
             ...state,
             loading: false,
             searchTerm: action.payload.searchTerm,
-            items: action.payload.retailers
+            items: action.payload.data ? action.payload.data.retailers : []
         }
 
     case actionTypes.CLEAR_RETAILER_SEARCH:

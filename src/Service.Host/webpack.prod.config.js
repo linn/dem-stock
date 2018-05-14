@@ -2,13 +2,16 @@
 const webpack = require('webpack');
 
 module.exports = {
-    entry: [
+    entry: {
+        app: [
             'babel-polyfill',
             './client/src/index.js'
         ],
+        'silent-renew': './client/silent-renew/index.js'
+    },
     output: {
         path: path.resolve(__dirname, 'client/build'), // string
-        filename: 'app.js',
+        filename: '[name].js',
         publicPath: '/retailers/dem-stock/build/'
     },
     module: {

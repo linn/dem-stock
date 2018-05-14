@@ -12,6 +12,7 @@ namespace Linn.DemStock.Service.Host
     using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Logging;
     using Microsoft.IdentityModel.Tokens;
     using Nancy;
@@ -37,6 +38,8 @@ namespace Linn.DemStock.Service.Host
                 .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
                 {
                     options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+
+                    options.CallbackPath = new PathString("/retailers/dem-stock/signin-oidc");
 
                     options.Scope.Add("email associations");
 
