@@ -25,21 +25,21 @@
 
         private object SetLastReviewedDate(int retailerId)
         {
+            var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
+
             var resource = this.Bind<UpdateDateRequestResource>();
 
             var reviewedDate = string.IsNullOrEmpty(resource.UpdatedDate)
                                    ? (DateTime?)null
                                    : DateTime.Parse(resource.UpdatedDate);
 
-            var retailerDemList = this.demStockService.UpdateRetailerDemListDetails(retailerId, reviewedDate);
+            var retailerDemList = this.demStockService.UpdateRetailerDemListDetails(retailerId, reviewedDate, employeeUri);
 
             return this.Negotiate.WithModel(retailerDemList);
         }
 
         private object GetRetailerDemListById(int retailerId)
         {
-            var employee = this.Context.CurrentUser.GetEmployeeUri();
-
             var retailerDemList = this.demStockService.GetRetailerDemList(retailerId);
 
             return this.Negotiate.WithModel(retailerDemList).WithView("Index");
@@ -54,12 +54,15 @@
 
         private object SetRootProductQuantity(int retailerId)
         {
+            var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
+
             var resource = this.Bind<SetRootProductRequestResource>();
 
             var rootProduct = this.demStockService.SetRetailerListRootProduct(
                 retailerId,
                 resource.RootProductUri,
-                resource.Quantity);
+                resource.Quantity,
+                employeeUri);
 
             return this.Negotiate.WithModel(rootProduct);
         }

@@ -26,7 +26,7 @@
             this.requestResource = new SetRootProductRequestResource { Quantity = 3, RootProductUri = "/rp/50" };
 
             this.rootProduct = new RootProduct("/rp/50", 3);
-            this.DemStockService.SetRetailerListRootProduct(234, "/rp/50", 3)
+            this.DemStockService.SetRetailerListRootProduct(234, "/rp/50", 3, null)
                 .Returns(new SuccessResult<RootProduct>(this.rootProduct));
 
             this.Response = this.Browser.Put(
@@ -47,7 +47,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.DemStockService.Received().SetRetailerListRootProduct(234, "/rp/50", 3);
+            this.DemStockService.Received().SetRetailerListRootProduct(234, "/rp/50", 3, null);
         }
 
         [Test]

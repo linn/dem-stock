@@ -11,9 +11,9 @@
     {
         IResult<RetailerDemList> GetRetailerDemList(int retailerId);
 
-        IResult<RootProduct> SetRetailerListRootProduct(int retailerId, string rootProductUri, int quantity);
+        IResult<RootProduct> SetRetailerListRootProduct(int retailerId, string rootProductUri, int quantity, string employeeUri);
 
-        IResult<RetailerDemList> UpdateRetailerDemListDetails(int retailerId, DateTime? lastReviewedOn);
+        IResult<RetailerDemList> UpdateRetailerDemListDetails(int retailerId, DateTime? lastReviewedOn, string employeeUri);
 
         IResult<IEnumerable<RetailerDemListActivity>> GetRetailerDemListActivities(int retailerId);
     }

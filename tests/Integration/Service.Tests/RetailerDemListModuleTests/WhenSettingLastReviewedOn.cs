@@ -30,7 +30,7 @@
             this.retailerDemList = new RetailerDemList(234, "/employee/200");
             this.retailerDemList.SetLastReviewedDate(1.April(2018), "/employees/21");
 
-            this.DemStockService.UpdateRetailerDemListDetails(234, Arg.Any<DateTime?>())
+            this.DemStockService.UpdateRetailerDemListDetails(234, Arg.Any<DateTime?>(), null)
                 .Returns(new SuccessResult<RetailerDemList>(this.retailerDemList));
 
             this.Response = this.Browser.Put(
@@ -51,7 +51,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.DemStockService.Received().UpdateRetailerDemListDetails(234, Arg.Any<DateTime?>());
+            this.DemStockService.Received().UpdateRetailerDemListDetails(234, Arg.Any<DateTime?>(), null);
         }
 
         [Test]
