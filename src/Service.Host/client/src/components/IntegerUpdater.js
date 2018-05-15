@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react'
-import { Grid, Row, Col, Button, Modal, FormGroup, FormControl, InputGroup  } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { IntegerInput } from './common/IntegerInput'
 
 const styles = {
@@ -16,7 +16,7 @@ const styles = {
 export class IntegerUpdater extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             isOpen: false,
             currentValue: props.value
         };
@@ -31,7 +31,7 @@ export class IntegerUpdater extends Component {
         this.setState({ isOpen: false });
     }
 
-    handleChanged(value) {        
+    handleChanged(value) {
         this.setState({ currentValue: value });
     }
 
@@ -41,9 +41,9 @@ export class IntegerUpdater extends Component {
     }
 
     handleKeyPress(e) {
-        if (!this.saveDisabled() && e.key === 'Enter') {            
+        if (!this.saveDisabled() && e.key === 'Enter') {
             this.handleOkClick();
-        }
+        }        
         else if (e.key === 'Escape') {
             this.handleClose();
         }
@@ -62,17 +62,17 @@ export class IntegerUpdater extends Component {
         const { value, displayOnly } = this.props;
         return (
             <div>
-                {this.state.isOpen 
+                {this.state.isOpen
                     ? <IntegerInput value={this.state.currentValue} validationCondition={null} onChange={value => this.handleChanged(value)}
-                            onCancel={() => this.handleClose()}
-                            onClose={() => this.handleOkClick()} 
-                            okDisabled={() => this.saveDisabled()} 
-                            onKeyDown={(e) => this.handleKeyPress(e)} />
-                : displayOnly
-                    ? value
+                        onCancel={() => this.handleClose()}
+                        onClose={() => this.handleOkClick()}
+                        okDisabled={() => this.saveDisabled()}
+                        onKeyDown={(e) => this.handleKeyPress(e)} />
+                    : displayOnly
+                        ? value
                         : <Button bsStyle="link" style={styles.button} onClick={() => this.handleClick()}>{value}</Button>
                 }
-            
+
             </div>
         );
     }
