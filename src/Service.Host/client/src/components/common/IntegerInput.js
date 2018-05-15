@@ -9,7 +9,7 @@ export class IntegerInput extends Component {
             <div ref={node => this.node = node}>
                 <input
                     style={{ maxWidth: '5em', marginRight: '20px' }}
-                    type="number"
+                    inputMode="numeric"
                     value={value}
                     onChange={e => this.handleChange(e.target.value)}
                     onKeyDown={e => onKeyDown(e)}
