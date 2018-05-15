@@ -15,7 +15,7 @@ export class IntegerInput extends Component {
                         onChange={e => this.handleChange(e.target.value)}
                         onKeyDown={e => onKeyDown(e)}
                         ref={(input) => this.numberInput = input} />
-                    <Button bsClass="btn btn-xs btn-success muted" onClick={() => onClose()} disabled={okDisabled()}><Glyphicon glyph="saved" /></Button>
+                    <Button bsClass="btn btn-s btn-success muted" onClick={() => onClose()} disabled={okDisabled()}><Glyphicon glyph="saved" /></Button>
                 </Form>
             </div>
         );
@@ -31,6 +31,10 @@ export class IntegerInput extends Component {
 
     componentDidMount() {
         document.addEventListener('click', this.handleDocumentClick);
+
+        if ('ontouchstart' in document.documentElement) {
+            document.body.style.cursor = 'pointer';
+        }
     }
 
     componentWillUnmount() {
