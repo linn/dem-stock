@@ -10,7 +10,7 @@ export class IntegerInput extends Component {
                 <input
                     style={{ maxWidth: '5em', marginRight: '20px' }}
                     type="text"
-                    pattern="\d*"
+                    pattern="\\d*"
                     value={value}
                     onChange={e => this.handleChange(e.target.value)}
                     onKeyDown={e => onKeyDown(e)}
@@ -29,7 +29,8 @@ export class IntegerInput extends Component {
     }
 
     componentDidMount() {
-        this.numberInput.select();
+        this.numberInput.focus();
+        this.numberInput.setSelectionRange(0, this.numberInput.value.length);
 
         document.addEventListener('click', this.handleDocumentClick);
 
@@ -40,6 +41,10 @@ export class IntegerInput extends Component {
 
     componentWillUnmount() {
         document.removeEventListener('click', this.handleDocumentClick);
+
+        if ('ontouchstart' in document.documentElement) {
+            document.body.style.cursor = null;
+        }
     }
 
     handleDocumentClick = (e) => {
