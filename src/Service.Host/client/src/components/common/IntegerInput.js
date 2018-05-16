@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormControl, Glyphicon, Button } from 'react-bootstrap';
+import { Glyphicon, Button } from 'react-bootstrap';
 
 export class IntegerInput extends Component {
 

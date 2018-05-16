@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { Loading } from './common';
-import { Grid, Row, Col, Button, Label, Well } from 'react-bootstrap';
+import { Grid, Row, Col, Button, Well } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { formatDate } from '../helpers/dates';
 import LastReviewedOn from './LastReviewedOn';
