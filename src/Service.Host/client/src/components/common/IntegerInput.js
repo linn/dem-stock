@@ -10,7 +10,7 @@ export class IntegerInput extends Component {
                 <input
                     style={{ maxWidth: '5em', marginRight: '20px' }}
                     type="text"
-                    pattern="\\d*"
+                    pattern="\d*"
                     value={value}
                     onChange={e => this.handleChange(e.target.value)}
                     onKeyDown={e => onKeyDown(e)}
