@@ -25,7 +25,7 @@
             this.retailerId = 50;
             this.retailerDemList = new RetailerDemList(this.retailerId, "/employee/200") { Id = 12 };
             this.DemListRepository.GetByRetailerId(this.retailerId).Returns(this.retailerDemList);
-            this.result = this.Sut.SetRetailerListRootProduct(this.retailerId, "/rp/50", 3);
+            this.result = this.Sut.SetRetailerListRootProduct(this.retailerId, "/rp/50", 3, "/employees/100");
         }
 
         [Test]

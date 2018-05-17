@@ -1,9 +1,11 @@
 ﻿namespace Linn.DemStock.Service.Host
 {
     using System;
+    using System.Security.Claims;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     using Autofac;
-
     using Linn.Common.Logging;
     using Linn.DemStock.IoC;
 
@@ -36,6 +38,7 @@
         protected override void RequestStartup(ILifetimeScope lifetimeScope, IPipelines pipelines, NancyContext context)
         {
             base.RequestStartup(lifetimeScope, pipelines, context);
+
             pipelines.AfterRequest += ctx => ctx.Response.Headers.Add("Access-Control-Allow-Origin", "*");
             pipelines.AfterRequest += ctx => ctx.Response.Headers.Add("Access-Control-Allow-Credentials", "true");
             pipelines.AfterRequest += ctx => ctx.Response.Headers.Add("Access-Control-Allow-Headers", "Accept,Origin,Content-Type,Access-Control-Allow-Origin,Access-Control-Allow-Headers,Access-Control-Allow-Methods");

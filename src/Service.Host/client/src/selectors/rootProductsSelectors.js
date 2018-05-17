@@ -1,38 +1,22 @@
-﻿import { getActivityRootProductUris } from './activitySelectors';
-import { getRetailerDemListRootProductUris } from './retailerDemListSelectors';
+﻿import { getActivityRootProductUris } from './utilities/activitySelectorUtilities';
+import { getRetailerDemListRootProductUris } from './utilities/retailerDemListSelectorUtilities';
+import { getRootProductUris } from './utilities/rootProductsSelectorsUtilities';
 import { distinct } from '../helpers/utilities';
 
-export const getRootProduct = (rootProductUri, rootProducts) => {
-    if (!rootProductUri || !rootProducts) {
-        return null;
-    }
+export const getRootProductsToFetch = ({ activities, retailerDemList, rootProducts }) => {    
+    const urisToFetch = distinct(getActivityRootProductUris(activities).concat(getRetailerDemListRootProductUris(retailerDemList))).filter(n => n != undefined);
 
-    const rootProduct = rootProducts.find(p => p.rootProductUri === rootProductUri);
-
-    return rootProduct && !rootProduct.loading
-        ? rootProduct.item
-        : null;
-}
-
-export const getRootProductName = (rootProductUri, rootProducts) => {
-    var rootProduct = getRootProduct(rootProductUri, rootProducts);
-    return rootProduct ? rootProduct.name : null;
-}
-
-export const getRootProductUris = (rootProducts) => {
     if (!rootProducts) {
-        return null;
-    }
-    
-    return rootProducts.map(r => r.rootProductUri);
-}
-
-export const getRootProductsToFetch = (state) => {
-    const urisToFetch = distinct(getActivityRootProductUris(state.activities).concat(getRetailerDemListRootProductUris(state.retailerDemList)));
-
-    if (!state.rootProducts) {
         return urisToFetch;
     }
 
-    return urisToFetch.filter(r => !getRootProductUris(state.rootProducts).some(s => s === r));
+    return urisToFetch.filter(r => !getRootProductUris(rootProducts).some(s => s === r));
+}
+
+export const getRootProducts = ({ rootProducts }) => {
+    if (!rootProducts) {
+        return null;
+    }
+
+    return rootProducts;
 }

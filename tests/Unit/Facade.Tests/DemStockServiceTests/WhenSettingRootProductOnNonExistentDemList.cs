@@ -17,7 +17,7 @@
         public void SetUp()
         {
             this.DemListRepository.GetByRetailerId(Arg.Any<int>()).Returns((RetailerDemList)null);
-            this.result = this.Sut.SetRetailerListRootProduct(1, "/rp/50", 3);
+            this.result = this.Sut.SetRetailerListRootProduct(1, "/rp/50", 3, "/employees/100");
         }
 
         [Test]

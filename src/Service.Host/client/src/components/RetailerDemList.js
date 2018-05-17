@@ -29,7 +29,7 @@ class RetailerDemList extends Component {
     }
 
     render() {
-        const { retailerDemList, retailerName, rootProducts, setRootProduct, retailerUri, activities } = this.props;
+        const { retailerDemList, retailerDemListRootProducts, retailerName, setRootProduct, retailerUri, activities } = this.props;
 
         if (!retailerDemList) {
             return (<Loading />);
@@ -41,8 +41,7 @@ class RetailerDemList extends Component {
                     <h2>{retailerName}</h2>
                     <br />
                     <RootProducts
-                        rootProducts={retailerDemList.rootProducts}
-                        rootProductDetails={rootProducts}
+                        rootProducts={retailerDemListRootProducts}
                         setRootProduct={setRootProduct}
                         retailerUri={retailerUri} />
                     <Button className="muted" bsStyle="success" onClick={() => this.handleAddRootProductClick()}>Add Root Product</Button>

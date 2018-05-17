@@ -3,8 +3,6 @@ import { FormGroup, FormControl, ControlLabel, ListGroup, ListGroupItem, Label }
 import { Loading } from './common';
 import { getSelfHref } from '../helpers/utilities';
 
-let timeoutId;
-
 class RetailerSearch extends Component {
     state = { searchTerm: '' }
 
@@ -31,7 +29,8 @@ class RetailerSearch extends Component {
                             ? <Loading />
                             : <span>No matching retailer</span>
                     }
-                </div>   </div>
+                </div>
+            </div>
         );
     }
 
@@ -41,11 +40,7 @@ class RetailerSearch extends Component {
 
         this.setState({ searchTerm });
 
-        if (timeoutId) {
-            clearTimeout(timeoutId);
-        }
-
-        timeoutId = setTimeout(() => searchRetailers(searchTerm), 500);
+        searchRetailers(searchTerm);
     }
 
     handleRetailerClick(retailer) {

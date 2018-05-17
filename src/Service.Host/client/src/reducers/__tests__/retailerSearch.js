@@ -46,14 +46,16 @@ describe('retailer search reducer', () => {
             type: actionTypes.RECEIVE_RETAILERS,
             payload: {
                 searchTerm: 'new search',
-                retailers: [
-                    {
-                        name: '1'
-                    },
-                    {
-                        name: '2'
-                    }
-                ]
+                data: {
+                    retailers: [
+                        {
+                            name: '1'
+                        },
+                        {
+                            name: '2'
+                        }
+                    ]
+                }
             }
         };
 

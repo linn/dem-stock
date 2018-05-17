@@ -1,15 +1,18 @@
 ﻿namespace Linn.DemStock.Service.Tests.RetailerDemListModuleTests
 {
     using System.Collections.Generic;
+    using System.Security.Claims;
 
     using Linn.Common.Facade;
     using Linn.DemStock.Domain;
     using Linn.DemStock.Domain.RetailerDemListActivities;
     using Linn.DemStock.Facade.ResourceBuilders;
     using Linn.DemStock.Facade.Services;
+    using Linn.DemStock.Service.Extensions;
     using Linn.DemStock.Service.Modules;
     using Linn.DemStock.Service.ResponseProcessors;
 
+    using Nancy.Bootstrapper;
     using Nancy.Testing;
 
     using NSubstitute;
@@ -36,6 +39,20 @@
                     with.ResponseProcessor<RetailerDemListJsonResponseProcessor>();
                     with.ResponseProcessor<RootProductJsonResponseProcessor>();
                     with.ResponseProcessor<RetailerDemListActivitiesJsonResponseProcessor>();
+
+                    with.RequestStartup(
+                        (container, pipelines, context) =>
+                            {
+                                var claims = new List<Claim>
+                                                 {
+                                                     new Claim(ClaimTypes.Role, "employee"),
+                                                     new Claim(ClaimTypes.NameIdentifier, "test-user")
+                                                 };
+
+                                var user = new ClaimsIdentity(claims, "jwt");                                
+
+                                context.CurrentUser = new System.Security.Claims.ClaimsPrincipal(user);
+                            });
                 });
 
             this.Browser = new Browser(bootstrapper);

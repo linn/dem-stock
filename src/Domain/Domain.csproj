@@ -10,4 +10,8 @@
     <PackageReference Include="Linn.Common.Persistence" Version="1.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Linn.Common.Persistence" />
+  </ItemGroup>
+
 </Project>

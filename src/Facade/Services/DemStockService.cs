@@ -37,7 +37,8 @@
         public IResult<RootProduct> SetRetailerListRootProduct(
             int retailerId,
             string rootProductUri,
-            int quantity)
+            int quantity,
+            string employeeUri)
         {
             var retailerDemList = this.retailerDemListRepository.GetByRetailerId(retailerId);
             if (retailerDemList == null)
@@ -45,13 +46,13 @@
                 return new NotFoundResult<RootProduct>();
             }
 
-            var rootProduct = retailerDemList.SetRootProductQuantity(rootProductUri, null, quantity);
+            var rootProduct = retailerDemList.SetRootProductQuantity(rootProductUri, employeeUri, quantity);
 
             this.transactionManager.Commit();
             return new SuccessResult<RootProduct>(rootProduct);
         }
 
-        public IResult<RetailerDemList> UpdateRetailerDemListDetails(int retailerId, DateTime? lastReviewedOn)
+        public IResult<RetailerDemList> UpdateRetailerDemListDetails(int retailerId, DateTime? lastReviewedOn, string employeeUri)
         {
             var retailerDemList = this.retailerDemListRepository.GetByRetailerId(retailerId);
             if (retailerDemList == null)
@@ -59,7 +60,7 @@
                 return new NotFoundResult<RetailerDemList>();
             }
 
-            retailerDemList.SetLastReviewedDate(lastReviewedOn, null);
+            retailerDemList.SetLastReviewedDate(lastReviewedOn, employeeUri);
 
             this.transactionManager.Commit();
             return new SuccessResult<RetailerDemList>(retailerDemList);

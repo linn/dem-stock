@@ -3,7 +3,7 @@
 const activities = (state = [], action) => {
     switch (action.type) {
         case actionTypes.REQUEST_ACTIVITIES:
-            return []
+            return [];
 
         case actionTypes.RECEIVE_ACTIVITIES:
             return action.payload.data.activities;
