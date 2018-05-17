@@ -1,5 +1,6 @@
 ﻿namespace Linn.DemStock.Facade.ResourceBuilders
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -16,7 +17,9 @@
         {
             return new RetailerDemListResource
                        {
-                           LastReviewedOn = retailerDemList.LastReviewedOn?.ToString("o"),
+                           LastReviewedOn = retailerDemList.LastReviewedOn == null
+                                                ? string.Empty
+                                                : DateTime.SpecifyKind(retailerDemList.LastReviewedOn.Value, DateTimeKind.Utc).ToString("o"),
                            RetailerId = retailerDemList.RetailerId,
                            RootProducts = retailerDemList.RootProducts.Select(r => this.rootProductResourceBuilder.Build(r)),
                            Links = this.BuildLinks(retailerDemList).ToArray()

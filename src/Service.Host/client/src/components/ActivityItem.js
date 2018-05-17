@@ -11,7 +11,7 @@ class ActivityItem extends Component {
                     <b>{activity.rootProductName ? activity.rootProductName : 'Unknown root product'} </b>
                     quantity updated to <b>{activity.quantity} </b>
                     by <b>{activity.updatedByName ? activity.updatedByName : 'unknown user'}</b>
-                    <span className="small pull-right text-muted">{moment(activity.changedOn).startOf('hour').fromNow()
+                    <span className="small pull-right text-muted">{moment(activity.changedOn).fromNow()
                     }</span>
                 </ListGroupItem>)
             : activity.activityType === 'UpdateLastReviewedOnActivity'
@@ -22,19 +22,19 @@ class ActivityItem extends Component {
                                 by <b>{activity.updatedByName ? activity.updatedByName : 'unknown user'}</b></span>
                             : <span>removed by <b>{activity.updatedBy ? activity.updatedBy : 'unknown user'}</b></span>
                         }
-                        <span className="small pull-right text-muted">{moment(activity.changedOn).startOf('hour').fromNow()
+                        <span className="small pull-right text-muted">{moment(activity.changedOn).fromNow()
                         }</span>
                    </ListGroupItem>)
                 : activity.activityType === 'CreateRetailerDemListActivity'
                     ? (<ListGroupItem>
                         <b>Dem list created </b>
                         <span>by <b>{activity.updatedByName ? activity.updatedByName : 'unknown user'}</b></span>
-                        <span className="small pull-right text-muted">{moment(activity.changedOn).startOf('hour').fromNow()}</span>
+                        <span className="small pull-right text-muted">{moment(activity.changedOn).fromNow()}</span>
                         </ListGroupItem>)
                     : (<ListGroupItem>
                         <b>Unknown activity </b>
                         <span>by <b>{activity.updatedByName ? activity.updatedByName : 'unknown user'}</b></span>
-                        <span className="small pull-right text-muted">{moment(activity.changedOn).startOf('hour').fromNow()}</span>
+                        <span className="small pull-right text-muted">{moment(activity.changedOn).fromNow()}</span>
                     </ListGroupItem>);
     }
 }

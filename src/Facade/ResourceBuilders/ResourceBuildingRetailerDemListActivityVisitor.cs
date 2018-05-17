@@ -1,5 +1,7 @@
 ﻿namespace Linn.DemStock.Facade.ResourceBuilders
 {
+    using System;
+
     using Linn.DemStock.Domain;
     using Linn.DemStock.Domain.RetailerDemListActivities;
     using Linn.DemStock.Resources;
@@ -12,8 +14,10 @@
                        {
                            ActivityType = activity.GetType().Name,
                            UpdatedByUri = activity.UpdatedByUri,
-                           ChangedOn = activity.ChangedOn.ToString("o"),
-                           LastReviewedOn = activity.LastReviewedOn?.ToString("o")
+                           ChangedOn = DateTime.SpecifyKind(activity.ChangedOn, DateTimeKind.Utc).ToString("o"),
+                           LastReviewedOn = activity.LastReviewedOn.HasValue
+                                                ? DateTime.SpecifyKind(activity.LastReviewedOn.Value, DateTimeKind.Utc).ToString("o")
+                                                : activity.LastReviewedOn?.ToString("o")
                        };
         }
 
@@ -23,7 +27,7 @@
                        {
                            ActivityType = activity.GetType().Name,
                            UpdatedByUri = activity.UpdatedByUri,
-                           ChangedOn = activity.ChangedOn.ToString("o"),
+                           ChangedOn = DateTime.SpecifyKind(activity.ChangedOn, DateTimeKind.Utc).ToString("o"),
                            RootProductUri = activity.RootProductUri,
                            Quantity = activity.Quantity
                        };
@@ -35,7 +39,7 @@
                        {
                            ActivityType = activity.GetType().Name,
                            UpdatedByUri = activity.UpdatedByUri,
-                           ChangedOn = activity.ChangedOn.ToString("o"),
+                           ChangedOn = DateTime.SpecifyKind(activity.ChangedOn, DateTimeKind.Utc).ToString("o"),
                            RetailerId = activity.RetailerId
                        };
         }
