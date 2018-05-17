@@ -3,6 +3,7 @@
     using Autofac;
 
     using Linn.Common.Configuration;
+    using Linn.Common.Proxy;
     using Linn.DemStock.Facade.Services;
     using Linn.DemStock.Proxy;
 
@@ -14,6 +15,7 @@
             builder.RegisterType<DemStockService>().As<IDemStockService>();
 
             // proxies
+            builder.RegisterType<RestClient>().As<IRestClient>();
             builder.RegisterType<RetailerProxy>().As<IRetailerProxy>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
             builder.RegisterType<ProductsProxy>().As<IProductsProxy>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
         }
