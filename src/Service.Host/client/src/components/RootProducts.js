@@ -1,7 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { Table, Alert } from 'react-bootstrap';
 import moment from 'moment';
-import { getRootProductName } from '../selectors/utilities/rootProductsSelectorsUtilities';
 import { IntegerUpdater } from './IntegerUpdater';
 import { RemoveItem } from './RemoveItem';
 
