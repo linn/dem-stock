@@ -86,10 +86,5 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(), // enable HMR globally
         new webpack.NamedModulesPlugin(), // prints more readable module names in the browser console on HMR updates
-        new webpack.NoEmitOnErrorsPlugin(), // do not emit compiled assets that include errors
-        new webpack.DefinePlugin({
-            'PROCESS.ENV': {
-                'appRoot': JSON.stringify('http://localhost:51611')
-            }
-        })
+        new webpack.NoEmitOnErrorsPlugin() // do not emit compiled assets that include errors
     ]};

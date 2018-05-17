@@ -78,12 +78,7 @@ module.exports = {
             }
         ]
     },
-    devtool: 'source-map', // enum
+    devtool: 'source-map' // enum
     // enhance debugging by adding meta info for the browser devtools
-    // source-map most detailed at the expense of build speed.
-    plugins: [
-        new webpack.DefinePlugin({
-        'PROCESS.ENV': {
-        }
-    })]
+    // source-map most detailed at the expense of build speed.    
 };

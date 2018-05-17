@@ -1,20 +1,18 @@
 namespace Linn.DemStock.Service.Host
 {
+    using System.IdentityModel.Tokens.Jwt;
+
+    using Linn.Common.Authentication.Host.Extensions;
+    using Linn.Common.Configuration;
+
+    using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Authentication.OpenIdConnect;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.DependencyInjection;
-
-    using System.IdentityModel.Tokens.Jwt;
-    using System.Security.Claims;
-    using System.Threading.Tasks;
-    using Linn.DemStock.Service.Host.Extensions;
-    using Microsoft.AspNetCore.Authentication;
-    using Microsoft.AspNetCore.Authentication.Cookies;
-    using Microsoft.AspNetCore.Authentication.JwtBearer;
-    using Microsoft.AspNetCore.Authentication.OpenIdConnect;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
-    using Microsoft.IdentityModel.Tokens;
+
     using Nancy;
     using Nancy.Owin;
 
@@ -28,67 +26,12 @@ namespace Linn.DemStock.Service.Host
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-            services.AddAuthentication
-                (options =>
-                {
-                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-                })
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
-                {
-                    options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-
-                    options.CallbackPath = new PathString("/retailers/dem-stock/signin-oidc");
-
-                    options.Scope.Add("email associations");
-
-                    options.Authority = "https://www-sys.linn.co.uk/auth/";
-
-                    options.RequireHttpsMetadata = false;
-
-                    options.ClientId = "app";
-                    options.Events.OnTokenValidated = context =>
+            services.AddLinnAuthentication(
+                options =>
                     {
-                        //context.HttpContext.User = context.Principal;
-
-                        return Task.CompletedTask;
-                    };
-                    options.SaveTokens = true;
-                    options.ResponseType = "id_token token";
-                })
-                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-                {
-                    options.RequireHttpsMetadata = false;
-
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateAudience = false
-                    };
-
-                    options.Events = new JwtBearerEvents
-                    {
-                        OnTokenValidated = async context =>
-                        {
-                            var accessToken = context.Request.GetAccessToken();
-
-                            var userClaims = await UserInfoHelper.GetUserClaimsAsync(accessToken);
-
-                            context.Principal.AddIdentity(new ClaimsIdentity(userClaims));
-
-                            context.HttpContext.User = context.Principal;
-                        },
-                        OnAuthenticationFailed = context =>
-                        {
-                            context.Response.StatusCode = 403;
-
-                            return Task.CompletedTask;
-                        }
-                    };
-
-                    options.Authority = "https://www-sys.linn.co.uk/auth/";
-                    options.SaveToken = true;
-                });
+                        options.Authority = ConfigurationManager.Configuration["AUTHORITY_URI"];
+                        options.CallbackPath = new PathString("/retailers/dem-stock/signin-oidc");
+                    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

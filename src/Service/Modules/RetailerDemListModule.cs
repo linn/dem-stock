@@ -1,9 +1,13 @@
 ﻿namespace Linn.DemStock.Service.Modules
 {
     using System;
+
+    using Linn.Common.Configuration;
     using Linn.DemStock.Facade.Services;
     using Linn.DemStock.Resources.RequestResources;
     using Linn.DemStock.Service.Extensions;
+    using Linn.DemStock.Service.Models;
+
     using Nancy;
     using Nancy.ModelBinding;
     using Nancy.Security;
@@ -42,7 +46,10 @@
         {
             var retailerDemList = this.demStockService.GetRetailerDemList(retailerId);
 
-            return this.Negotiate.WithModel(retailerDemList).WithView("Index");
+            return this.Negotiate
+                .WithModel(retailerDemList)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
 
         private object GetRetailerDemListActivitiesById(int retailerId)
