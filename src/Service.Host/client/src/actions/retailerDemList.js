@@ -5,7 +5,7 @@ import * as actionTypes from './index';
 import { fetchRetailer } from './retailer';
 import { CALL_API } from 'redux-api-middleware';
 
-export const fetchRetailerDemListDetails = retailerUri => async (dispatch) => {
+export const fetchRetailerDemListDetails = retailerUri => async (dispatch) => {    
     dispatch(fetchRetailerDemList(retailerUri));
     dispatch(fetchRetailer(retailerUri));
 }

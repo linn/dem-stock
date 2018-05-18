@@ -1,9 +1,9 @@
-export const getActivityRootProductUris = activities => {    
+export const getActivityRootProductUris = activities => {
     if (!activities) {
         return null;
     }
 
-    return activities.map(a => a.rootProductUri).filter(r => r !== undefined);
+    return activities.items.map(a => a.rootProductUri).filter(r => r !== undefined);
 }
 
 export const getActivityEmployeeUris = activities => {
@@ -11,5 +11,5 @@ export const getActivityEmployeeUris = activities => {
         return null;
     }
 
-    return activities.map(a => a.updatedByUri).filter(e => e !== null);
+    return activities.items.map(a => a.updatedByUri).filter(e => e !== null);
 }

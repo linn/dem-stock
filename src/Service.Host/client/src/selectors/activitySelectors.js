@@ -6,7 +6,7 @@ export const getActivities = ({ activities, rootProducts, employees }) => {
         return null;
     }
 
-    return activities.map(activity => ({
+    return activities.items.map(activity => ({
         ...activity,
         rootProductName: getRootProductName(activity.rootProductUri, rootProducts),
         updatedByName: getEmployeeName(activity.updatedByUri, employees)
