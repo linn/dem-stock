@@ -36,9 +36,9 @@ namespace Linn.DemStock.Service.Host
             services.AddLinnAuthentication(
                 options =>
                     {
-                        options.CookiePath = "retailers";
                         options.Authority = ConfigurationManager.Configuration["AUTHORITY_URI"];
                         options.CallbackPath = new PathString("/retailers/dem-stock/signin-oidc");
+                        //options.CookiePath = "/retailers";
                     });
         }
 
