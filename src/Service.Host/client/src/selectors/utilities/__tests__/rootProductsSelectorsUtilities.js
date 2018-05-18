@@ -5,24 +5,27 @@ describe('when selecting a root product', () => {
 
         const rootProductUri = '/products/root-products/12345';
 
-        const rootProducts = [
-            {
-                rootProductUri: "/products/root-products/12345",
-                loading: false,
-                item: {
-                    name: 'MAJIK DS/2',
-                    href: '/products/root-products/12345'
+        const rootProducts = {
+            loading: false,
+            items: [
+                {
+                    rootProductUri: "/products/root-products/12345",
+                    loading: false,
+                    item: {
+                        name: 'MAJIK DS/2',
+                        href: '/products/root-products/12345'
+                    }
+                },
+                {
+                    rootProductUri: "/products/root-products/67890",
+                    loading: false,
+                    item: {
+                        name: 'KLIMAX DSM/3',
+                        href: '/products/root-products/67890'
+                    }
                 }
-            },
-            {
-                rootProductUri: "/products/root-products/67890",
-                loading: false,
-                item: {
-                    name: 'KLIMAX DSM/3',
-                    href: '/products/root-products/67890'
-                }
-            }
-        ];
+            ]
+        };
 
         const expectedRootProduct = {
             name: 'MAJIK DS/2',
@@ -36,24 +39,27 @@ describe('when selecting a root product', () => {
 
         const rootProductUri = '/products/root-products/54321';
 
-        const rootProducts = [
-            {
-                rootProductUri: "/products/root-products/12345",
-                loading: false,
-                item: {
-                    name: 'MAJIK DS/2',
-                    href: '/products/root-products/12345'
+        const rootProducts = {
+            loading: false,
+            items: [
+                {
+                    rootProductUri: "/products/root-products/12345",
+                    loading: false,
+                    item: {
+                        name: 'MAJIK DS/2',
+                        href: '/products/root-products/12345'
+                    }
+                },
+                {
+                    rootProductUri: "/products/root-products/67890",
+                    loading: false,
+                    item: {
+                        name: 'KLIMAX DSM/3',
+                        href: '/products/root-products/67890'
+                    }
                 }
-            },
-            {
-                rootProductUri: "/products/root-products/67890",
-                loading: false,
-                item: {
-                    name: 'KLIMAX DSM/3',
-                    href: '/products/root-products/67890'
-                }
-            }
-        ];
+            ]
+        };
 
         expect(getRootProduct(rootProductUri, rootProducts)).toEqual(null);
     });
@@ -87,24 +93,27 @@ describe('when selecting a root product', () => {
 
         const rootProductUri = '/products/root-products/12345';
 
-        const rootProducts = [
-            {
-                rootProductUri: "/products/root-products/12345",
-                loading: false,
-                item: {
-                    name: 'MAJIK DS/2',
-                    href: '/products/root-products/12345'
+        const rootProducts = {
+            loading: false,
+            items: [
+                {
+                    rootProductUri: "/products/root-products/12345",
+                    loading: false,
+                    item: {
+                        name: 'MAJIK DS/2',
+                        href: '/products/root-products/12345'
+                    }
+                },
+                {
+                    rootProductUri: "/products/root-products/67890",
+                    loading: false,
+                    item: {
+                        name: 'KLIMAX DSM/3',
+                        href: '/products/root-products/67890'
+                    }
                 }
-            },
-            {
-                rootProductUri: "/products/root-products/67890",
-                loading: false,
-                item: {
-                    name: 'KLIMAX DSM/3',
-                    href: '/products/root-products/67890'
-                }
-            }
-        ];
+            ]
+        };
 
         const expectedRootProductName = 'MAJIK DS/2';
 
@@ -115,24 +124,27 @@ describe('when selecting a root product', () => {
 
         const rootProductUri = '/products/root-products/54321';
 
-        const rootProducts = [
-            {
-                rootProductUri: "/products/root-products/12345",
-                loading: false,
-                item: {
-                    name: 'MAJIK DS/2',
-                    href: '/products/root-products/12345'
+        const rootProducts = {
+            loading: false,
+            items: [
+                {
+                    rootProductUri: "/products/root-products/12345",
+                    loading: false,
+                    item: {
+                        name: 'MAJIK DS/2',
+                        href: '/products/root-products/12345'
+                    }
+                },
+                {
+                    rootProductUri: "/products/root-products/67890",
+                    loading: false,
+                    item: {
+                        name: 'KLIMAX DSM/3',
+                        href: '/products/root-products/67890'
+                    }
                 }
-            },
-            {
-                rootProductUri: "/products/root-products/67890",
-                loading: false,
-                item: {
-                    name: 'KLIMAX DSM/3',
-                    href: '/products/root-products/67890'
-                }
-            }
-        ];
+            ]
+        };
 
         expect(getRootProductName(rootProductUri, rootProducts)).toEqual(null);
     });

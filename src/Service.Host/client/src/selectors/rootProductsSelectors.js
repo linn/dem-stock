@@ -3,10 +3,10 @@ import { getRetailerDemListRootProductUris } from './utilities/retailerDemListSe
 import { getRootProductUris } from './utilities/rootProductsSelectorsUtilities';
 import { distinct } from '../helpers/utilities';
 
-export const getRootProductsToFetch = ({ activities, retailerDemList, rootProducts }) => {    
+export const getRootProductsToFetch = ({ activities, retailerDemList, rootProducts }) => {
     const urisToFetch = distinct(getActivityRootProductUris(activities).concat(getRetailerDemListRootProductUris(retailerDemList))).filter(n => n != undefined);
 
-    if (!rootProducts) {
+    if (!rootProducts.items.length) {
         return urisToFetch;
     }
 
@@ -18,5 +18,5 @@ export const getRootProducts = ({ rootProducts }) => {
         return null;
     }
 
-    return rootProducts;
+    return rootProducts.items;
 }

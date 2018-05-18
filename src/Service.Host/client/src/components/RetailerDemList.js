@@ -29,9 +29,9 @@ class RetailerDemList extends Component {
     }
 
     render() {
-        const { retailerDemList, retailerDemListRootProducts, retailerName, setRootProduct, retailerUri, activities } = this.props;
+        const { retailerDemList, retailerDemListRootProducts, retailerName, setRootProduct, retailerUri, activities, loading } = this.props;
 
-        if (!retailerDemList) {
+        if (!retailerDemList || loading) {
             return (<Loading />);
         }
 

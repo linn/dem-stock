@@ -1,7 +1,7 @@
 ﻿import { getActivities } from '../activitySelectors';
 
 describe('when selecting activites', () => {
-    test('should return activites with root product and employee names', () => {        
+    test('should return activites with root product and employee names', () => {
         const state = {
             activities: [
                 {
@@ -12,7 +12,7 @@ describe('when selecting activites', () => {
                     changedOn: '2018-03-14T09:08:36.0229120',
                     links: null
                 },
-                {                
+                {
                     quantity: 1,
                     activityType: 'UpdateLastReviewedOnActivity',
                     updatedByUri: '/employees/123',
@@ -28,24 +28,27 @@ describe('when selecting activites', () => {
                     links: null
                 }
             ],
-            rootProducts: [
-                {
-                    rootProductUri: "/products/root-products/175",
-                    loading: false,
-                    item: {
-                        name: 'MAJIK DS/2',
-                        href: '/products/root-products/175'
+            rootProducts: {
+                loading: false,
+                items: [
+                    {
+                        rootProductUri: "/products/root-products/175",
+                        loading: false,
+                        item: {
+                            name: 'MAJIK DS/2',
+                            href: '/products/root-products/175'
+                        }
+                    },
+                    {
+                        rootProductUri: "/products/root-products/901",
+                        loading: false,
+                        item: {
+                            name: 'KLIMAX DSM/3',
+                            href: '/products/root-products/901'
+                        }
                     }
-                },
-                {
-                    rootProductUri: "/products/root-products/901",
-                    loading: false,
-                    item: {
-                        name: 'KLIMAX DSM/3',
-                        href: '/products/root-products/901'
-                    }
-                }
-            ],
+                ]
+            },
             employees: [
                 {
                     id: 3306,
@@ -79,7 +82,7 @@ describe('when selecting activites', () => {
                 }
             ]
         }
-        
+
         const expectedResult = [
             {
                 rootProductUri: '/products/root-products/175',
@@ -91,7 +94,7 @@ describe('when selecting activites', () => {
                 links: null,
                 rootProductName: 'MAJIK DS/2'
             },
-            {                
+            {
                 quantity: 1,
                 activityType: 'UpdateLastReviewedOnActivity',
                 updatedByUri: '/employees/123',
@@ -110,7 +113,7 @@ describe('when selecting activites', () => {
                 links: null,
                 rootProductName: 'KLIMAX DSM/3'
             }
-        ]        
+        ]
 
         expect(getActivities(state)).toEqual(expectedResult);
     });

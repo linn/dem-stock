@@ -1,9 +1,9 @@
 export const getRootProduct = (rootProductUri, rootProducts) => {
-    if (!rootProductUri || !rootProducts) {
+    if (!rootProductUri || !rootProducts || !rootProducts.items) {
         return null;
     }
 
-    const rootProduct = rootProducts.find(p => p.rootProductUri === rootProductUri);
+    const rootProduct = rootProducts.items.find(p => p.rootProductUri === rootProductUri);
 
     return rootProduct && !rootProduct.loading
         ? rootProduct.item
@@ -16,9 +16,9 @@ export const getRootProductName = (rootProductUri, rootProducts) => {
 }
 
 export const getRootProductUris = (rootProducts) => {
-    if (!rootProducts) {
+    if (!rootProducts || !rootProducts.items) {
         return null;
     }
     
-    return rootProducts.map(r => r.rootProductUri);
+    return rootProducts.items.map(r => r.rootProductUri);
 }

@@ -7,6 +7,14 @@ describe('when selecting retailer dem list loading', () => {
                 retailerUri: '/retailers/734',
                 loading: true,
                 item: null
+            },
+            rootProducts: {
+                loading: false,
+                items: []
+            },
+            retailer: {
+                loading: false,
+                item: {}
             }
         }
 
@@ -136,24 +144,27 @@ describe('when selecting retailer dem list root products', () => {
                     ]
                 }
             },
-            rootProducts: [
-                {
-                    rootProductUri: "/products/root-products/12345",
-                    loading: false,
-                    item: {
-                        name: 'MAJIK DS/2',
-                        href: '/products/root-products/12345'
+            rootProducts: {
+                loading: false,
+                items: [
+                    {
+                        rootProductUri: "/products/root-products/12345",
+                        loading: false,
+                        item: {
+                            name: 'MAJIK DS/2',
+                            href: '/products/root-products/12345'
+                        }
+                    },
+                    {
+                        rootProductUri: "/products/root-products/67890",
+                        loading: false,
+                        item: {
+                            name: 'KLIMAX DSM/3',
+                            href: '/products/root-products/67890'
+                        }
                     }
-                },
-                {
-                    rootProductUri: "/products/root-products/67890",
-                    loading: false,
-                    item: {
-                        name: 'KLIMAX DSM/3',
-                        href: '/products/root-products/67890'
-                    }
-                }
-            ]
+                ]      
+            }
         }
 
         const expectedResult = [
