@@ -45,49 +45,52 @@
                 return;
             }
 
-            var rootProducts = this.GetDemRootProducts(demLines);
-            if (!rootProducts.Any())
-            {
-                return;
-            }
-
-            var retailerId = this.retailerProxy.GetRetailerId(invoiceResource.links.First(l => l.Rel == "sales-customer").Href);
-            if (!retailerId.HasValue)
-            {
-                return;
-            }
-
-            var retailerDemList = this.retailerDemListRepository.GetByRetailerId(retailerId.Value);
-            this.log.Info($"Adding {rootProducts.Count} root products from invoice {invoiceResource.id} to dem list {retailerDemList} for retailer {retailerId}.");
-
-            foreach (var rootProduct in rootProducts)
-            {
-                retailerDemList.IncrementRootProductQuantity(
-                    rootProduct.RootProductUri,
-                    "/employees/100",
-                    rootProduct.Quantity);
-            }
-
-            this.transactionManager.Commit();
+            this.ProcessDemRootProducts(invoiceResource.id, demLines);
         }
 
-        private IList<RootProduct> GetDemRootProducts(IEnumerable<InvoiceLineResource> demLines)
+        private void ProcessDemRootProducts(int invoiceId, IEnumerable<InvoiceLineResource> demLines)
         {
-            var rootProducts = new List<RootProduct>();
+            var foundDemProducts = false;
+
             foreach (var invoiceResourceLine in demLines)
             {
+                RootProduct rootProduct = null;
+
                 var partUri = invoiceResourceLine.links.FirstOrDefault(l => l.Rel == "productUri")?.Href;
                 if (partUri != null)
                 {
                     var rootProductUri = this.productsProxy.GetRootProductUri(partUri);
                     if (rootProductUri != null)
                     {
-                        rootProducts.Add(new RootProduct(rootProductUri, invoiceResourceLine.quantity));
+                        rootProduct = new RootProduct(rootProductUri, invoiceResourceLine.quantity);
                     }
                 }
+
+                if (rootProduct == null)
+                {
+                    continue;
+                }
+
+                var retailerId = this.retailerProxy.GetRetailerId(invoiceResourceLine.links.First(l => l.Rel == "sales-customer").Href);
+                if (!retailerId.HasValue)
+                {
+                    continue;
+                }
+
+                var retailerDemList = this.retailerDemListRepository.GetByRetailerId(retailerId.Value);
+                this.log.Info($"Adding root product {rootProduct.RootProductUri} from invoice {invoiceId} line {invoiceResourceLine.number} to dem list {retailerDemList.Id} for retailer {retailerId}.");
+                foundDemProducts = true;
+
+                retailerDemList.IncrementRootProductQuantity(
+                    rootProduct.RootProductUri,
+                    "/employees/100",
+                    rootProduct.Quantity);
             }
 
-            return rootProducts;
+            if (foundDemProducts)
+            {
+                this.transactionManager.Commit();
+            }
         }
     }
 }

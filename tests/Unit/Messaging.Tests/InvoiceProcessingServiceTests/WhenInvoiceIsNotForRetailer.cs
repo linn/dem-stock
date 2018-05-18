@@ -32,7 +32,8 @@
                                                             forDemonstration = true,
                                                             links = new List<LinkResource>
                                                                         {
-                                                                            new LinkResource("productUri", "/products/sales-parts/123")
+                                                                            new LinkResource("productUri", "/products/sales-parts/123"),
+                                                                            new LinkResource("sales-customer", "/sales/customers/808")
                                                                         }
                                                         },
                                                     new InvoiceLineResource
@@ -41,13 +42,10 @@
                                                             forDemonstration = true,
                                                             links = new List<LinkResource>
                                                                         {
-                                                                            new LinkResource("productUri", "/products/sales-parts/456")
+                                                                            new LinkResource("productUri", "/products/sales-parts/456"),
+                                                                            new LinkResource("sales-customer", "/sales/customers/808")
                                                                         }
                                                         }
-                                                },
-                                    links = new List<LinkResource>
-                                                {
-                                                    new LinkResource("sales-customer", "/sales/customers/808")
                                                 }
             };
             this.retailerDemList = new RetailerDemList(444, null);
