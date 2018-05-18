@@ -24,11 +24,13 @@
             this.Put("/retailers/{retailerId:int}/dem-stock/products", parameters => this.SetRootProductQuantity(parameters.retailerId));
             this.Put("/retailers/{retailerId:int}/dem-stock", parameters => this.SetLastReviewedDate(parameters.retailerId));
 
-            this.RequiresAuthentication();
+            //this.RequiresAuthentication();
         }
 
         private object SetLastReviewedDate(int retailerId)
         {
+            this.RequiresAuthentication();
+
             var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
 
             var resource = this.Bind<UpdateDateRequestResource>();
@@ -61,6 +63,8 @@
 
         private object SetRootProductQuantity(int retailerId)
         {
+            this.RequiresAuthentication();
+
             var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
 
             var resource = this.Bind<SetRootProductRequestResource>();
