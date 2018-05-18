@@ -1,17 +1,24 @@
 namespace Linn.DemStock.Service.Host
 {
+    using System;
     using System.IdentityModel.Tokens.Jwt;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
 
+    using Linn.Common.Authentication.Host;
     using Linn.Common.Authentication.Host.Extensions;
     using Linn.Common.Configuration;
 
     using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Authentication.Cookies;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authentication.OpenIdConnect;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using Microsoft.IdentityModel.Tokens;
 
     using Nancy;
     using Nancy.Owin;
@@ -26,7 +33,7 @@ namespace Linn.DemStock.Service.Host
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-            services.AddLinnAuthentication(
+            services.AddLinnAuthentication2(
                 options =>
                     {
                         options.Authority = ConfigurationManager.Configuration["AUTHORITY_URI"];
@@ -48,7 +55,7 @@ namespace Linn.DemStock.Service.Host
 
             app.UseAuthentication();
 
-            app.UseBearerTokenAuthentication();
+//            app.UseBearerTokenAuthentication();
 
             app.UseOwin(x => x.UseNancy(config =>
             {
@@ -56,6 +63,106 @@ namespace Linn.DemStock.Service.Host
             }));
 
             app.Use((context, next) => context.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme));
+        }
+    }
+
+    public static class ServiceCollectionExtensions
+    {
+        public static IServiceCollection AddLinnAuthentication2(this IServiceCollection services, Action<LinnAuthenticationOptions> optionsAction = null)
+        {
+            var linnOptions = new LinnAuthenticationOptions();
+
+            optionsAction?.Invoke(linnOptions);
+
+            services.AddAuthentication
+                (options =>
+                {
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                   //options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+               })
+                //.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+                //{
+                //    options.Cookie.Path = "projects";
+                //})
+                //.AddLinnOpenIdConnect2(linnOptions)
+                .AddLinnJwtBearer2(linnOptions);
+
+            return services;
+        }
+    }
+
+    public static class AuthenticationBuilderExtensions
+    {
+        public static AuthenticationBuilder AddLinnOpenIdConnect2(this AuthenticationBuilder builder, LinnAuthenticationOptions opts = null)
+        {
+            var linnOptions = opts ?? new LinnAuthenticationOptions();
+
+            builder.AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
+            {
+                options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+
+                options.CallbackPath = linnOptions.CallbackPath;
+
+                options.Scope.Add(linnOptions.Scope);
+
+                options.Authority = linnOptions.Authority;
+
+                options.RequireHttpsMetadata = false;
+
+                options.ClientId = linnOptions.ClientId;
+
+                options.SaveTokens = true;
+
+                options.ResponseType = "id_token token";
+            });
+
+            return builder;
+        }
+
+        public static AuthenticationBuilder AddLinnJwtBearer2(this AuthenticationBuilder builder, LinnAuthenticationOptions opts = null)
+        {
+            var linnOptions = opts ?? new LinnAuthenticationOptions();
+
+            builder.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+            {
+                options.RequireHttpsMetadata = false;
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = false
+                };
+
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = async context =>
+                    {
+                        var x = context;
+                    },
+
+                    OnTokenValidated = async context =>
+                    {
+                        var accessToken = context.Request.GetAccessToken();
+
+                        var userClaims = await UserInfoHelper.GetUserClaimsAsync(accessToken);
+
+                        context.Principal.AddIdentity(new ClaimsIdentity(userClaims));
+
+                        context.HttpContext.User = context.Principal;
+                    },
+                    OnAuthenticationFailed = context =>
+                    {
+                        context.Response.StatusCode = 401;
+
+                        return Task.CompletedTask;
+                    }
+                };
+
+                options.Authority = linnOptions.Authority;
+
+                options.SaveToken = true;
+            });
+
+            return builder;
         }
     }
 }
