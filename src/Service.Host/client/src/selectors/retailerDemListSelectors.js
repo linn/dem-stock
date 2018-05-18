@@ -22,10 +22,10 @@ export const getRetailerDemListRetailerUri = ({ retailerDemList }) => {
         : null;
 }
 
-export const getRetailerDemListLoading = ({ retailerDemList, retailer, rootProducts }) => {
-    if (!retailerDemList || !rootProducts) {
+export const getRetailerDemListLoading = ({ retailerDemList, retailer, rootProducts, employees }) => {
+    if (!retailerDemList || !rootProducts || !employees) {
         return null;
     }
 
-    return retailerDemList.loading || retailer.loading || rootProducts.loading;
+    return retailerDemList.loading || retailer.loading || rootProducts.loading || employees.loading;
 }

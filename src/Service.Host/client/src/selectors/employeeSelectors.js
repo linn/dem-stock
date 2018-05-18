@@ -5,7 +5,7 @@ import { getEmployeeUris } from './utilities/employeeSelectorUtilities';
 export const getEmployeesToFetch = ({ activities, employees }) => {
     const urisToFetch = distinct(getActivityEmployeeUris(activities));
 
-    if (!employees) {
+    if (!employees.items.length) {
         return urisToFetch;
     }
 

@@ -1,18 +1,25 @@
 ﻿import * as actionTypes from '../actions';
 import { distinct } from '../helpers/utilities';
 
-const employees = (state = [], action) => {
+const defaultState = {
+    loading: false,
+    items: []
+}
+
+const employees = (state = defaultState, action) => {
     switch (action.type) {
-        case actionTypes.REQUEST_EMPLOYEE_NAME:            
-            return [
-                ...state
-            ]
+        case actionTypes.REQUEST_EMPLOYEE_NAME:
+            return {
+                ...state,
+                loading: true
+            }
 
         case actionTypes.RECEIVE_EMPLOYEE_NAME:
-            return [
+            return {
                 ...state,
-                action.payload.data
-            ]
+                loading: false,
+                items: [...state.items, action.payload.data]
+            }
 
         default:
             return state;

@@ -15,6 +15,10 @@ describe('when selecting retailer dem list loading', () => {
             retailer: {
                 loading: false,
                 item: {}
+            },
+            employees: {
+                loading: false,
+                items: {}
             }
         }
 

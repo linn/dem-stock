@@ -45,23 +45,26 @@ describe('when selecting employee uris to fetch', () => {
                     links: null
                 }
             ],
-            employees: [
-                {
-                    id: 241,
-                    firstName: 'Teddy',
-                    lastName: 'Barton',
-                    userName: 'teddyb',
-                    emailAddress: 'teddy.barton@linn.co.uk',
-                    href: '/employees/241',
-                    fullName: 'Teddy Barton',
-                    links: [
-                        {
-                            href: '/employees/241',
-                            rel: 'self'
-                        }
-                    ]
-                }
-            ]
+            employees: {
+                loading: false,
+                items: [
+                    {
+                        id: 241,
+                        firstName: 'Teddy',
+                        lastName: 'Barton',
+                        userName: 'teddyb',
+                        emailAddress: 'teddy.barton@linn.co.uk',
+                        href: '/employees/241',
+                        fullName: 'Teddy Barton',
+                        links: [
+                            {
+                                href: '/employees/241',
+                                rel: 'self'
+                            }
+                        ]
+                    }
+                ]
+            }
         }
 
         const expectedResult = ['/employees/123', '/employees/987'];

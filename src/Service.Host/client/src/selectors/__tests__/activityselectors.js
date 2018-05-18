@@ -49,38 +49,41 @@ describe('when selecting activites', () => {
                     }
                 ]
             },
-            employees: [
-                {
-                    id: 3306,
-                    firstName: 'Teddy',
-                    lastName: 'Barton',
-                    userName: 'teddyb',
-                    emailAddress: 'teddy.barton@linn.co.uk',
-                    href: '/employees/3306',
-                    fullName: 'Teddy Barton',
-                    links: [
-                        {
-                            href: '/employees/3306',
-                            rel: 'self'
-                        }
-                    ]
-                },
-                {
-                    id: 123,
-                    firstName: 'Peter',
-                    lastName: 'Beardsley',
-                    userName: 'peterb',
-                    emailAddress: 'peter.beardsley@linn.co.uk',
-                    href: '/employees/123',
-                    fullName: 'Peter Beardsley',
-                    links: [
-                        {
-                            href: '/employees/123',
-                            rel: 'self'
-                        }
-                    ]
-                }
-            ]
+            employees: {
+                loading: false,
+                items: [
+                    {
+                        id: 3306,
+                        firstName: 'Teddy',
+                        lastName: 'Barton',
+                        userName: 'teddyb',
+                        emailAddress: 'teddy.barton@linn.co.uk',
+                        href: '/employees/3306',
+                        fullName: 'Teddy Barton',
+                        links: [
+                            {
+                                href: '/employees/3306',
+                                rel: 'self'
+                            }
+                        ]
+                    },
+                    {
+                        id: 123,
+                        firstName: 'Peter',
+                        lastName: 'Beardsley',
+                        userName: 'peterb',
+                        emailAddress: 'peter.beardsley@linn.co.uk',
+                        href: '/employees/123',
+                        fullName: 'Peter Beardsley',
+                        links: [
+                            {
+                                href: '/employees/123',
+                                rel: 'self'
+                            }
+                        ]
+                    }
+                ]
+            }
         }
 
         const expectedResult = [

@@ -3,7 +3,7 @@ export const getEmployeeUris = employees => {
         return null;
     }
 
-    return employees.map(e => e.href);
+    return employees.items.map(e => e.href);
 }
 
 export const getEmployee = (employeeUri, employees) => {
@@ -11,7 +11,7 @@ export const getEmployee = (employeeUri, employees) => {
         return null;
     }
 
-    return employees.find(e => e.href === employeeUri);
+    return employees.items.find(e => e.href === employeeUri);
 }
 
 export const getEmployeeName = (employeeUri, employees) => {
