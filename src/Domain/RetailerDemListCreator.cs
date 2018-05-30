@@ -24,7 +24,7 @@
                 throw new DuplicateRetailerDemListException($"Retailer {retailerId} already has a Dem List");
             }
 
-            var retailerDemList = new RetailerDemList(retailerId, createdBy);
+            var retailerDemList = new RetailerDemList(retailerId, createdBy) { IsForOpenRetailer = true };
 
             this.retailerDemListRepository.Add(retailerDemList);
 

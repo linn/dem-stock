@@ -2,7 +2,6 @@
 {
     using System;
 
-    using Linn.Common.Configuration;
     using Linn.DemStock.Facade.Services;
     using Linn.DemStock.Resources.RequestResources;
     using Linn.DemStock.Service.Extensions;

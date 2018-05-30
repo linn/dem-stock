@@ -39,6 +39,7 @@
         public void ShouldReturnRetailerDemList()
         {
             this.result.RetailerId.Should().Be(this.retailerId);
+            this.result.IsForOpenRetailer.Should().BeTrue();
             this.result.Activities.Count.Should().Be(1);
             this.result.Activities.First(a => a is CreateRetailerDemListActivity).As<CreateRetailerDemListActivity>()
                 .UpdatedByUri.Should().Be("employee/200");

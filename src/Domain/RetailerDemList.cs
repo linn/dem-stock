@@ -26,6 +26,8 @@
 
         public IList<RootProduct> RootProducts { get; private set; } = new List<RootProduct>();
 
+        public bool IsForOpenRetailer { get; set; }
+
         public RootProduct IncrementRootProductQuantity(string rootProductUri, string updatedByUri, int quantity = 1)
         {
             var rootProduct = this.RootProducts.FirstOrDefault(r => r.RootProductUri.ToLower() == rootProductUri.ToLower());
