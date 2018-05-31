@@ -12,6 +12,7 @@
         public RetailerDemList(int retailerId, string updatedByUri)
         {
             this.RetailerId = retailerId;
+            this.IsForOpenRetailer = true;
             this.Activities.Add(new CreateRetailerDemListActivity(updatedByUri, retailerId));
         }
 
@@ -26,7 +27,7 @@
 
         public IList<RootProduct> RootProducts { get; private set; } = new List<RootProduct>();
 
-        public bool IsForOpenRetailer { get; set; }
+        public bool IsForOpenRetailer { get; private set; }
 
         public RootProduct IncrementRootProductQuantity(string rootProductUri, string updatedByUri, int quantity = 1)
         {
@@ -50,6 +51,16 @@
             {
                 this.LastReviewedOn = reviewedOn;
                 this.Activities.Add(new UpdateLastReviewedOnActivity(updatedByUri, reviewedOn));
+            }
+        }
+
+        public void SetIsForOpenRetailer(DateTime? dateClosed, string updatedByUri)
+        {
+            var wasOpen = this.IsForOpenRetailer;
+            this.IsForOpenRetailer = !dateClosed.HasValue;
+            if (wasOpen != this.IsForOpenRetailer)
+            {
+                this.Activities.Add(new UpdateIsOpenActivity(updatedByUri, this.IsForOpenRetailer));
             }
         }
 

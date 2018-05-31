@@ -43,5 +43,16 @@
                            RetailerId = activity.RetailerId
                        };
         }
+
+        public RetailerDemListActivityResource Visit(UpdateIsOpenActivity activity)
+        {
+            return new UpdateIsOpenActivityResource
+                       {
+                           ActivityType = activity.GetType().Name,
+                           UpdatedByUri = activity.UpdatedByUri,
+                           ChangedOn = DateTime.SpecifyKind(activity.ChangedOn, DateTimeKind.Utc).ToString("o"),
+                           IsForOpenRetailer = activity.IsForOpenRetailer
+                       };
+        }
     }
 }
