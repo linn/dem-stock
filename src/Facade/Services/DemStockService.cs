@@ -78,5 +78,10 @@
 
             return new SuccessResult<IEnumerable<RetailerDemListActivity>>(activities);
         }
+
+        public IResult<IEnumerable<RetailerDemList>> GetRetailerDemListsByLastReviewed()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

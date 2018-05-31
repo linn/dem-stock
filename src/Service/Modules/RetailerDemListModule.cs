@@ -22,8 +22,19 @@
             this.Get("/retailers/{retailerId:int}/dem-stock/activities", parameters => this.GetRetailerDemListActivitiesById(parameters.retailerId));
             this.Put("/retailers/{retailerId:int}/dem-stock/products", parameters => this.SetRootProductQuantity(parameters.retailerId));
             this.Put("/retailers/{retailerId:int}/dem-stock", parameters => this.SetLastReviewedDate(parameters.retailerId));
+            this.Get("/retailers/dem-stock/last-reviewed", _ => this.GetRetailerDemListsByLastReviewed());
 
             this.RequiresAuthentication();
+        }
+
+        private object GetRetailerDemListsByLastReviewed()
+        {
+            var retailerDemList = this.demStockService.GetRetailerDemListsByLastReviewed();
+
+            return this.Negotiate
+                .WithModel(retailerDemList)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
 
         private object SetLastReviewedDate(int retailerId)

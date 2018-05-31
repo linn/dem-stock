@@ -16,5 +16,7 @@
         IResult<RetailerDemList> UpdateRetailerDemListDetails(int retailerId, DateTime? lastReviewedOn, string employeeUri);
 
         IResult<IEnumerable<RetailerDemListActivity>> GetRetailerDemListActivities(int retailerId);
+
+        IResult<IEnumerable<RetailerDemList>> GetRetailerDemListsByLastReviewed();
     }
 }
