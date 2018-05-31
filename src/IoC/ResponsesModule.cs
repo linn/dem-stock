@@ -15,6 +15,7 @@
         {
             // resource builders
             builder.RegisterType<RetailerDemListResourceBuilder>().As<IResourceBuilder<RetailerDemList>>();
+            builder.RegisterType<RetailerDemListsResourceBuilder>().As<IResourceBuilder<IEnumerable<RetailerDemList>>>();
             builder.RegisterType<RootProductResourceBuilder>().As<IResourceBuilder<RootProduct>>();
             builder.RegisterType<RetailerDemListActivitiesResourceBuilder>().As<IResourceBuilder<IEnumerable<RetailerDemListActivity>>>();
         }
