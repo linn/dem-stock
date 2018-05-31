@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
@@ -81,7 +82,8 @@
 
         public IResult<IEnumerable<RetailerDemList>> GetRetailerDemListsByLastReviewed()
         {
-            throw new NotImplementedException();
+            var retailerDemLists = this.retailerDemListRepository.GetRetailerDemLists();
+            return new SuccessResult<IEnumerable<RetailerDemList>>(retailerDemLists.OrderBy(a => a.LastReviewedOn));
         }
     }
 }
