@@ -16,7 +16,7 @@ describe('retailer search reducer', () => {
         };
 
         const action = {
-            type: actionTypes.REQUEST_RETAILERS,
+            type: actionTypes.REQUEST_RETAILERS_SEARCH,
             payload: {
                 searchTerm: 'new search'
             }
@@ -43,7 +43,7 @@ describe('retailer search reducer', () => {
         }
 
         const action = {
-            type: actionTypes.RECEIVE_RETAILERS,
+            type: actionTypes.RECEIVE_RETAILERS_SEARCH,
             payload: {
                 searchTerm: 'new search',
                 data: {
