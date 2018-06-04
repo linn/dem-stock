@@ -9,7 +9,7 @@ const defaultState = {
 
 const retailerSearch = (state = defaultState, action) => {
     switch (action.type) {
-    case actionTypes.REQUEST_RETAILERS:
+    case actionTypes.REQUEST_RETAILERS_SEARCH:
         return {
             ...state,
             loading: true,
@@ -17,7 +17,7 @@ const retailerSearch = (state = defaultState, action) => {
             items: []
         }
 
-    case actionTypes.RECEIVE_RETAILERS:
+    case actionTypes.RECEIVE_RETAILERS_SEARCH:
         return {
             ...state,
             loading: false,

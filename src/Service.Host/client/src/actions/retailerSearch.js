@@ -31,11 +31,11 @@ const performRetailerSearch = searchTerm => ({
         },
         types: [
             {
-                type: actionTypes.REQUEST_RETAILERS,
+                type: actionTypes.REQUEST_RETAILERS_SEARCH,
                 payload: { searchTerm }
             },
             {
-                type: actionTypes.RECEIVE_RETAILERS,
+                type: actionTypes.RECEIVE_RETAILERS_SEARCH,
                 payload: async (action, state, res) => ({ searchTerm, data: await res.json() })
             },
             {
