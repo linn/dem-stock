@@ -35,6 +35,17 @@
                     })
                 .OnRejected(this.LogRejection);
 
+            this.consumer.For("retailers.retailer.updated")
+                .OnConsumed(m =>
+                    {
+                        using (var handlerScope = scope.BeginLifetimeScope("messageHandler"))
+                        {
+                            var handler = handlerScope.Resolve<RetailerUpdatedHandler>();
+                            return handler.Execute(m);
+                        }
+                    })
+                .OnRejected(this.LogRejection);
+
             this.consumer.For("invoicing.invoice.created")
                 .OnConsumed(m =>
                     {

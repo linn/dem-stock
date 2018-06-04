@@ -23,6 +23,7 @@
 
             builder.RegisterType<Listener>().AsSelf();
             builder.RegisterType<RetailerCreatedHandler>().AsSelf();
+            builder.RegisterType<RetailerUpdatedHandler>().AsSelf();
             builder.RegisterType<InvoiceCreatedHandler>().AsSelf();
 
             return builder.Build();

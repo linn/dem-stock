@@ -8,11 +8,9 @@
     using Linn.DemStock.Domain.RetailerDemListActivities;
     using Linn.DemStock.Facade.ResourceBuilders;
     using Linn.DemStock.Facade.Services;
-    using Linn.DemStock.Service.Extensions;
     using Linn.DemStock.Service.Modules;
     using Linn.DemStock.Service.ResponseProcessors;
 
-    using Nancy.Bootstrapper;
     using Nancy.Testing;
 
     using NSubstitute;
@@ -33,10 +31,12 @@
                 {
                     with.Dependency(this.DemStockService);
                     with.Dependency<IResourceBuilder<RetailerDemList>>(new RetailerDemListResourceBuilder());
+                    with.Dependency<IResourceBuilder<IEnumerable<RetailerDemList>>>(new RetailerDemListsResourceBuilder());
                     with.Dependency<IResourceBuilder<RootProduct>>(new RootProductResourceBuilder());
                     with.Dependency<IResourceBuilder<IEnumerable<RetailerDemListActivity>>>(new RetailerDemListActivitiesResourceBuilder());
                     with.Module<RetailerDemListModule>();
                     with.ResponseProcessor<RetailerDemListJsonResponseProcessor>();
+                    with.ResponseProcessor<RetailerDemListsJsonResponseProcessor>();
                     with.ResponseProcessor<RootProductJsonResponseProcessor>();
                     with.ResponseProcessor<RetailerDemListActivitiesJsonResponseProcessor>();
 
@@ -49,7 +49,7 @@
                                                      new Claim(ClaimTypes.NameIdentifier, "test-user")
                                                  };
 
-                                var user = new ClaimsIdentity(claims, "jwt");                                
+                                var user = new ClaimsIdentity(claims, "jwt");
 
                                 context.CurrentUser = new System.Security.Claims.ClaimsPrincipal(user);
                             });

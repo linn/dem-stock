@@ -22,11 +22,13 @@
             builder.Entity<RetailerDemListActivity>().HasDiscriminator<string>("ActivityType")
                 .HasValue<UpdateLastReviewedOnActivity>("last-reviewed")
                 .HasValue<UpdateRootProductActivity>("update-root-product")
-                .HasValue<CreateRetailerDemListActivity>("create-dem-list");
+                .HasValue<CreateRetailerDemListActivity>("create-dem-list")
+                .HasValue<UpdateIsOpenActivity>("is-open");
 
             builder.Entity<UpdateLastReviewedOnActivity>().HasBaseType<RetailerDemListActivity>();
             builder.Entity<UpdateRootProductActivity>().HasBaseType<RetailerDemListActivity>();
             builder.Entity<CreateRetailerDemListActivity>().HasBaseType<RetailerDemListActivity>();
+            builder.Entity<UpdateIsOpenActivity>().HasBaseType<RetailerDemListActivity>();
 
             base.OnModelCreating(builder);
         }

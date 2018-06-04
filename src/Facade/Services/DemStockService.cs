@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
@@ -77,6 +78,12 @@
             var activities = retailerDemList.Activities;
 
             return new SuccessResult<IEnumerable<RetailerDemListActivity>>(activities);
+        }
+
+        public IResult<IEnumerable<RetailerDemList>> GetRetailerDemListsByLastReviewed()
+        {
+            var retailerDemLists = this.retailerDemListRepository.GetRetailerDemLists();
+            return new SuccessResult<IEnumerable<RetailerDemList>>(retailerDemLists.OrderBy(a => a.LastReviewedOn));
         }
     }
 }

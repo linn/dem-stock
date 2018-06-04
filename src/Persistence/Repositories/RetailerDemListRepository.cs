@@ -1,5 +1,6 @@
 ﻿namespace Linn.DemStock.Persistence.Repositories
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     using Linn.DemStock.Domain;
@@ -26,6 +27,17 @@
         public void Add(RetailerDemList retailerDemList)
         {
             this.serviceDbContext.RetailerDemLists.Add(retailerDemList);
+        }
+
+        public IEnumerable<RetailerDemList> GetRetailerDemLists(bool openRetailersOnly = true)
+        {
+            var demLists = this.serviceDbContext.RetailerDemLists.AsEnumerable();
+            if (openRetailersOnly)
+            {
+                demLists = demLists.Where(d => d.IsForOpenRetailer);
+            }
+
+            return demLists;
         }
     }
 }

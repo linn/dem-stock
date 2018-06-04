@@ -9,5 +9,7 @@
         T Visit(UpdateRootProductActivity activity);
 
         T Visit(CreateRetailerDemListActivity activity);
+
+        T Visit(UpdateIsOpenActivity activity);
     }
 }

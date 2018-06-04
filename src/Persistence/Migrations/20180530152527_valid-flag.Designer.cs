@@ -12,9 +12,10 @@ using System;
 namespace Linn.DemStock.Persistence.Migrations
 {
     [DbContext(typeof(ServiceDbContext))]
-    partial class ServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180530152527_valid-flag")]
+    partial class validflag
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,17 +90,6 @@ namespace Linn.DemStock.Persistence.Migrations
                     b.ToTable("CreateRetailerDemListActivity");
 
                     b.HasDiscriminator().HasValue("create-dem-list");
-                });
-
-            modelBuilder.Entity("Linn.DemStock.Domain.RetailerDemListActivities.UpdateIsOpenActivity", b =>
-                {
-                    b.HasBaseType("Linn.DemStock.Domain.RetailerDemListActivities.RetailerDemListActivity");
-
-                    b.Property<bool>("IsForOpenRetailer");
-
-                    b.ToTable("UpdateIsOpenActivity");
-
-                    b.HasDiscriminator().HasValue("is-open");
                 });
 
             modelBuilder.Entity("Linn.DemStock.Domain.RetailerDemListActivities.UpdateLastReviewedOnActivity", b =>

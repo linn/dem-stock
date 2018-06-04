@@ -51,6 +51,14 @@
       "arguments": {}
     },
     {
+      "source": "retailers.x",
+      "vhost": "/",
+      "destination": "dem-stock.q",
+      "destination_type": "queue",
+      "routing_key": "retailers.retailer.updated",
+      "arguments": {}
+    },
+    {
       "source": "dem-stock.x",
       "vhost": "/",
       "destination": "dem-stock.q",
