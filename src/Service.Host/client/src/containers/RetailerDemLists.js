@@ -3,7 +3,6 @@ import RetailerDemLists from '../components/RetailerDemLists';
 import initialiseOnMount from './common/initialiseOnMount';
 import { fetchRetailerDemLists } from '../actions/retailerDemLists';
 import { fetchAllRetailers } from '../actions/retailers';
-//import { getRetailerDemList, getRetailerDemListRetailerUri, getRetailerDemListLoading, getRetailerDemListRootProducts } from '../selectors/retailerDemListSelectors';
 
 const mapStateToProps = ({ retailerDemLists, retailers }) => ({
     retailerDemLists,

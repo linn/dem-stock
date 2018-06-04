@@ -1,17 +1,16 @@
 ﻿import React, { Component } from 'react';
 import { Loading } from './common';
-import { Grid, Row, Col, Table, Button, Glyphicon } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import { Grid, Row, Col, Table, Button, Glyphicon, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { formatDate } from '../helpers/dates';
 import moment from 'moment';
 import { getRetailer } from '../selectors/retailersSelectors';
 
 class RetailerDemListLine extends Component {
     render() {
-        const { retailerDemList, i, retailers } = this.props;
+        const { retailerDemList, rowIndex, retailers } = this.props;
 
         return (
-            <tr key={i}>
+            <tr key={rowIndex}>
                 <td>{getRetailer(retailerDemList.retailerId, retailers)
                     ? <a href={`/retailers/${retailerDemList.retailerId}`} target="_blank" > {getRetailer(retailerDemList.retailerId, retailers).name} </a>
                     : 'Loading details..'}
@@ -26,8 +25,10 @@ class RetailerDemListLine extends Component {
                         : ''}
                 </td>
                 <td>
-                    <Button bsSize="small" href={`/retailers/${retailerDemList.retailerId}/dem-stock`} target="_blank"><Glyphicon className="text-muted" glyph="edit" />
-                    </Button>
+                    <OverlayTrigger placement="top" overlay={<Tooltip id="tooltip1">Review the dem list for this retailer</Tooltip>}>
+                        <Button bsSize="small" href={`/retailers/${retailerDemList.retailerId}/dem-stock`} target="_blank"><Glyphicon className="text-muted" glyph="edit" />
+                        </Button>
+                    </OverlayTrigger>
                 </td>
             </tr>);
     }
