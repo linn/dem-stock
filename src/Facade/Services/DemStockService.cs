@@ -113,7 +113,8 @@
                 results.Add(retailerDemList.ToModel(retailer, region));
             }
 
-            return new SuccessResult<IEnumerable<RetailerDemListModel>>(results.OrderBy(a => a.LastReviewed).ThenBy(a => a.RetailerId));
+            return new SuccessResult<IEnumerable<RetailerDemListModel>>(
+                results.OrderBy(a => a.LastReviewed).ThenBy(a => a.RetailerName));
         }
     }
 }
