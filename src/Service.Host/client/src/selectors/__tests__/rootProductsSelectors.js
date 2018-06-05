@@ -49,7 +49,7 @@ describe('when selecting root products', () => {
     });
 });
 
-describe('when getting products to fetch', () => {
+describe('when selecting products to fetch', () => {
 
     test('should return all uris', () => {
         const state = {
@@ -79,25 +79,47 @@ describe('when getting products to fetch', () => {
                 loading: false,
                 items: []
             },
-            activities: [
-                {
-                    rootProductUri: '/products/root-products/175',
-                    quantity: 1,
-                    activityType: 'UpdateRootProductActivity',
-                    updatedByUri: null,
-                    changedOn: '2018-03-14T09:08:36.0229120',
-                    links: null
-                },
-                {
-                    rootProductUri: '/products/root-products/901',
-                    quantity: 1,
-                    activityType: 'UpdateRootProductActivity',
-                    updatedByUri: null,
-                    changedOn: '2018-03-14T09:09:05.9000510',
-                    links: null
-                },
-            ]
+            activities: {
+                loading: false,
+                items: [
+                    {
+                        rootProductUri: '/products/root-products/175',
+                        quantity: 1,
+                        activityType: 'UpdateRootProductActivity',
+                        updatedByUri: null,
+                        changedOn: '2018-03-14T09:08:36.0229120',
+                        links: null
+                    },
+                    {
+                        rootProductUri: '/products/root-products/901',
+                        quantity: 1,
+                        activityType: 'UpdateRootProductActivity',
+                        updatedByUri: null,
+                        changedOn: '2018-03-14T09:09:05.9000510',
+                        links: null
+                    },
+                ]
+            }
         }
+
+        const activities = [
+            {
+                rootProductUri: '/products/root-products/175',
+                quantity: 1,
+                activityType: 'UpdateRootProductActivity',
+                updatedByUri: null,
+                changedOn: '2018-03-14T09:08:36.0229120',
+                links: null
+            },
+            {
+                rootProductUri: '/products/root-products/901',
+                quantity: 1,
+                activityType: 'UpdateRootProductActivity',
+                updatedByUri: null,
+                changedOn: '2018-03-14T09:09:05.9000510',
+                links: null
+            },
+        ]
 
         const expected = [
             '/products/root-products/175',
@@ -106,7 +128,7 @@ describe('when getting products to fetch', () => {
             '/products/root-products/1841',
         ];
 
-        expect(getRootProductsToFetch(state)).toEqual(expected);
+        expect(getRootProductsToFetch(state, activities)).toEqual(expected);
     });
 
     test('should return uris not in root products state', () => {
@@ -176,32 +198,54 @@ describe('when getting products to fetch', () => {
                     },
                 ],
             },
-            activities: [
-                {
-                    rootProductUri: '/products/root-products/175',
-                    quantity: 1,
-                    activityType: 'UpdateRootProductActivity',
-                    updatedByUri: null,
-                    changedOn: '2018-03-14T09:08:36.0229120',
-                    links: null
-                },
-                {
-                    rootProductUri: '/products/root-products/901',
-                    quantity: 1,
-                    activityType: 'UpdateRootProductActivity',
-                    updatedByUri: null,
-                    changedOn: '2018-03-14T09:09:05.9000510',
-                    links: null
-                },
-            ]
+            activities: {
+                loading: false,
+                items: [
+                    {
+                        rootProductUri: '/products/root-products/175',
+                        quantity: 1,
+                        activityType: 'UpdateRootProductActivity',
+                        updatedByUri: null,
+                        changedOn: '2018-03-14T09:08:36.0229120',
+                        links: null
+                    },
+                    {
+                        rootProductUri: '/products/root-products/901',
+                        quantity: 1,
+                        activityType: 'UpdateRootProductActivity',
+                        updatedByUri: null,
+                        changedOn: '2018-03-14T09:09:05.9000510',
+                        links: null
+                    },
+                ]
+            }
         }
 
+        const activities = [
+            {
+                rootProductUri: '/products/root-products/175',
+                quantity: 1,
+                activityType: 'UpdateRootProductActivity',
+                updatedByUri: null,
+                changedOn: '2018-03-14T09:08:36.0229120',
+                links: null
+            },
+            {
+                rootProductUri: '/products/root-products/901',
+                quantity: 1,
+                activityType: 'UpdateRootProductActivity',
+                updatedByUri: null,
+                changedOn: '2018-03-14T09:09:05.9000510',
+                links: null
+            }
+        ]
+        
         const expected = [
             '/products/root-products/175',
             '/products/root-products/262'
         ];
 
-        expect(getRootProductsToFetch(state)).toEqual(expected);
+        expect(getRootProductsToFetch(state, activities)).toEqual(expected);
     });
 
     test('should not return uris when all in state', () => {
@@ -309,29 +353,51 @@ describe('when getting products to fetch', () => {
                     },
                 ],
             },
-            activities: [
-                {
-                    rootProductUri: '/products/root-products/175',
-                    quantity: 1,
-                    activityType: 'UpdateRootProductActivity',
-                    updatedByUri: null,
-                    changedOn: '2018-03-14T09:08:36.0229120',
-                    links: null
-                },
-                {
-                    rootProductUri: '/products/root-products/901',
-                    quantity: 1,
-                    activityType: 'UpdateRootProductActivity',
-                    updatedByUri: null,
-                    changedOn: '2018-03-14T09:09:05.9000510',
-                    links: null
-                },
-            ]
+            activities: {
+                loading: false,
+                items: [
+                    {
+                        rootProductUri: '/products/root-products/175',
+                        quantity: 1,
+                        activityType: 'UpdateRootProductActivity',
+                        updatedByUri: null,
+                        changedOn: '2018-03-14T09:08:36.0229120',
+                        links: null
+                    },
+                    {
+                        rootProductUri: '/products/root-products/901',
+                        quantity: 1,
+                        activityType: 'UpdateRootProductActivity',
+                        updatedByUri: null,
+                        changedOn: '2018-03-14T09:09:05.9000510',
+                        links: null
+                    },
+                ]
+            }
         }
+
+        const activities = [
+            {
+                rootProductUri: '/products/root-products/175',
+                quantity: 1,
+                activityType: 'UpdateRootProductActivity',
+                updatedByUri: null,
+                changedOn: '2018-03-14T09:08:36.0229120',
+                links: null
+            },
+            {
+                rootProductUri: '/products/root-products/901',
+                quantity: 1,
+                activityType: 'UpdateRootProductActivity',
+                updatedByUri: null,
+                changedOn: '2018-03-14T09:09:05.9000510',
+                links: null
+            },
+        ]
 
         const expected = [];
 
-        expect(getRootProductsToFetch(state)).toEqual(expected);
+        expect(getRootProductsToFetch(state, activities)).toEqual(expected);
     });
 
     test('should not return null uris', () => {
@@ -401,38 +467,67 @@ describe('when getting products to fetch', () => {
                     },
                 ],
             },
-            activities: [
-                {
-                    rootProductUri: '/products/root-products/175',
-                    quantity: 1,
-                    activityType: 'UpdateRootProductActivity',
-                    updatedByUri: null,
-                    changedOn: '2018-03-14T09:08:36.0229120',
-                    links: null
-                },
-                {
-                    rootProductUri: '/products/root-products/901',
-                    quantity: 1,
-                    activityType: 'UpdateRootProductActivity',
-                    updatedByUri: null,
-                    changedOn: '2018-03-14T09:09:05.9000510',
-                    links: null
-                },
-                {
-                    lastReviewedOn: '2018-03-14T09:09:05.9000510',
-                    activityType: 'UpdateLastReviewedOnActivity',
-                    updatedByUri: null,
-                    changedOn: '2018-03-14T09:09:05.9000510',
-                    links: null
-                },
-            ]
+            activities: {
+                loading: false,
+                items: [
+                    {
+                        rootProductUri: '/products/root-products/175',
+                        quantity: 1,
+                        activityType: 'UpdateRootProductActivity',
+                        updatedByUri: null,
+                        changedOn: '2018-03-14T09:08:36.0229120',
+                        links: null
+                    },
+                    {
+                        rootProductUri: '/products/root-products/901',
+                        quantity: 1,
+                        activityType: 'UpdateRootProductActivity',
+                        updatedByUri: null,
+                        changedOn: '2018-03-14T09:09:05.9000510',
+                        links: null
+                    },
+                    {
+                        lastReviewedOn: '2018-03-14T09:09:05.9000510',
+                        activityType: 'UpdateLastReviewedOnActivity',
+                        updatedByUri: null,
+                        changedOn: '2018-03-14T09:09:05.9000510',
+                        links: null
+                    }
+                ]
+            }
         }
+
+        const activities = [
+            {
+                rootProductUri: '/products/root-products/175',
+                quantity: 1,
+                activityType: 'UpdateRootProductActivity',
+                updatedByUri: null,
+                changedOn: '2018-03-14T09:08:36.0229120',
+                links: null
+            },
+            {
+                rootProductUri: '/products/root-products/901',
+                quantity: 1,
+                activityType: 'UpdateRootProductActivity',
+                updatedByUri: null,
+                changedOn: '2018-03-14T09:09:05.9000510',
+                links: null
+            },
+            {
+                lastReviewedOn: '2018-03-14T09:09:05.9000510',
+                activityType: 'UpdateLastReviewedOnActivity',
+                updatedByUri: null,
+                changedOn: '2018-03-14T09:09:05.9000510',
+                links: null
+            }
+        ]
 
         const expected = [
             '/products/root-products/175',
             '/products/root-products/262'
         ];
 
-        expect(getRootProductsToFetch(state)).toEqual(expected);
+        expect(getRootProductsToFetch(state, activities)).toEqual(expected);
     });
 });

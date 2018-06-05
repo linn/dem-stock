@@ -11,5 +11,13 @@ export const getActivityEmployeeUris = activities => {
         return null;
     }
 
-    return activities.items.map(a => a.updatedByUri).filter(e => e !== null);
+    return activities.map(a => a.updatedByUri).filter(e => e !== null);
+}
+
+export const getActivitiesUpdating = activities => {
+    return !!activities.items.length && activities.loading;
+}
+
+export const getActivitiesLoading = activities => {
+    return !activities.items.length && activities.loading;
 }

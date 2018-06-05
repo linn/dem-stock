@@ -9,17 +9,32 @@ const defaultState = {
 const employees = (state = defaultState, action) => {
     switch (action.type) {
         case actionTypes.REQUEST_EMPLOYEE_NAME:
-            return {
-                ...state,
+        {
+            const employeeToAdd = {
+                href: action.payload.employeeUri,
                 loading: true
             }
+        
+            return {
+                ...state,
+                loading: true,
+                items: [...state.items, employeeToAdd]
+            }
+        }
 
         case actionTypes.RECEIVE_EMPLOYEE_NAME:
+        {
+            const employees = state.items.filter(e => e.href !== action.payload.data.href);
+
+            const employeeToAdd = action.payload.data;
+            employeeToAdd.loading = false;            
+
             return {
                 ...state,
                 loading: false,
-                items: [...state.items, action.payload.data]
+                items: [...employees, employeeToAdd]
             }
+        }            
 
         default:
             return state;

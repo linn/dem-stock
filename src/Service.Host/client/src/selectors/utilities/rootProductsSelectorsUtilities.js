@@ -1,3 +1,5 @@
+import { getActivitiesLoading, getActivitiesUpdating } from './activitySelectorUtilities';
+
 export const getRootProduct = (rootProductUri, rootProducts) => {
     if (!rootProductUri || !rootProducts || !rootProducts.items) {
         return null;
@@ -19,6 +21,14 @@ export const getRootProductUris = (rootProducts) => {
     if (!rootProducts || !rootProducts.items) {
         return null;
     }
-    
+
     return rootProducts.items.map(r => r.rootProductUri);
+}
+
+export const getRootProductsUpdating = rootProducts => {
+    return rootProducts.loading && rootProducts.loaded;
+}
+
+export const getRootProductsLoading = rootProducts => {
+    return rootProducts.loading && !rootProducts.loaded;
 }

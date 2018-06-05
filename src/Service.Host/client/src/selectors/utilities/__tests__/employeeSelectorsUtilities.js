@@ -1,4 +1,4 @@
-﻿import { getEmployeeUris, getEmployee, getEmployeeName } from '../employeeSelectorUtilities';
+﻿import { getEmployeeUris, getEmployee, getEmployeeName, getEmployeesLoading, getEmployeesUpdating } from '../employeeSelectorUtilities';
 
 describe('when selecting employee Uris', () => {
     test('should return uris', () => {
@@ -173,5 +173,100 @@ describe('when selecting employee name', () => {
 
         const expectedResult = 'Teddy Barton';
         expect(getEmployeeName('/employees/3306', employees)).toEqual(expectedResult);
+    });
+});
+
+describe('when selecting employees loading', () => {
+    test('should return true when an employee is loading', () => {
+
+        const employees = {
+            items: [
+                {
+                    id: 3306,
+                    firstName: 'Teddy',
+                    lastName: 'Barton',
+                    userName: 'teddyb',
+                    emailAddress: 'teddy.barton@linn.co.uk',
+                    href: '/employees/3306',
+                    fullName: 'Teddy Barton',
+                    links: [
+                        {
+                            href: '/employees/3306',
+                            rel: 'self'
+                        }
+                    ],
+                    loading: true
+                },
+                {
+                    id: 123,
+                    firstName: 'Peter',
+                    lastName: 'Beardsley',
+                    userName: 'peterb',
+                    emailAddress: 'peter.beardsley@linn.co.uk',
+                    href: '/employees/123',
+                    fullName: 'Peter Beardsley',
+                    links: [
+                        {
+                            href: '/employees/123',
+                            rel: 'self'
+                        }
+                    ],
+                    loading: false
+                }
+            ]
+        };
+
+        expect(getEmployeesLoading(employees)).toEqual(true);
+    });
+    
+    test('should return false when no employees are loading', () => {
+
+        const employees = {
+            items: [
+                {
+                    id: 3306,
+                    firstName: 'Teddy',
+                    lastName: 'Barton',
+                    userName: 'teddyb',
+                    emailAddress: 'teddy.barton@linn.co.uk',
+                    href: '/employees/3306',
+                    fullName: 'Teddy Barton',
+                    links: [
+                        {
+                            href: '/employees/3306',
+                            rel: 'self'
+                        }
+                    ],
+                    loading: false
+                },
+                {
+                    id: 123,
+                    firstName: 'Peter',
+                    lastName: 'Beardsley',
+                    userName: 'peterb',
+                    emailAddress: 'peter.beardsley@linn.co.uk',
+                    href: '/employees/123',
+                    fullName: 'Peter Beardsley',
+                    links: [
+                        {
+                            href: '/employees/123',
+                            rel: 'self'
+                        }
+                    ],
+                    loading: false
+                }
+            ]
+        };
+
+        expect(getEmployeesLoading(employees)).toEqual(false);
+    });
+
+    test('should return false when no employees in state', () => {
+
+        const employees = {
+            items: []
+        };
+
+        expect(getEmployeesLoading(employees)).toEqual(false);
     });
 });

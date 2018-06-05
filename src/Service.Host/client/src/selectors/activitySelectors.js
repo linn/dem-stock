@@ -2,7 +2,7 @@
 import { getEmployeeName } from './utilities/employeeSelectorUtilities';
 
 export const getActivities = ({ activities, rootProducts, employees }) => {
-    if (!activities || !rootProducts || !employees) {
+    if (!activities || !rootProducts || !employees || !activities.items) {
         return null;
     }
 

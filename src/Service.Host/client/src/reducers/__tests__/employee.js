@@ -19,7 +19,12 @@ describe('employees reducer', () => {
 
         const expected = {
             loading: true,
-            items: []
+            items: [
+                {
+                    href: '/employees/3306',
+                    loading: true
+                }
+            ]
         };
 
         deepFreeze(state);
@@ -30,7 +35,12 @@ describe('employees reducer', () => {
     test('when receiving an employee', () => {
         const state = {
             loading: true,
-            items: []
+            items: [
+                {
+                    href: '/employees/3306',
+                    loading: true
+                }
+            ]
         };
 
         const action = {
@@ -70,7 +80,8 @@ describe('employees reducer', () => {
                             href: '/employees/3306',
                             rel: 'self'
                         }
-                    ]
+                    ],
+                    loading: false
                 }
             ]
         };
@@ -97,7 +108,8 @@ describe('employees reducer', () => {
                             href: '/employees/3306',
                             rel: 'self'
                         }
-                    ]
+                    ],
+                    loading: false
                 }
             ]
         };
@@ -125,7 +137,12 @@ describe('employees reducer', () => {
                             href: '/employees/3306',
                             rel: 'self'
                         }
-                    ]
+                    ],
+                    loading: false
+                },
+                {
+                    href: '/employees/123',
+                    loading: true
                 }
             ]
         };
@@ -152,7 +169,12 @@ describe('employees reducer', () => {
                             href: '/employees/3306',
                             rel: 'self'
                         }
-                    ]
+                    ],
+                    loading: false
+                },
+                {
+                    href: '/employees/123',
+                    loading: true
                 }
             ]
         };
@@ -194,7 +216,8 @@ describe('employees reducer', () => {
                             href: '/employees/3306',
                             rel: 'self'
                         }
-                    ]
+                    ],
+                    loading: false
                 },
                 {
                     id: 123,
@@ -209,7 +232,8 @@ describe('employees reducer', () => {
                             href: '/employees/123',
                             rel: 'self'
                         }
-                    ]
+                    ],
+                    loading: false
                 }
             ]
         };

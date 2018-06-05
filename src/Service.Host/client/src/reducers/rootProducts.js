@@ -2,6 +2,7 @@
 import { distinct } from '../helpers/utilities';
 
 const defaultState = {
+    loaded: false,
     loading: false,
     items: []
 }
@@ -10,34 +11,34 @@ const rootProducts = (state = defaultState, action) => {
     switch (action.type) {
         case actionTypes.REQUEST_ROOT_PRODUCTS:
             {
-                const rootProductsToAdd = action.payload.rootProductUris.map(p => {
-                    return {
-                            rootProductUri: p,
-                            loading: true,
-                            item: null
-                    }
-                });
+                const rootProductsToAdd = action.payload.rootProductUris.map(p => ({
+                    rootProductUri: p,
+                    loading: true,
+                    item: null
+                }));
 
                 return {
                     ...state,
                     loading: true,
+                    items: [...state.items, ...rootProductsToAdd]
                 }
             }
 
         case actionTypes.RECEIVE_ROOT_PRODUCTS:
             {
-                const rootProductsToAdd = action.payload.data.map(p => {
-                    return {
-                        rootProductUri: p.href,
-                        loading: false,
-                        item: p
-                    }
-                });
+                const loadedRootProducts = state.items.filter(p => !action.payload.rootProductUris.some(url => p.rootProductUri === url));
+
+                const rootProductsToAdd = action.payload.data.map(p => ({
+                    rootProductUri: p.href,
+                    loading: false,
+                    item: p
+                }));
 
                 return {
                     ...state,
+                    loaded: true,
                     loading: false,
-                    items: [...state.items, ...rootProductsToAdd]
+                    items: [...loadedRootProducts, ...rootProductsToAdd]
                 }
             }
 

@@ -9,12 +9,13 @@ const activities = (state = defaultState, action) => {
     switch (action.type) {
         case actionTypes.REQUEST_ACTIVITIES:
             return {
-                loading: true,
-                items: []
+                ...state,
+                loading: true
             };
 
         case actionTypes.RECEIVE_ACTIVITIES:
             return {
+                ...state,
                 loading: false,
                 items: [...action.payload.data.activities]
             };
