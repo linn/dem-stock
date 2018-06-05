@@ -7,8 +7,11 @@
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
     using Linn.DemStock.Domain;
+    using Linn.DemStock.Domain.Models;
     using Linn.DemStock.Domain.Repositories;
     using Linn.DemStock.Domain.RetailerDemListActivities;
+    using Linn.DemStock.Facade.Extensions;
+    using Linn.DemStock.Proxy;
 
     public class DemStockService : IDemStockService
     {
@@ -16,12 +19,20 @@
 
         private readonly IRetailerDemListRepository retailerDemListRepository;
 
+        private readonly IRetailerProxy retailerProxy;
+
+        private readonly ISalesRegionProxy salesRegionProxy;
+
         public DemStockService(
             ITransactionManager transactionManager,
-            IRetailerDemListRepository retailerDemListRepository)
+            IRetailerDemListRepository retailerDemListRepository,
+            IRetailerProxy retailerProxy,
+            ISalesRegionProxy salesRegionProxy)
         {
             this.transactionManager = transactionManager;
             this.retailerDemListRepository = retailerDemListRepository;
+            this.retailerProxy = retailerProxy;
+            this.salesRegionProxy = salesRegionProxy;
         }
 
         public IResult<RetailerDemList> GetRetailerDemList(int retailerId)
@@ -84,6 +95,25 @@
         {
             var retailerDemLists = this.retailerDemListRepository.GetRetailerDemLists();
             return new SuccessResult<IEnumerable<RetailerDemList>>(retailerDemLists.OrderBy(a => a.LastReviewedOn));
+        }
+
+        public IResult<IEnumerable<RetailerDemListModel>> GetRetailerDemListModelsByLastReviewed()
+        {
+            var retailerDemLists = this.retailerDemListRepository.GetRetailerDemLists();
+            var retailers = this.retailerProxy.GetRetailers().ToList();
+            var salesRegions = this.salesRegionProxy.GetSalesRegions().ToList();
+
+            var results = new List<RetailerDemListModel>();
+            foreach (var retailerDemList in retailerDemLists)
+            {
+                var retailer = retailers.FirstOrDefault(r => r.Id == retailerDemList.RetailerId);
+                var region = salesRegions.FirstOrDefault(
+                    s => s.Links.First(l => l.Rel == "self").Href
+                         == retailer?.Links.First(rl => rl.Rel == "sales-region").Href);
+                results.Add(retailerDemList.ToModel(retailer, region));
+            }
+
+            return new SuccessResult<IEnumerable<RetailerDemListModel>>(results.OrderBy(a => a.LastReviewed).ThenBy(a => a.RetailerId));
         }
     }
 }
