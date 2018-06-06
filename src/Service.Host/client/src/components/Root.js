@@ -33,7 +33,6 @@ class Root extends Component {
                 </OidcProvider>
             </Provider>      
         );
-
     }
 }
 

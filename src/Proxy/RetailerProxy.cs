@@ -46,5 +46,25 @@
 
             return null;
         }
+
+        public IEnumerable<RetailerResource> GetRetailers()
+        {
+            var uri = new Uri($"{this.rootUri}/retailers", UriKind.RelativeOrAbsolute);
+            var response = this.restClient.Get(
+                CancellationToken.None,
+                uri,
+                new Dictionary<string, string>(),
+                DefaultHeaders.JsonGetHeaders()).Result;
+
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new ProxyException($"Error trying to get retailers");
+            }
+
+            var json = new JsonSerializer();
+            var returnResource = json.Deserialize<RetailerResources>(response.Value);
+
+            return returnResource.Retailers;
+        }
     }
 }

@@ -23,8 +23,18 @@
             this.Put("/retailers/{retailerId:int}/dem-stock/products", parameters => this.SetRootProductQuantity(parameters.retailerId));
             this.Put("/retailers/{retailerId:int}/dem-stock", parameters => this.SetLastReviewedDate(parameters.retailerId));
             this.Get("/retailers/dem-stock/last-reviewed", _ => this.GetRetailerDemListsByLastReviewed());
+            this.Get("/retailers/dem-stock/last-reviewed/export", _ => this.GetRetailerDemListsByLastReviewedExport());
 
             this.RequiresAuthentication();
+        }
+
+        private object GetRetailerDemListsByLastReviewedExport()
+        {
+            var retailerDemListModels = this.demStockService.GetRetailerDemListModelsByLastReviewed();
+            return this.Negotiate
+                .WithModel(retailerDemListModels)
+                .WithAllowedMediaRange("text/csv")
+                .WithView("Index");
         }
 
         private object GetRetailerDemListsByLastReviewed()

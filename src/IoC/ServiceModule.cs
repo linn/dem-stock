@@ -18,6 +18,7 @@
             builder.RegisterType<RestClient>().As<IRestClient>();
             builder.RegisterType<RetailerProxy>().As<IRetailerProxy>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
             builder.RegisterType<ProductsProxy>().As<IProductsProxy>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
+            builder.RegisterType<SalesRegionProxy>().As<ISalesRegionProxy>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
         }
     }
 }

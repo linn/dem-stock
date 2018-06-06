@@ -39,6 +39,7 @@
                     with.ResponseProcessor<RetailerDemListsJsonResponseProcessor>();
                     with.ResponseProcessor<RootProductJsonResponseProcessor>();
                     with.ResponseProcessor<RetailerDemListActivitiesJsonResponseProcessor>();
+                    with.ResponseProcessor<RetailerDemListsCsvResponseProcessor>();
 
                     with.RequestStartup(
                         (container, pipelines, context) =>
@@ -51,7 +52,7 @@
 
                                 var user = new ClaimsIdentity(claims, "jwt");
 
-                                context.CurrentUser = new System.Security.Claims.ClaimsPrincipal(user);
+                                context.CurrentUser = new ClaimsPrincipal(user);
                             });
                 });
 
