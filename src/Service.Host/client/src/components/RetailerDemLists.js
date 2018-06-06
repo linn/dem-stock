@@ -8,14 +8,10 @@ class RetailerDemLists extends Component {
     render() {
         const { retailerDemLists, retailers } = this.props;
 
-        if (!retailerDemLists || !retailerDemLists.items) {
+        if (!retailerDemLists || !retailerDemLists.items || retailerDemLists.items.length === 0) {
             return (<div>
                 <Grid fluid={false}>
-                <Row>
-                    <Col xs={8}>
-                        <h2>Retailer dem lists - Time since last review (Loading)</h2>
-                    </Col>
-                </Row>
+                <Row><Loading /></Row>
                 </Grid>
             </div>);
         }

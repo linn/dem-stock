@@ -109,7 +109,7 @@
                 var retailer = retailers.FirstOrDefault(r => r.Id == retailerDemList.RetailerId);
                 var region = salesRegions.FirstOrDefault(
                     s => s.Links.First(l => l.Rel == "self").Href
-                         == retailer?.Links.First(rl => rl.Rel == "sales-region").Href);
+                         == retailer?.Links.FirstOrDefault(rl => rl.Rel == "sales-region")?.Href);
                 results.Add(retailerDemList.ToModel(retailer, region));
             }
 
