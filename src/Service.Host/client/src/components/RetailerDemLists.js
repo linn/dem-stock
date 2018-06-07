@@ -41,7 +41,7 @@ class RetailerDemLists extends Component {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    {retailerDemLists.items.map((retailer, i) => (<RetailerDemListLine retailerDemList={retailer} rowIndex={i} retailers={retailers} />) )}
+                                    {retailerDemLists.items.map((retailer, i) => (<RetailerDemListLine retailerDemList={retailer} rowIndex={i} retailers={retailers} key={i} />) )}
                                 </tbody>
                             </Table>
                         </Col>
