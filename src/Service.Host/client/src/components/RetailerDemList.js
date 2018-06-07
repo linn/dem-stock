@@ -39,7 +39,11 @@ class RetailerDemList extends Component {
             <div>
                 <Grid fluid={false}> 
                     <h2 style={{ display:'inline-block' }}>{retailerName}</h2><span style={{ paddingLeft:'20px' }}>{updating && <MiniLoading />}</span>
-                    <br />
+                    <LastReviewedOn
+                        title="Last reviewed on "
+                        value={retailerDemList.lastReviewedOn ? moment(retailerDemList.lastReviewedOn) : null}
+                        displayOnly={false}
+                        onChange={(d) => this.handleEditDateClick(d)} />
                     <RootProducts
                         rootProducts={retailerDemListRootProducts}
                         setRootProduct={setRootProduct}
@@ -47,11 +51,6 @@ class RetailerDemList extends Component {
                         updating={updating} />
                     <Button disabled={updating} className="muted" bsStyle="success" onClick={() => this.handleAddRootProductClick()}>Add Root Product</Button>
                     <RootProductSearch onSelect={rootProductUri => this.handleAddRootProduct(rootProductUri)} />
-                    <LastReviewedOn
-                        title="Last reviewed on "
-                        value={retailerDemList.lastReviewedOn ? moment(retailerDemList.lastReviewedOn) : null}
-                        displayOnly={false}
-                        onChange={(d) => this.handleEditDateClick(d)} />
                     <div>
                         <Row style={{ marginTop: '20px' }}>
                             <Col xs={12}>

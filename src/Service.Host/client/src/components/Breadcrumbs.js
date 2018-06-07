@@ -24,7 +24,7 @@ class Breadcrumbs extends Component {
                 const handleClick = e => {
                     // we should just let the browser handle any paths 
                     // shorter than our root path, e.g.the 'Home' path
-                    if (path.length > rootPathLength) {
+                    if (path.length > rootPathLength && isNaN(path[path.length-1])) {
                         e.preventDefault();
                         history.push(href);
                     }

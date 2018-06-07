@@ -5,6 +5,7 @@
 
     using Linn.Common.Facade;
     using Linn.DemStock.Domain;
+    using Linn.DemStock.Domain.Models;
     using Linn.DemStock.Domain.RetailerDemListActivities;
 
     public interface IDemStockService
@@ -18,5 +19,7 @@
         IResult<IEnumerable<RetailerDemListActivity>> GetRetailerDemListActivities(int retailerId);
 
         IResult<IEnumerable<RetailerDemList>> GetRetailerDemListsByLastReviewed();
+
+        IResult<IEnumerable<RetailerDemListModel>> GetRetailerDemListModelsByLastReviewed();
     }
 }
