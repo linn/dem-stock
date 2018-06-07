@@ -15,12 +15,17 @@ const retailerDemList = (state = defaultState, action) => {
                 retailerUri: action.payload.retailerUri,
                 loading: true
             }
-
+        
         case actionTypes.RECEIVE_RETAILER_DEM_LIST:
-        case actionTypes.RECEIVE_UPDATE_DEM_LIST_DETAILS:
             return {
                 ...state,
                 loading: false,
+                item: action.payload.data
+            }
+
+        case actionTypes.RECEIVE_UPDATE_DEM_LIST_DETAILS:
+            return {
+                ...state,
                 item: action.payload.data
             }
 

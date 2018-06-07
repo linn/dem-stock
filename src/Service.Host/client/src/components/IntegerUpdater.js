@@ -59,7 +59,7 @@ export class IntegerUpdater extends Component {
     }
 
     render() {
-        const { value, displayOnly } = this.props;
+        const { value, displayOnly, updating } = this.props;
         return (
             <div>
                 {this.state.isOpen
@@ -70,7 +70,7 @@ export class IntegerUpdater extends Component {
                         onKeyDown={(e) => this.handleKeyPress(e)} />
                     : displayOnly
                         ? value
-                        : <Button bsStyle="link" style={styles.button} onClick={() => this.handleClick()}>{value}</Button>
+                        : <Button bsStyle="link" style={styles.button} onClick={() => this.handleClick()} disabled={updating}>{value}</Button>
                 }
 
             </div>

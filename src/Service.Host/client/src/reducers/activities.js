@@ -1,12 +1,24 @@
 ﻿import * as actionTypes from '../actions';
 
-const activities = (state = [], action) => {
+const defaultState = {
+    loading: false,
+    items: []
+}
+
+const activities = (state = defaultState, action) => {
     switch (action.type) {
         case actionTypes.REQUEST_ACTIVITIES:
-            return [];
+            return {
+                ...state,
+                loading: true
+            };
 
         case actionTypes.RECEIVE_ACTIVITIES:
-            return action.payload.data.activities;
+            return {
+                ...state,
+                loading: false,
+                items: [...action.payload.data.activities]
+            };
 
         default:
             return state;

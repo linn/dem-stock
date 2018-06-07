@@ -1,35 +1,45 @@
 ﻿import * as actionTypes from '../actions';
 import { distinct } from '../helpers/utilities';
 
-const rootProducts = (state = [], action) => {
+const defaultState = {
+    loaded: false,
+    loading: false,
+    items: []
+}
+
+const rootProducts = (state = defaultState, action) => {
     switch (action.type) {
         case actionTypes.REQUEST_ROOT_PRODUCTS:
             {
-                const productsToAdd = action.payload.rootProductUris.filter(u => !state.some(p => p.rootProductUri === u));
-                return state.concat(
-                    productsToAdd.map(p => {
-                        return {
-                            rootProductUri: p,
-                            loading: true,
-                            item: null
-                        };
-                    }));
+                const rootProductsToAdd = action.payload.rootProductUris.map(p => ({
+                    rootProductUri: p,
+                    loading: true,
+                    item: null
+                }));
+
+                return {
+                    ...state,
+                    loading: true,
+                    items: [...state.items, ...rootProductsToAdd]
+                }
             }
 
         case actionTypes.RECEIVE_ROOT_PRODUCTS:
             {
-                const rootProducts = state.filter(p => !action.payload.rootProductUris.some(url => p.rootProductUri === url));
+                const loadedRootProducts = state.items.filter(p => !action.payload.rootProductUris.some(url => p.rootProductUri === url));
 
-                const deduplicatedPayload = distinct(action.payload.rootProductUris);
-
-                const itemsToAdd = deduplicatedPayload.map(pUrl => action.payload.data.find(p => p.href === pUrl));
-
-                return rootProducts.concat(itemsToAdd.map(p => ({
+                const rootProductsToAdd = action.payload.data.map(p => ({
                     rootProductUri: p.href,
                     loading: false,
                     item: p
-                })
-                ));
+                }));
+
+                return {
+                    ...state,
+                    loaded: true,
+                    loading: false,
+                    items: [...loadedRootProducts, ...rootProductsToAdd]
+                }
             }
 
         default:

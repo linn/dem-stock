@@ -24,10 +24,10 @@ export class RemoveItem extends Component {
     }    
 
     render() {
-        const { title } = this.props;
+        const { title, updating } = this.props;
         return (
             <div>
-                <Button bsClass="btn btn-xs btn-danger muted" onClick={() => this.handleClick()}>
+                <Button bsClass="btn btn-xs btn-danger muted" disabled={updating} onClick={() => this.handleClick()}>
                     <Glyphicon glyph="remove" />
                 </Button>
 

@@ -17,14 +17,19 @@ class Activities extends Component {
     }
 
     render() {
-        const { activities } = this.props;
+        const { activities, updating } = this.props;
 
-        return activities && activities.length > 0
+        return activities && activities.length > 0 || updating
             ? (
                 <div>
                     <h4 className="pull-left">Activity History</h4>
-                    <Button bsStyle="default" className="muted" style={{ marginLeft: '10px', marginBottom: '10px' }} onClick={() => this.handleViewActivitiesClick()}>
-                        {this.state.viewActivities ? 'Hide' : 'View'}
+                    <Button 
+                        bsStyle="default" 
+                        className="muted" 
+                        disabled={updating} 
+                        style={{ marginLeft: '10px', marginBottom: '10px' }} 
+                        onClick={() => this.handleViewActivitiesClick()}>
+                            {this.state.viewActivities ? 'Hide' : 'View'}
                     </Button>
                     {this.state.viewActivities
                         ? (

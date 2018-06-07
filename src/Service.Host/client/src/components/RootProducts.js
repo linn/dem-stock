@@ -15,7 +15,7 @@ class RootProducts extends Component {
     }
 
     render() {
-        const { rootProducts, setRootProduct, retailerUri } = this.props;
+        const { rootProducts, setRootProduct, retailerUri, updating } = this.props;
         
         return rootProducts && rootProducts.length > 0
             ? (
@@ -38,11 +38,15 @@ class RootProducts extends Component {
                                         value={rootProduct.quantity}
                                         displayOnly={false}
                                         required={true}
-                                        onChange={value => setRootProduct(rootProduct.rootProductUri, value, retailerUri)} /></td>
+                                        onChange={value => setRootProduct(rootProduct.rootProductUri, value, retailerUri)} 
+                                        updating={updating} /></td>
                                     <td>{moment(rootProduct.updatedOn).format('DD MMM YYYY')}</td>
-                                    <td className="text-center"><RemoveItem
-                                        onConfirm={() => setRootProduct(rootProduct.rootProductUri, 0, retailerUri)}
-                                        title={`Are you sure you want to remove ${rootProduct.name}?`}/></td>
+                                    <td className="text-center">
+                                        <RemoveItem
+                                            onConfirm={() => setRootProduct(rootProduct.rootProductUri, 0, retailerUri)}
+                                            title={`Are you sure you want to remove ${rootProduct.name}?`}
+                                            updating={updating} />
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>

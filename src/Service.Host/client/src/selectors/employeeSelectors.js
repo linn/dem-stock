@@ -2,10 +2,10 @@
 import { distinct } from '../helpers/utilities';
 import { getEmployeeUris } from './utilities/employeeSelectorUtilities';
 
-export const getEmployeesToFetch = ({ activities, employees }) => {
+export const getEmployeesToFetch = ({ employees }, activities) => {
     const urisToFetch = distinct(getActivityEmployeeUris(activities));
 
-    if (!employees) {
+    if (!employees.items.length) {
         return urisToFetch;
     }
 

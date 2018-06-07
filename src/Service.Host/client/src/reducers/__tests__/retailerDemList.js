@@ -146,7 +146,7 @@ describe('retailer dem list reducer', () => {
 
         const expected = {
             retailerUri: '/retailers/11',
-            loading: false,
+            loading: true,
             item: {
                 retailerUri: '/retailers/11',
                 lastReviewedOn: '2018-03-09T00:00:00.0000000',

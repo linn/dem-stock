@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { Loading } from './common';
+import { Loading, MiniLoading } from './common';
 import { Grid, Row, Col, Button, Well } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { formatDate } from '../helpers/dates';
@@ -29,16 +29,16 @@ class RetailerDemList extends Component {
     }
 
     render() {
-        const { retailerDemList, retailerDemListRootProducts, retailerName, setRootProduct, retailerUri, activities } = this.props;
+        const { retailerDemList, retailerDemListRootProducts, retailerName, setRootProduct, retailerUri, activities, loading, updating } = this.props;        
 
-        if (!retailerDemList) {
+        if (!retailerDemList || loading && !updating) {
             return (<Loading />);
         }
 
         return (
             <div>
                 <Grid fluid={false}> 
-                    <h2 >{retailerName}</h2>
+                    <h2 style={{ display:'inline-block' }}>{retailerName}</h2><span style={{ paddingLeft:'20px' }}>{updating && <MiniLoading />}</span>
                     <LastReviewedOn
                         title="Last reviewed on "
                         value={retailerDemList.lastReviewedOn ? moment(retailerDemList.lastReviewedOn) : null}
@@ -47,8 +47,9 @@ class RetailerDemList extends Component {
                     <RootProducts
                         rootProducts={retailerDemListRootProducts}
                         setRootProduct={setRootProduct}
-                        retailerUri={retailerUri} />
-                    <Button className="muted" bsStyle="success" onClick={() => this.handleAddRootProductClick()}>Add Root Product</Button>
+                        retailerUri={retailerUri} 
+                        updating={updating} />
+                    <Button disabled={updating} className="muted" bsStyle="success" onClick={() => this.handleAddRootProductClick()}>Add Root Product</Button>
                     <RootProductSearch onSelect={rootProductUri => this.handleAddRootProduct(rootProductUri)} />
                     <div>
                         <Row style={{ marginTop: '20px' }}>
@@ -61,7 +62,7 @@ class RetailerDemList extends Component {
                             </Col>
                         </Row>
                     </div>
-                    <Activities activities={activities} />
+                    <Activities activities={activities} updating={updating} />
                 </Grid>
             </div>
         );

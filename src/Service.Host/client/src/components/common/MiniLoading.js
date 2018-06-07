@@ -9,8 +9,8 @@ const styles = {
     },
     loading: {
         backgroundColor: '#88cbf0',
-        height: '100%',
-        width: '6px',
+        height: '70%',
+        width: '4px',
         animation: 'stretchdelay 1.2s infinite ease-in-out',
         display: 'inline-block'
     }

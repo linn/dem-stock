@@ -5,21 +5,21 @@ import thunkMiddleware from 'redux-thunk';
 import history from './history';
 import reducer from './reducers';
 import authorization from './middleware/authorization';
-import { rootProductsMiddleware, fetchErrorHandlingMiddleware, employeesMiddleware } from './middleware';
+import { rootProductsMiddleware, fetchErrorHandlingMiddleware, employeesMiddleware, retailerDemListMiddleware, activitiesMiddleware } from './middleware';
 
 const composeEnhancers =
     window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] || compose;
 
 const middleware = [
     authorization,
-    api,
-    thunkMiddleware,
+    api,    
+    fetchErrorHandlingMiddleware,
+    activitiesMiddleware,
+    retailerDemListMiddleware,
     rootProductsMiddleware,
-    employeesMiddleware,
+    thunkMiddleware,
     routerMiddleware(history),
-    fetchErrorHandlingMiddleware
 ];
-
 
 const configureStore = initialState => {
     const enhancers = composeEnhancers(applyMiddleware(...middleware));
