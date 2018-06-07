@@ -2,17 +2,6 @@
 import { Grid, Row, Col, Button } from 'react-bootstrap';
 import InlineDatePicker from './common/InlineDatePicker';
 
-const styles = {
-    title: {
-        textAlign: 'right',
-        marginBottom: '6px'
-    },
-    button: {
-        padding: '0',
-        outline: 0
-    }
-}
-
 export class DateUpdaterButton extends Component {
     constructor(props) {
         super(props);
@@ -37,8 +26,8 @@ export class DateUpdaterButton extends Component {
     render() {
         const { value } = this.props;
         return (
-            <span>                
-                <Button bsStyle="link" style={styles.button} onClick={() => this.handleClick()}>Update</Button>
+            <span>
+                <Button className="muted" bsStyle="primary" style={{ marginLeft:'5px' }} onClick={() => this.handleClick()}>Update</Button>
                 <InlineDatePicker selectedDate={value}
                     placeholder='Set last reviewed date'
                     isOpen={this.state.isOpen}

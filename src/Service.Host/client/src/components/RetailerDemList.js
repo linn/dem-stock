@@ -38,19 +38,18 @@ class RetailerDemList extends Component {
         return (
             <div>
                 <Grid fluid={false}> 
-                    <h2>{retailerName}</h2>
-                    <br />
+                    <h2 >{retailerName}</h2>
+                    <LastReviewedOn
+                        title="Last reviewed on "
+                        value={retailerDemList.lastReviewedOn ? moment(retailerDemList.lastReviewedOn) : null}
+                        displayOnly={false}
+                        onChange={(d) => this.handleEditDateClick(d)} />
                     <RootProducts
                         rootProducts={retailerDemListRootProducts}
                         setRootProduct={setRootProduct}
                         retailerUri={retailerUri} />
                     <Button className="muted" bsStyle="success" onClick={() => this.handleAddRootProductClick()}>Add Root Product</Button>
                     <RootProductSearch onSelect={rootProductUri => this.handleAddRootProduct(rootProductUri)} />
-                    <LastReviewedOn
-                        title="Last reviewed on "
-                        value={retailerDemList.lastReviewedOn ? moment(retailerDemList.lastReviewedOn) : null}
-                        displayOnly={false}
-                        onChange={(d) => this.handleEditDateClick(d)} />
                     <div>
                         <Row style={{ marginTop: '20px' }}>
                             <Col xs={12}>
