@@ -24,12 +24,12 @@
             this.Put("/retailers/{retailerId:int}/dem-stock", parameters => this.SetLastReviewedDate(parameters.retailerId));
             this.Get("/retailers/dem-stock/last-reviewed", _ => this.GetRetailerDemListsByLastReviewed());
             this.Get("/retailers/dem-stock/last-reviewed/export", _ => this.GetRetailerDemListsByLastReviewedExport());
-
-            this.RequiresAuthentication();
         }
 
         private object GetRetailerDemListsByLastReviewedExport()
         {
+            this.RequiresAuthentication();
+
             var retailerDemListModels = this.demStockService.GetRetailerDemListModelsByLastReviewed();
             return this.Negotiate
                 .WithModel(retailerDemListModels)
@@ -39,6 +39,8 @@
 
         private object GetRetailerDemListsByLastReviewed()
         {
+            this.RequiresAuthentication();
+
             var retailerDemList = this.demStockService.GetRetailerDemListsByLastReviewed();
 
             return this.Negotiate
@@ -49,6 +51,8 @@
 
         private object SetLastReviewedDate(int retailerId)
         {
+            this.RequiresAuthentication();
+
             var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
 
             var resource = this.Bind<UpdateDateRequestResource>();
@@ -74,6 +78,8 @@
 
         private object GetRetailerDemListActivitiesById(int retailerId)
         {
+            this.RequiresAuthentication();
+
             var activities = this.demStockService.GetRetailerDemListActivities(retailerId);
 
             return this.Negotiate.WithModel(activities);
@@ -81,6 +87,8 @@
 
         private object SetRootProductQuantity(int retailerId)
         {
+            this.RequiresAuthentication();
+
             var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
 
             var resource = this.Bind<SetRootProductRequestResource>();
