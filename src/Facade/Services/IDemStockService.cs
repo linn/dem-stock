@@ -21,5 +21,9 @@
         IResult<IEnumerable<RetailerDemList>> GetRetailerDemListsByLastReviewed();
 
         IResult<IEnumerable<RetailerDemListModel>> GetRetailerDemListModelsByLastReviewed();
+
+        IResult<IEnumerable<RetailerDemList>> GetRetailerDemListsWithoutProduct(string productUri);
+
+        IResult<IEnumerable<RetailerDemListModel>> GetRetailerDemListModelsWithoutProduct(string productUri);
     }
 }

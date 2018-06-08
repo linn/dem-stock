@@ -64,6 +64,11 @@
             }
         }
 
+        public bool HasOnList(string productUri)
+        {
+            return this.RootProducts.Any(r => r.RootProductUri == productUri);
+        }
+
         private RootProduct UpdateRootProduct(string rootProductUri, string updatedByUri, int quantity)
         {
             var rootProduct = this.RootProducts.FirstOrDefault(r => r.RootProductUri.ToLower() == rootProductUri.ToLower());

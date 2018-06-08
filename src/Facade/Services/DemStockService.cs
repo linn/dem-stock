@@ -100,6 +100,34 @@
         public IResult<IEnumerable<RetailerDemListModel>> GetRetailerDemListModelsByLastReviewed()
         {
             var retailerDemLists = this.retailerDemListRepository.GetRetailerDemLists();
+            var models = this.ConvertToModels(retailerDemLists);
+
+            return new SuccessResult<IEnumerable<RetailerDemListModel>>(
+                models.OrderBy(a => a.LastReviewed).ThenBy(a => a.RetailerName));
+        }
+
+        public IResult<IEnumerable<RetailerDemList>> GetRetailerDemListsWithoutProduct(string productUri)
+        {
+            var retailerDemLists = this.retailerDemListRepository.GetRetailerDemLists();
+            return new SuccessResult<IEnumerable<RetailerDemList>>(this.GetDemListsExludingProductUri(retailerDemLists, productUri));
+        }
+
+        public IResult<IEnumerable<RetailerDemListModel>> GetRetailerDemListModelsWithoutProduct(string productUri)
+        {
+            var retailerDemLists = this.retailerDemListRepository.GetRetailerDemLists();
+            var models = this.ConvertToModels(this.GetDemListsExludingProductUri(retailerDemLists, productUri));
+
+            return new SuccessResult<IEnumerable<RetailerDemListModel>>(
+                models.OrderBy(a => a.LastReviewed).ThenBy(a => a.RetailerName));
+        }
+
+        private IEnumerable<RetailerDemList> GetDemListsExludingProductUri(IEnumerable<RetailerDemList> retailerDemLists, string productUri)
+        {
+            return retailerDemLists.Where(r => !r.HasOnList(productUri));
+        }
+
+        private IEnumerable<RetailerDemListModel> ConvertToModels(IEnumerable<RetailerDemList> retailerDemLists)
+        {
             var retailers = this.retailerProxy.GetRetailers().ToList();
             var salesRegions = this.salesRegionProxy.GetSalesRegions().ToList();
 
@@ -113,8 +141,7 @@
                 results.Add(retailerDemList.ToModel(retailer, region));
             }
 
-            return new SuccessResult<IEnumerable<RetailerDemListModel>>(
-                results.OrderBy(a => a.LastReviewed).ThenBy(a => a.RetailerName));
+            return results;
         }
     }
 }

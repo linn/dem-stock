@@ -24,6 +24,31 @@
             this.Put("/retailers/{retailerId:int}/dem-stock", parameters => this.SetLastReviewedDate(parameters.retailerId));
             this.Get("/retailers/dem-stock/last-reviewed", _ => this.GetRetailerDemListsByLastReviewed());
             this.Get("/retailers/dem-stock/last-reviewed/export", _ => this.GetRetailerDemListsByLastReviewedExport());
+            this.Get("/retailers/dem-stock/lists-without-product", _ => this.GetRetailerDemListsExcludingProduct());
+            this.Get("/retailers/dem-stock/lists-without-product/export", _ => this.GetRetailerDemListsExcludingProductExport());
+        }
+
+        private object GetRetailerDemListsExcludingProductExport()
+        {
+            this.RequiresAuthentication();
+
+            var resource = this.Bind<ProductUriResource>();
+            var retailerDemListModels = this.demStockService.GetRetailerDemListModelsWithoutProduct(resource.ProductUri);
+            return this.Negotiate
+                .WithModel(retailerDemListModels)
+                .WithAllowedMediaRange("text/csv")
+                .WithView("Index");
+        }
+
+        private object GetRetailerDemListsExcludingProduct()
+        {
+            this.RequiresAuthentication();
+            var resource = this.Bind<ProductUriResource>();
+            var retailerDemLists = this.demStockService.GetRetailerDemListsWithoutProduct(resource.ProductUri);
+            return this.Negotiate
+                .WithModel(retailerDemLists)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
 
         private object GetRetailerDemListsByLastReviewedExport()
