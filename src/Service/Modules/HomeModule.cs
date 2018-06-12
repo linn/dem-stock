@@ -16,8 +16,6 @@
             this.Get("/retailers/dem-stock/signin-oidc-client", _ => this.GetApp());
 
             this.Get("/retailers/dem-stock/signin-oidc-silent", _ => this.SilentRenew());
-
-            this.RequiresAuthentication();
         }
 
         private object SilentRenew()
