@@ -27,6 +27,7 @@ if [ "${TRAVIS_BRANCH}" = "master" ]; then
 
     aws s3 cp s3://$S3_BUCKET_NAME/dem-stock/sys.env ./secrets.env
 
+	# may need to revert these https changes
     STACK_NAME=dem-stock-sys
     TARGET_CLUSTER=internal-colony-test
     APP_ROOT=https://app-sys.linn.co.uk
@@ -40,6 +41,7 @@ else
 
     aws s3 cp s3://$S3_BUCKET_NAME/dem-stock/int.env ./secrets.env
   
+	# may need to revert these https changes
     STACK_NAME=dem-stock-int
     TARGET_CLUSTER=internal-colony-test
     APP_ROOT=https://app-int.linn.co.uk
