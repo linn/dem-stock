@@ -8,6 +8,7 @@ import Navigation from './Navigation';
 import App from './App';
 import RetailerDemList from '../containers/RetailerDemList';
 import RetailerDemLists from '../containers/RetailerDemLists';
+import RetailerDemListsWithoutProduct from '../containers/RetailerDemListsWithoutProduct';
 import Callback from '../containers/Callback';
 import userManager from '../helpers/userManager';
 
@@ -26,6 +27,7 @@ class Root extends Component {
                         <Route exact path="/" render={() => <Redirect to="/retailers/dem-stock" />} />
                         <Route exact path="/retailers/dem-stock/signin-oidc-client" component={Callback} />
                         <Route exact path="/retailers/dem-stock/last-reviewed" component={RetailerDemLists} />
+                        <Route exact path="/retailers/dem-stock/lists-without-product" component={RetailerDemListsWithoutProduct} />
                         <Route exact path="/retailers/dem-stock" component={App} />
                         <Route exact path="/retailers/:retailerId/dem-stock" component={RetailerDemList} />
                     </div>

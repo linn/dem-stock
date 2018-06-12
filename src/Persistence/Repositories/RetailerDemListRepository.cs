@@ -31,7 +31,8 @@
 
         public IEnumerable<RetailerDemList> GetRetailerDemLists(bool openRetailersOnly = true)
         {
-            var demLists = this.serviceDbContext.RetailerDemLists.AsEnumerable();
+            var demLists = this.serviceDbContext.RetailerDemLists
+                .Include(r => r.RootProducts).AsEnumerable();
             if (openRetailersOnly)
             {
                 demLists = demLists.Where(d => d.IsForOpenRetailer);

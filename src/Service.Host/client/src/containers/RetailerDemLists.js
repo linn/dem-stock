@@ -11,7 +11,7 @@ const mapStateToProps = ({ retailerDemLists, retailers }) => ({
 
 const initialise = () => dispatch => {
     dispatch(fetchAllRetailers());
-    dispatch(fetchRetailerDemLists());
+    dispatch(fetchRetailerDemLists('last-reviewed'));
 };
 
 const mapDispatchToProps = {
