@@ -57,10 +57,8 @@ namespace Linn.DemStock.Service.Host
 
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+                ForwardedHeaders = ForwardedHeaders.XForwardedProto
             });
-
-            app.UseHttpMethodOverride();
 
             app.UseAuthentication();
 
