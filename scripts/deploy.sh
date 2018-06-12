@@ -29,8 +29,8 @@ if [ "${TRAVIS_BRANCH}" = "master" ]; then
 
     STACK_NAME=dem-stock-sys
     TARGET_CLUSTER=internal-colony-test
-    APP_ROOT=http://app-sys.linn.co.uk
-    PROXY_ROOT=http://app.linn.co.uk
+    APP_ROOT=https://app-sys.linn.co.uk
+    PROXY_ROOT=https://app.linn.co.uk
     ENV_SUFFIX=-sys
     DESIRED_COUNT=1
   fi
@@ -42,8 +42,8 @@ else
   
     STACK_NAME=dem-stock-int
     TARGET_CLUSTER=internal-colony-test
-    APP_ROOT=http://app-int.linn.co.uk
-    PROXY_ROOT=http://app.linn.co.uk
+    APP_ROOT=https://app-int.linn.co.uk
+    PROXY_ROOT=https://app.linn.co.uk
     ENV_SUFFIX=-int
     DESIRED_COUNT=1
 fi
