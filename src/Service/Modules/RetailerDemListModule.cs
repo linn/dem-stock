@@ -30,8 +30,6 @@
 
         private object GetRetailerDemListsExcludingProductExport()
         {
-            this.RequiresAuthentication();
-
             var resource = this.Bind<ProductUriResource>();
             var retailerDemListModels = this.demStockService.GetRetailerDemListModelsWithoutProduct(resource.ProductUri);
             return this.Negotiate
@@ -43,6 +41,7 @@
         private object GetRetailerDemListsExcludingProduct()
         {
             this.RequiresAuthentication();
+
             var resource = this.Bind<ProductUriResource>();
             var retailerDemLists = this.demStockService.GetRetailerDemListsWithoutProduct(resource.ProductUri);
             return this.Negotiate

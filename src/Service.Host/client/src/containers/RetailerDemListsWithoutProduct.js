@@ -1,22 +1,28 @@
 ﻿import { connect } from 'react-redux';
-import retailerDemListsWithoutProduct from '../components/retailerDemListsWithoutProduct';
+import queryString from 'query-string';
+import RetailerDemListsWithoutProduct from '../components/retailerDemListsWithoutProduct';
 import initialiseOnMount from './common/initialiseOnMount';
 import { fetchRetailerDemLists } from '../actions/retailerDemLists';
 import { fetchAllRetailers } from '../actions/retailers';
 
-const mapStateToProps = ({ retailerDemLists, retailers }, { match }) => ({
+const getit = ownProps => {
+    const query = ownProps.location.search ? queryString.parse(ownProps.location.search) : {productUri : null };
+    return query.productUri;
+}
+
+const mapStateToProps = ({ retailerDemLists, retailers }, ownProps) => ({
     retailerDemLists,
     retailers,
-    productUri : match.params.productUri
+    productUri: getit(ownProps)
 });
 
-const initialise = () => dispatch => {
+const initialise = ({ productUri }) => dispatch => {
     dispatch(fetchAllRetailers());
-    dispatch(fetchRetailerDemLists('lists-without-product', `?productUri=/products/root-products/1661`));
+    dispatch(fetchRetailerDemLists('lists-without-product', `?productUri=${productUri}`));
 };
 
 const mapDispatchToProps = {
     initialise
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(retailerDemListsWithoutProduct));
+export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(RetailerDemListsWithoutProduct));

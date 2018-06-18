@@ -6,7 +6,7 @@ import config from '../config';
 
 class RetailerDemListsWithoutProduct extends Component {
     render() {
-        const { retailerDemLists, retailers } = this.props;
+        const { retailerDemLists, retailers, productUri, product } = this.props;
 
         if (!retailerDemLists || !retailerDemLists.items || retailerDemLists.items.length === 0) {
             return (<div>
@@ -21,11 +21,11 @@ class RetailerDemListsWithoutProduct extends Component {
                 <Grid fluid={false}> 
                     <Row>
                         <Col xs={8}>
-                            <h3>Retailer dem lists that do not include </h3>
+                            <h3>Retailer dem lists that do not include {productUri}</h3>
                         </Col>
                         <Col xs={2}>
                             <OverlayTrigger placement="top" overlay={<Tooltip id="tooltip1">Download report as CSV file</Tooltip>}>
-                                <Button style={{ marginTop: '25px', marginBottom: '10px' }} href={`${config.appRoot}/retailers/dem-stock/lists-without-product/export`}><Glyphicon className="text-muted" glyph="export" /> Export</Button>
+                                <Button style={{ marginTop: '25px', marginBottom: '10px' }} href={`${config.appRoot}/retailers/dem-stock/lists-without-product/export?productUri=${productUri}`}><Glyphicon className="text-muted" glyph="export" /> Export</Button>
                             </OverlayTrigger>
                         </Col>
                     </Row>
