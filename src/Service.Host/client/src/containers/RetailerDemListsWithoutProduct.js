@@ -1,6 +1,6 @@
 ﻿import { connect } from 'react-redux';
 import queryString from 'query-string';
-import RetailerDemListsWithoutProduct from '../components/retailerDemListsWithoutProduct';
+import RetailerDemListsWithoutProduct from '../components/RetailerDemListsWithoutProduct';
 import initialiseOnMount from './common/initialiseOnMount';
 import { fetchRetailerDemLists } from '../actions/retailerDemLists';
 import { fetchAllRetailers } from '../actions/retailers';
