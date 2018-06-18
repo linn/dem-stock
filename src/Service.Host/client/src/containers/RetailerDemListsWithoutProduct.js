@@ -4,21 +4,25 @@ import RetailerDemListsWithoutProduct from '../components/retailerDemListsWithou
 import initialiseOnMount from './common/initialiseOnMount';
 import { fetchRetailerDemLists } from '../actions/retailerDemLists';
 import { fetchAllRetailers } from '../actions/retailers';
+import { fetchRootProducts } from '../actions/rootProducts';
+import { getRootProductName } from '../selectors/rootProductsSelectors';
 
-const getit = ownProps => {
+const getProductUri = ownProps => {
     const query = ownProps.location.search ? queryString.parse(ownProps.location.search) : {productUri : null };
     return query.productUri;
 }
 
-const mapStateToProps = ({ retailerDemLists, retailers }, ownProps) => ({
-    retailerDemLists,
-    retailers,
-    productUri: getit(ownProps)
+const mapStateToProps = (state, ownProps) => ({
+    retailerDemLists : state.retailerDemLists,
+    retailers: state.retailers,
+    productUri: getProductUri(ownProps),
+    productName: getRootProductName(state, getProductUri(ownProps))
 });
 
 const initialise = ({ productUri }) => dispatch => {
     dispatch(fetchAllRetailers());
     dispatch(fetchRetailerDemLists('lists-without-product', `?productUri=${productUri}`));
+    dispatch(fetchRootProducts([productUri]));
 };
 
 const mapDispatchToProps = {

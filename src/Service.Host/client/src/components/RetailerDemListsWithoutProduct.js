@@ -6,7 +6,7 @@ import config from '../config';
 
 class RetailerDemListsWithoutProduct extends Component {
     render() {
-        const { retailerDemLists, retailers, productUri, product } = this.props;
+        const { retailerDemLists, retailers, productUri, productName } = this.props;
 
         if (!retailerDemLists || !retailerDemLists.items || retailerDemLists.items.length === 0) {
             return (<div>
@@ -21,7 +21,7 @@ class RetailerDemListsWithoutProduct extends Component {
                 <Grid fluid={false}> 
                     <Row>
                         <Col xs={8}>
-                            <h3>Retailer dem lists that do not include {productUri}</h3>
+                            <h3>Retailer dem lists that do not include {productName}</h3>
                         </Col>
                         <Col xs={2}>
                             <OverlayTrigger placement="top" overlay={<Tooltip id="tooltip1">Download report as CSV file</Tooltip>}>
