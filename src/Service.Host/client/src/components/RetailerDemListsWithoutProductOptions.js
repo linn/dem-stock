@@ -9,8 +9,7 @@ class RetailerDemListsWithoutProductOptions extends Component {
         history.push(
             {
                 pathname: `/retailers/dem-stock/lists-without-product/report`,
-                search: `?productUri=${product.href}`,
-                state: { product }
+                search: `?productUri=${product.href}`
             }
         );
     }
@@ -19,7 +18,7 @@ class RetailerDemListsWithoutProductOptions extends Component {
         const { rootProducts, loading, searchTerm, setRootProductSearchTerm } = this.props;
 
         return (
-            <Grid fluid={false}>
+            <Grid>
                 <PageHeader>
                     <small>Show retailer dem lists that don't include selected root product</small>
                 </PageHeader>
