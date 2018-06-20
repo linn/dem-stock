@@ -13,9 +13,13 @@ const BreadcrumbItem = ({ caption, href, onClick }) => (
 class Breadcrumbs extends Component {
 
     render() {
-        const { location, history, rootPathLength = 2 } = this.props
+        const { location, history, rootPathLength = 2 } = this.props;
+        let path = location.pathname;
+        if (path.indexOf('/report') > -1) {
+            path = path.substring(0, path.indexOf('/report'));
+        }
 
-        const crumbs = location.pathname
+        const crumbs = path
             .split('/')
             .reduce((sofar, crumb, i, crumbs) => {
                 const path = crumbs.slice(0, i + 1);

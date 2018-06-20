@@ -21,8 +21,8 @@ const render = Component => {
     );
 };
 
-if ((!user || user.expired) && window.location.pathname !== '/retailers/dem-stock/signin-oidc-client') {
-    userManager.signinRedirect({ data: { redirect: window.location.pathname } });
+if ((!user || user.expired || !user.scope.includes('music-system-apis')) && window.location.pathname !== '/retailers/dem-stock/signin-oidc-client') {
+    userManager.signinRedirect({ data: { redirect: window.location.pathname + window.location.search } });
 } else {
     render(Root);
 

@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
-import { FormGroup, FormControl, ControlLabel, Button, Modal, ListGroup, DropdownButton, Dropdown, MenuItem, InputGroup, ListGroupItem, Label, OverlayTrigger, Popover, Checkbox, Alert } from 'react-bootstrap';
-import { Loading } from './common';
+import { Button, Modal } from 'react-bootstrap';
+import RootProductSearchTypeahead from './RootProductSearchTypeahead';
 
 class RootProductSearch extends Component {
     handleProductClick(product) {
@@ -23,27 +23,13 @@ class RootProductSearch extends Component {
                     <Modal.Title>Add Root Product</Modal.Title>
                 </Modal.Header>
                 <Modal.Body style={{ overflowY: 'scroll', maxHeight: '80vh', minHeight: '220px' }}>
-                    <FormGroup>
-                        <InputGroup>
-                            <FormControl autoFocus value={searchTerm} onChange={e => setRootProductSearchTerm(e.target.value)} type="text" placeholder="Enter root product name" ></FormControl>
-                        </InputGroup>
-                    </FormGroup>
-                    <div>
-                        {rootProducts.length > 0
-                            ? (
-                                <ListGroup>
-                                    {rootProducts.map((product, i) => (
-                                        <ListGroupItem key={i} onClick={() => this.handleProductClick(product)}>
-                                            <b>{product.name}</b> : {product.description}
-                                        </ListGroupItem>
-                                    ))}                                    
-                                </ListGroup>
-                            )
-                            : loading
-                                ? <Loading />
-                                : <span>{searchTerm ? 'No matching root products' : ''}</span>
-                        }
-                    </div>
+                    <RootProductSearchTypeahead
+                        rootProducts={rootProducts}
+                        loading={loading}
+                        searchTerm={searchTerm}
+                        setRootProductSearchTerm={setRootProductSearchTerm}
+                        handleClick={(product) => this.handleProductClick(product)}
+                    />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={() => this.handleClose()}>Close</Button>

@@ -1,4 +1,4 @@
-﻿import { getRootProductsToFetch, getRootProducts } from '../rootProductsSelectors';
+﻿import { getRootProductsToFetch, getRootProducts, getRootProductName } from '../rootProductsSelectors';
 
 describe('when selecting root products', () => {
     test('should return root products', () => {
@@ -529,5 +529,67 @@ describe('when selecting products to fetch', () => {
         ];
 
         expect(getRootProductsToFetch(state, activities)).toEqual(expected);
+    });
+});
+
+describe('when getting root product name', () => {
+    test('should return name', () => {
+        const state = {
+            rootProducts: {
+                loading: false,
+                items: [
+                    {
+                        rootProductUri: "/products/root-products/12345",
+                        loading: false,
+                        item: {
+                            name: 'MAJIK DS/2',
+                            href: '/products/root-products/12345'
+                        }
+                    },
+                    {
+                        rootProductUri: "/products/root-products/67890",
+                        loading: false,
+                        item: {
+                            name: 'KLIMAX DSM/3',
+                            href: '/products/root-products/67890'
+                        }
+                    }
+                ]
+            }
+        };
+
+        const expected = 'MAJIK DS/2';
+
+        expect(getRootProductName(state, '/products/root-products/12345')).toEqual(expected);
+    });
+});
+
+describe('when getting missing root product name', () => {
+    test('should return nothing', () => {
+        const state = {
+            rootProducts: {
+                loading: false,
+                items: [
+                    {
+                        rootProductUri: "/products/root-products/12345",
+                        loading: false,
+                        item: {
+                            name: 'MAJIK DS/2',
+                            href: '/products/root-products/12345'
+                        }
+                    },
+                    {
+                        rootProductUri: "/products/root-products/67890",
+                        loading: false,
+                        item: {
+                            name: 'KLIMAX DSM/3',
+                            href: '/products/root-products/67890'
+                        }
+                    }
+                ]
+            }
+        };
+
+        expect(getRootProductName(state, '/products/root-products/3')).toEqual('');
     });
 });

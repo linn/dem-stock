@@ -20,3 +20,17 @@ export const getRootProducts = ({ rootProducts }) => {
     
     return rootProducts.items.filter(r => r.item);
 }
+
+export const getRootProductName = ({ rootProducts }, rootProductUri) => {
+    if (!rootProducts.items || !rootProducts.items.length) {
+        return null;
+    }
+
+    const product = rootProducts.items.find(r => r.rootProductUri === rootProductUri);
+
+    if (product && !product.loading && product.item) {
+        return product.item.name;
+    }
+
+    return '';
+}

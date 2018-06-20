@@ -1,12 +1,12 @@
 ﻿import React, { Component } from 'react';
 import { Loading } from './common';
 import { Grid, Row, Col, Table, OverlayTrigger, Tooltip, Button, Glyphicon } from 'react-bootstrap';
-import RetailerDemListLastReviewedLine from './RetailerDemListLastReviewedLine';
+import RetailerDemListLine from './RetailerDemListLine';
 import config from '../config';
 
-class RetailerDemLists extends Component {
+class RetailerDemListsWithoutProduct extends Component {
     render() {
-        const { retailerDemLists, retailers } = this.props;
+        const { retailerDemLists, retailers, productUri, productName } = this.props;
 
         if (!retailerDemLists || !retailerDemLists.items || retailerDemLists.items.length === 0) {
             return (<div>
@@ -21,11 +21,11 @@ class RetailerDemLists extends Component {
                 <Grid fluid={false}> 
                     <Row>
                         <Col xs={8}>
-                            <h3>Retailer dem lists - Time since last review</h3>
+                            <h3>Retailer dem lists that do not include {productName}</h3>
                         </Col>
                         <Col xs={2}>
                             <OverlayTrigger placement="top" overlay={<Tooltip id="tooltip1">Download report as CSV file</Tooltip>}>
-                                <Button style={{ marginTop: '25px', marginBottom: '10px' }} href={`${config.appRoot}/retailers/dem-stock/last-reviewed/export`}><Glyphicon className="text-muted" glyph="export" /> Export</Button>
+                                <Button style={{ marginTop: '25px', marginBottom: '10px' }} href={`${config.appRoot}/retailers/dem-stock/lists-without-product/export?productUri=${productUri}`}><Glyphicon className="text-muted" glyph="export" /> Export</Button>
                             </OverlayTrigger>
                         </Col>
                     </Row>
@@ -35,13 +35,11 @@ class RetailerDemLists extends Component {
                                 <thead>
                                 <tr>
                                     <th style={{ width: '45%' }}>Retailer Name</th>
-                                    <th style={{ width: '20%' }}>Last Reviewed</th>
-                                    <th style={{ width: '15%' }}></th>
                                     <th style={{ width: '20%' }}></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    {retailerDemLists.items.map((retailer, i) => (<RetailerDemListLastReviewedLine retailerDemList={retailer} rowIndex={i} retailers={retailers} key={i} />) )}
+                                    {retailerDemLists.items.map((retailer, i) => (<RetailerDemListLine retailerDemList={retailer} rowIndex={i} retailers={retailers} key={i} />) )}
                                 </tbody>
                             </Table>
                         </Col>
@@ -52,4 +50,4 @@ class RetailerDemLists extends Component {
     }
 }
 
-export default RetailerDemLists;
+export default RetailerDemListsWithoutProduct;

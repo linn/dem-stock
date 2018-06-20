@@ -5,9 +5,9 @@ import * as actionTypes from './index';
 import { fetchRetailer } from './retailer';
 import { CALL_API } from 'redux-api-middleware';
 
-export const fetchRetailerDemLists = () => ({
+export const fetchRetailerDemLists = (reportRoute, queryString) => ({
     [CALL_API]: {
-        endpoint: `${config.appRoot}/retailers/dem-stock/last-reviewed`,
+        endpoint: `${config.appRoot}/retailers/dem-stock/${reportRoute}${queryString ? queryString : ''}`,
         method: 'GET',
         options: { requiresAuth: true },
         headers: {
