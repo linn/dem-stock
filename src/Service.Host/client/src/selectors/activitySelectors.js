@@ -2,13 +2,9 @@
 import { getEmployeeName } from './utilities/employeeSelectorUtilities';
 
 export const getActivities = ({ activities, rootProducts, employees }) => {
-    if (!activities || !rootProducts || !employees || !activities.items) {
+    if (!activities || !activities.items) {
         return null;
     }
 
-    return activities.items.map(activity => ({
-        ...activity,
-        rootProductName: getRootProductName(activity.rootProductUri, rootProducts),
-        updatedByName: getEmployeeName(activity.updatedByUri, employees)
-    }));
+    return activities.items;
 }
