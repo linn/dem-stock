@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
-import { ListGroup, ListGroupItem, Button, Alert } from 'react-bootstrap';
+import { ListGroup, Button, Alert } from 'react-bootstrap';
 import moment from 'moment';
-import ActivityItem from './ActivityItem';
+import ActivityItem from '../containers/ActivityItem';
 
 class Activities extends Component {
 
