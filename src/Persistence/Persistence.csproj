@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
-    <RuntimeFrameworkVersion>2.0.4</RuntimeFrameworkVersion>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RuntimeFrameworkVersion>2.1.2</RuntimeFrameworkVersion>
     <AssemblyName>Linn.DemStock.Persistence</AssemblyName>
     <RootNamespace>Linn.DemStock.Persistence</RootNamespace>
   </PropertyGroup>
@@ -19,7 +19,6 @@
     <PackageReference Include="Linn.Common.Configuration" Version="1.1.0" />
     <PackageReference Include="Linn.Common.Persistence.EntityFramework" Version="1.0.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.0.1" />
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
   </ItemGroup>
 
 </Project>
