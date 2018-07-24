@@ -1,11 +1,9 @@
 ﻿namespace Linn.DemStock.Service.Modules
 {
-    using Linn.Common.Configuration;
     using Linn.DemStock.Service.Models;
 
     using Nancy;
     using Nancy.Responses;
-    using Nancy.Security;
 
     public sealed class HomeModule : NancyModule
     {

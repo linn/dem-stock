@@ -1,17 +1,11 @@
 namespace Linn.DemStock.Service.Host
 {
-    using System;
     using System.IdentityModel.Tokens.Jwt;
-    using System.Security.Claims;
-    using System.Threading.Tasks;
 
-    using Linn.Common.Authentication.Host;
     using Linn.Common.Authentication.Host.Extensions;
     using Linn.Common.Configuration;
 
     using Microsoft.AspNetCore.Authentication;
-    using Microsoft.AspNetCore.Authentication.Cookies;
-    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authentication.OpenIdConnect;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -19,7 +13,6 @@ namespace Linn.DemStock.Service.Host
     using Microsoft.AspNetCore.HttpOverrides;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
-    using Microsoft.IdentityModel.Tokens;
 
     using Nancy;
     using Nancy.Owin;
@@ -39,7 +32,6 @@ namespace Linn.DemStock.Service.Host
                     {
                         options.Authority = ConfigurationManager.Configuration["AUTHORITY_URI"];
                         options.CallbackPath = new PathString("/retailers/dem-stock/signin-oidc");
-                        //options.CookiePath = "/retailers";
                     });
         }
 
