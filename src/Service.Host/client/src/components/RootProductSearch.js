@@ -15,7 +15,7 @@ class RootProductSearch extends Component {
     }
 
     render() {
-        const { visible, rootProducts, loading, searchTerm, setRootProductSearchTerm } = this.props;
+        const { visible, rootProducts, loading, searchTerm, setRootProductSearchTerm, setIncludePhasedOut } = this.props;
 
         return (
             <Modal show={visible} onExited={() => setRootProductSearchTerm(null)} onHide={() => this.handleClose()}>
@@ -28,6 +28,7 @@ class RootProductSearch extends Component {
                         loading={loading}
                         searchTerm={searchTerm}
                         setRootProductSearchTerm={setRootProductSearchTerm}
+                        setIncludePhasedOut={setIncludePhasedOut}
                         handleClick={(product) => this.handleProductClick(product)}
                     />
                 </Modal.Body>

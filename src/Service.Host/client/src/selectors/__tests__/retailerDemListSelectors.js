@@ -390,7 +390,8 @@ describe('when selecting retailer dem list root products', () => {
                         loading: false,
                         item: {
                             name: 'MAJIK DS/2',
-                            href: '/products/root-products/12345'
+                            href: '/products/root-products/12345',
+                            phasedOutOn: null
                         }
                     },
                     {
@@ -398,7 +399,8 @@ describe('when selecting retailer dem list root products', () => {
                         loading: false,
                         item: {
                             name: 'KLIMAX DSM/3',
-                            href: '/products/root-products/67890'
+                            href: '/products/root-products/67890',
+                            phasedOutOn: '2018-03-09T00:00:00.0000000'
                         }
                     }
                 ]
@@ -410,6 +412,7 @@ describe('when selecting retailer dem list root products', () => {
                 rootProductUri: '/products/root-products/12345',
                 quantity: 3,
                 updatedOn: '2018-03-09T00:00:00.0000000',
+                phasedOut: false,
                 links: null,
                 name: 'MAJIK DS/2'
             },
@@ -417,8 +420,9 @@ describe('when selecting retailer dem list root products', () => {
                 rootProductUri: '/products/root-products/67890',
                 quantity: 3,
                 updatedOn: '2018-03-09T00:00:00.0000000',
+                phasedOut: true,
                 links: null,
-                name: 'KLIMAX DSM/3',
+                name: 'KLIMAX DSM/3'
             }
         ];
 
@@ -480,8 +484,9 @@ describe('when selecting retailer dem list root products', () => {
                 rootProductUri: '/products/root-products/67890',
                 quantity: 3,
                 updatedOn: '2018-03-09T00:00:00.0000000',
+                phasedOut: false,
                 links: null,
-                name: 'KLIMAX DSM/3',
+                name: 'KLIMAX DSM/3'
             }
         ];
 

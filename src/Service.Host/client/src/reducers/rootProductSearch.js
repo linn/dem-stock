@@ -5,6 +5,7 @@ const defaultState = {
     visible: false,
     loading: false,
     searchTerm: '',
+    includePhasedOut: false,
     items: []
 }
 
@@ -37,6 +38,12 @@ const rootProductSearch = (state = defaultState, action) => {
             return {
                 ...state,
                 searchTerm: action.payload
+            };
+
+        case actionTypes.TOGGLE_INCLUDE_PHASED_OUT:
+            return {
+                ...state,
+                includePhasedOut: action.payload
             };
 
         case actionTypes.SHOW_ROOT_PRODUCT_SEARCH:

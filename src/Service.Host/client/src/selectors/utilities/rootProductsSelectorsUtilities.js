@@ -17,6 +17,11 @@ export const getRootProductName = (rootProductUri, rootProducts) => {
     return rootProduct ? rootProduct.name : null;
 }
 
+export const getPhasedOut = (rootProductUri, rootProducts) => {
+    const rootProduct = getRootProduct(rootProductUri, rootProducts);
+    return rootProduct && rootProduct.phasedOutOn ? true : false;
+}
+
 export const getRootProductUris = (rootProducts) => {
     if (!rootProducts || !rootProducts.items) {
         return null;
