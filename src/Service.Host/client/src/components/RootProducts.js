@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { Table, Alert } from 'react-bootstrap';
+import { Table, Alert, Label } from 'react-bootstrap';
 import moment from 'moment';
 import { IntegerUpdater } from './IntegerUpdater';
 import { RemoveItem } from './RemoveItem';
@@ -32,7 +32,7 @@ class RootProducts extends Component {
                         <tbody>
                             {rootProducts.sort((a,b) => this.compare(a,b)).map((rootProduct, i) => (
                                 <tr key={i}>
-                                    <td><a href={rootProduct.rootProductUri}>{rootProduct.name}</a></td>
+                                    <td><a href={rootProduct.rootProductUri}>{rootProduct.name}</a> {rootProduct.phasedOut ? (<Label bsStyle="danger">Phased Out</Label>) : ''}</td>
                                     <td><IntegerUpdater
                                         title={`Update ${rootProduct.name} Quantity`}
                                         value={rootProduct.quantity}

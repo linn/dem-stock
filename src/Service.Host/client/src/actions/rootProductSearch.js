@@ -27,9 +27,19 @@ export const setRootProductSearchTerm = searchTerm => dispatch => {
     dispatch(searchRootProducts());
 };
 
-const performRootProductsSearch = searchTerm => ({
+const toggleIncludePhasedOut = (includePhasedOut) => ({
+    type: actionTypes.TOGGLE_INCLUDE_PHASED_OUT,
+    payload: includePhasedOut
+});
+
+export const setIncludePhasedOut = checked => dispatch => {
+    dispatch(toggleIncludePhasedOut(checked));
+    dispatch(searchRootProducts());
+};
+
+const performRootProductsSearch = (searchTerm, includePhasedOut) => ({
     [CALL_API]: {
-        endpoint: `${config.proxyRoot}/products/?query=${searchTerm}&filters=root-product&showPhasedOut=true`,
+        endpoint: `${config.proxyRoot}/products/?query=${searchTerm}&filters=root-product&showPhasedOut=${includePhasedOut}`,
         method: 'GET',
         headers: {
             Accept: 'application/json'
@@ -54,14 +64,14 @@ const performRootProductsSearch = searchTerm => ({
 let timeoutId;
 
 const searchRootProducts = () => async (dispatch, getState) => {
-    const { searchTerm } = getState().rootProductSearch;
+    const { searchTerm, includePhasedOut } = getState().rootProductSearch;
 
     if (searchTerm) {
         if (timeoutId) {
             clearTimeout(timeoutId);
         }
         timeoutId = setTimeout(async () => {
-            dispatch(performRootProductsSearch(searchTerm));
+            dispatch(performRootProductsSearch(searchTerm, includePhasedOut));
         }, 500);
     } else {
         dispatch(clearSearchRootProducts());

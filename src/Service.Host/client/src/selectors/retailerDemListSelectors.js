@@ -1,5 +1,5 @@
 ﻿import { getRetailerDemListItem, getDemListUpdating } from './utilities/retailerDemListSelectorUtilities';
-import { getRootProductName, getRootProductsUpdating, getRootProductsLoading } from './utilities/rootProductsSelectorsUtilities';
+import { getRootProductName, getRootProductsUpdating, getRootProductsLoading, getPhasedOut } from './utilities/rootProductsSelectorsUtilities';
 import { getActivitiesUpdating, getActivitiesLoading } from './utilities/activitySelectorUtilities';
 import { getEmployeesUpdating, getEmployeesLoading } from './utilities/employeeSelectorUtilities';
 
@@ -14,7 +14,8 @@ export const getRetailerDemListRootProducts = ({ retailerDemList, rootProducts }
 
     return retailerDemList.item.rootProducts.map(rootProduct => ({
         ...rootProduct,
-        name: getRootProductName(rootProduct.rootProductUri, rootProducts)
+        name: getRootProductName(rootProduct.rootProductUri, rootProducts),
+        phasedOut: getPhasedOut(rootProduct.rootProductUri, rootProducts)
     })).filter(r => r.name);
 }
 
