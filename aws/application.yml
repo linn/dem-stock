@@ -46,12 +46,27 @@ Parameters:
   loggingMaxInnerExceptionDepth:
     Type: Number
     Description: Logging Max Inner Exception Depth
-  desiredCount:
-    Type: String
-    Description: Desired number of instances
   environmentSuffix:
     Type: String
+    AllowedValues:
+      - ''
+      - -int
+      - -sys
     Description: Environment suffix e.g -int -sys
+  TestClusterName:
+    Type: AWS::SSM::Parameter::Value<String>
+    Description: Name of test cluster
+    Default: TestClusterName
+  ProductionClusterName:
+    Type: AWS::SSM::Parameter::Value<String>
+    Description: Name of production cluster
+    Default: ProductionClusterName
+
+Conditions:
+  isTesting: !Or
+    - !Equals [!Ref environmentSuffix, "-int"]
+    - !Equals [!Ref environmentSuffix, "-sys"]
+
 Resources:
   serviceRole:
     Type: AWS::IAM::Role
@@ -171,8 +186,12 @@ Resources:
   service:
     Type: AWS::ECS::Service
     Properties:
-      Cluster: !Ref targetCluster
-      DesiredCount: !Ref desiredCount
+      # Have to use long form conditional
+      Cluster: !If
+        - isTesting
+        - !Sub ${TestClusterName}
+        - !Sub ${ProductionClusterName}
+      DesiredCount: !If [ isTesting, 1, 2]
       TaskDefinition: !Ref serviceTaskDefinition
       Role: ecsServiceRole
       LoadBalancers:
