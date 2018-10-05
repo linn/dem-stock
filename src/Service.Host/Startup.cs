@@ -2,6 +2,9 @@ namespace Linn.DemStock.Service.Host
 {
     using System.IdentityModel.Tokens.Jwt;
 
+    using AspNetCore.DataProtection.Aws.Kms;
+    using AspNetCore.DataProtection.Aws.S3;
+
     using Linn.Common.Authentication.Host.Extensions;
     using Linn.Common.Configuration;
 
