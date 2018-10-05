@@ -134,6 +134,10 @@ Resources:
           Value: !Ref loggingMaxInnerExceptionDepth
         - Name: awsRegion
           Value: !Ref AWS::Region
+        - Name: KEYS_BUCKET_NAME
+          Value: Fn::ImportValue: !Sub "linn-keys-bucket${environmentSuffix}"
+        - Name: KMS_KEY_ALIAS
+          Value: Fn::ImportValue: !Sub "kms-key-alias${environmentSuffix}"
   demStockMessagingTaskDefinition:
     Type: AWS::ECS::TaskDefinition
     Properties:

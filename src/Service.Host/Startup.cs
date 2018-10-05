@@ -8,6 +8,7 @@ namespace Linn.DemStock.Service.Host
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authentication.OpenIdConnect;
     using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.DataProtection;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.HttpOverrides;
@@ -26,6 +27,18 @@ namespace Linn.DemStock.Service.Host
             services.AddCors();
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            var keysBucketName = ConfigurationManager.Configuration["KEYS_BUCKET_NAME"];
+            var kmsKeyAlias = ConfigurationManager.Configuration["KMS_KEY_ALIAS"];
+
+#if DEBUG
+            services.AddDataProtection()
+                .SetApplicationName("auth-oidc");
+#else
+            services.AddDataProtection()
+                .SetApplicationName("auth-oidc")
+                .PersistKeysToAwsS3(new S3XmlRepositoryConfig(keysBucketName))
+                .ProtectKeysWithAwsKms(new KmsXmlEncryptorConfig(kmsKeyAlias) { DiscriminatorAsContext = true });
+#endif
 
             services.AddLinnAuthentication(
                 options =>
