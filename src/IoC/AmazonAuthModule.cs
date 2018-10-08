@@ -6,18 +6,18 @@
 
     using Autofac;
 
-    using Linn.Common.Configuration;
-
     public class AmazonAuthModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new AmazonS3Client(RegionEndpoint.GetBySystemName(AwsCredentialsConfiguration.Region)))
+            builder.RegisterType<AmazonS3Client>()
                 .As<IAmazonS3>()
+                .UsingConstructor(typeof(RegionEndpoint))
                 .SingleInstance();
 
-            builder.Register(c => new AmazonKeyManagementServiceClient(new AmazonKeyManagementServiceConfig { RegionEndpoint = RegionEndpoint.GetBySystemName(AwsCredentialsConfiguration.Region) }))
+            builder.RegisterType<AmazonKeyManagementServiceClient>()
                 .As<IAmazonKeyManagementService>()
+                .UsingConstructor(typeof(RegionEndpoint))
                 .SingleInstance();
         }
     }
