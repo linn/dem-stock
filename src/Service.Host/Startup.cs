@@ -2,6 +2,10 @@ namespace Linn.DemStock.Service.Host
 {
     using System.IdentityModel.Tokens.Jwt;
 
+    using Amazon;
+    using Amazon.KeyManagementService;
+    using Amazon.S3;
+
     using AspNetCore.DataProtection.Aws.Kms;
     using AspNetCore.DataProtection.Aws.S3;
 
@@ -16,6 +20,7 @@ namespace Linn.DemStock.Service.Host
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.HttpOverrides;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.DependencyInjection.Extensions;
     using Microsoft.Extensions.Logging;
 
     using Nancy;
@@ -33,15 +38,14 @@ namespace Linn.DemStock.Service.Host
             var keysBucketName = ConfigurationManager.Configuration["KEYS_BUCKET_NAME"];
             var kmsKeyAlias = ConfigurationManager.Configuration["KMS_KEY_ALIAS"];
 
-#if DEBUG
-            services.AddDataProtection()
-                .SetApplicationName("auth-oidc");
-#else
+            services.TryAddSingleton<IAmazonS3>(new AmazonS3Client(new AmazonS3Config { RegionEndpoint = RegionEndpoint.EUWest1 }));
+            services.TryAddSingleton<IAmazonKeyManagementService>(new AmazonKeyManagementServiceClient(new AmazonKeyManagementServiceConfig { RegionEndpoint = RegionEndpoint.EUWest1 }));
+
             services.AddDataProtection()
                 .SetApplicationName("auth-oidc")
                 .PersistKeysToAwsS3(new S3XmlRepositoryConfig(keysBucketName))
                 .ProtectKeysWithAwsKms(new KmsXmlEncryptorConfig(kmsKeyAlias) { DiscriminatorAsContext = true });
-#endif
+
 
             services.AddLinnAuthentication(
                 options =>
