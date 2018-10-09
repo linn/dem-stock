@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.DataProtection.Aws.Kms" Version="2.0.2" />
+    <PackageReference Include="AspNetCore.DataProtection.Aws.S3" Version="2.0.2" />
     <PackageReference Include="Linn.Common.Logging" Version="1.1.1" />
     <PackageReference Include="Linn.Common.Logging.AmazonSqs" Version="1.1.3" />
     <PackageReference Include="Linn.Common.Messaging.RabbitMQ" Version="1.1.2" />
