@@ -86,6 +86,15 @@ Resources:
             - sqs:SendMessage
             Resource:
               Fn::ImportValue: logging-queue-arn
+      - PolicyName: kms
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+              - 'kms:Encrypt'
+              - 'kms:Decrypt'
+            Resource: "*"
   serviceTaskDefinition:
     Type: AWS::ECS::TaskDefinition
     Properties:
