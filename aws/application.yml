@@ -95,6 +95,15 @@ Resources:
               - 'kms:Encrypt'
               - 'kms:Decrypt'
             Resource: "*"
+      - PolicyName: s3Policy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+              - s3:GetObject
+              - s3:PutObject
+            Resource: !Sub "arn:aws:s3:::auth${environmentSuffix}-keysbucket*"
   serviceTaskDefinition:
     Type: AWS::ECS::TaskDefinition
     Properties:
