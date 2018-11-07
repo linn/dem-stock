@@ -1,5 +1,6 @@
 namespace Linn.DemStock.Service.Host
 {
+    using System;
     using System.IdentityModel.Tokens.Jwt;
 
     using Amazon;
@@ -28,24 +29,43 @@ namespace Linn.DemStock.Service.Host
 
     public class Startup
     {
+        private readonly ILogger<Startup> logger;
+
+        public Startup(ILogger<Startup> logger)
+        {
+            this.logger = logger;
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
 
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-            var keysBucketName = ConfigurationManager.Configuration["KEYS_BUCKET_NAME"];
-            var kmsKeyAlias = ConfigurationManager.Configuration["KMS_KEY_ALIAS"];
+            try
+            {
+                this.logger.LogInformation("initialising Data Protection");
 
-            services.TryAddSingleton<IAmazonS3>(new AmazonS3Client(new AmazonS3Config { RegionEndpoint = RegionEndpoint.EUWest1 }));
-            services.TryAddSingleton<IAmazonKeyManagementService>(new AmazonKeyManagementServiceClient(new AmazonKeyManagementServiceConfig { RegionEndpoint = RegionEndpoint.EUWest1 }));
+                JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+                var keysBucketName = ConfigurationManager.Configuration["KEYS_BUCKET_NAME"];
+                var kmsKeyAlias = ConfigurationManager.Configuration["KMS_KEY_ALIAS"];
 
-            services.AddDataProtection()
-                .SetApplicationName("auth-oidc")
-                .PersistKeysToAwsS3(new S3XmlRepositoryConfig(keysBucketName))
-                .ProtectKeysWithAwsKms(new KmsXmlEncryptorConfig(kmsKeyAlias) { DiscriminatorAsContext = true });
+                services.TryAddSingleton<IAmazonS3>(
+                    new AmazonS3Client(new AmazonS3Config {RegionEndpoint = RegionEndpoint.EUWest1}));
+                services.TryAddSingleton<IAmazonKeyManagementService>(
+                    new AmazonKeyManagementServiceClient(
+                        new AmazonKeyManagementServiceConfig {RegionEndpoint = RegionEndpoint.EUWest1}));
 
+                services.AddDataProtection()
+                    .SetApplicationName("auth-oidc")
+                    .PersistKeysToAwsS3(new S3XmlRepositoryConfig(keysBucketName))
+                    .ProtectKeysWithAwsKms(new KmsXmlEncryptorConfig(kmsKeyAlias) {DiscriminatorAsContext = true});
+            }
+            catch (Exception e)
+            {
+                this.logger.LogError(e, "Failed to initialise Data Protection");
+                throw new Exception("Failed to initialise Data Protection", e);
+            }
 
             services.AddLinnAuthentication(
                 options =>
