@@ -12,7 +12,7 @@ namespace Linn.DemStock.Service.Host
 
     using Linn.Common.Authentication.Host.Extensions;
     using Linn.Common.Configuration;
-
+    using Linn.Common.Logging;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authentication.OpenIdConnect;
     using Microsoft.AspNetCore.Builder;
@@ -29,9 +29,9 @@ namespace Linn.DemStock.Service.Host
 
     public class Startup
     {
-        private readonly ILogger<Startup> logger;
+        private readonly ILog logger;
 
-        public Startup(ILogger<Startup> logger)
+        public Startup(ILog logger)
         {
             this.logger = logger;
         }
@@ -44,7 +44,7 @@ namespace Linn.DemStock.Service.Host
 
             try
             {
-                this.logger.LogInformation("initialising Data Protection");
+                this.logger.Info("initialising Data Protection");
 
                 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
                 var keysBucketName = ConfigurationManager.Configuration["KEYS_BUCKET_NAME"];
@@ -63,7 +63,7 @@ namespace Linn.DemStock.Service.Host
             }
             catch (Exception e)
             {
-                this.logger.LogError(e, "Failed to initialise Data Protection");
+                this.logger.Error("Failed to initialise Data Protection", e);
                 throw new Exception("Failed to initialise Data Protection", e);
             }
 
