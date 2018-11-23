@@ -4,7 +4,7 @@ import { history } from 'react-router';
 import { Breadcrumb } from 'react-bootstrap';
 import { toTitleCase, isUpperCase } from '../helpers/strings';
 
-const BreadcrumbItem = ({ caption, href, onClick }) => (
+export const BreadcrumbItem = ({ caption, href, onClick }) => (
     <Breadcrumb.Item href={href} onClick={e => onClick(e)} >
         {isUpperCase(caption) ? caption : toTitleCase(caption)}
     </Breadcrumb.Item>
