@@ -5,55 +5,59 @@ import { shallow } from 'enzyme'
 import { DateUpdater } from '../DateUpdater';
 import moment from 'moment';
 
-
-
 describe('<DateUpdater />', () => 
 {
     const before = moment("1995-03-28");
     const after = moment("2018-03-28");
-
     let onChange = jest.fn();
+    let props;
+    let mountedDateUpdater;
 
-    const defaultProps = {
-        displayOnly: false,
-        value: before,
-        onChange: onChange
+    const dateUpdater = () => {
+        if (!mountedDateUpdater) {
+            mountedDateUpdater = shallow(
+                <DateUpdater {...props} />
+            );
+        }
+        return mountedDateUpdater;
     }
 
-
-    
-    
-    it('renders an update Button and Picker if not displayOnly', () =>
-    {
-        let wrapper = shallow(<DateUpdater {...defaultProps} />);
-        expect(wrapper.find(Button).length).toBe(1);
-        expect(wrapper.find(InlineDatePicker).length).toBe(1);
+    beforeEach(() => {
+        props = {
+            displayOnly: false,
+            value: before,
+            onChange: onChange
+        };
+        mountedDateUpdater = undefined;
     });
 
-    
-    it('does not render update button if displayOnly', () =>
-    {
-        let wrapper = shallow(<DateUpdater {...defaultProps} displayOnly={true}  />);
-        expect(wrapper.find(Button).length).toBe(0);
+    describe('If state is not displayOnly', () => {
+
+        it('renders an update Button and Picker', () => {
+            expect(dateUpdater().find(Button).length).toBe(1);
+            expect(dateUpdater().find(InlineDatePicker).length).toBe(1);
+        });
+    });
+
+    describe('If state is displayOnly', () => {
         
+        beforeEach(() => {
+            props.displayOnly = true;
+        });
+
+        it('does not render update button if displayOnly', () =>{
+            expect(dateUpdater().find(Button).length).toBe(0);    
+        });
     });
 
-
-
-    it('handles click', () => 
-    {
-        let wrapper = shallow(<DateUpdater  {...defaultProps} />);
-        wrapper.find(Button).simulate('click');
-        expect(wrapper.state().isOpen).toBe(true);
+    it('handles click', () => {
+        dateUpdater().find(Button).simulate('click');
+        expect(dateUpdater().state().isOpen).toBe(true);
     });
 
-    
-    it('handles date change', () => 
-    {   
-        
-        let wrapper = shallow(<DateUpdater  {...defaultProps} />);
-        wrapper.find(InlineDatePicker).simulate('change', after  );
-        expect(wrapper.state().isOpen).toBe(false);
+    it('handles date change', () => {
+        dateUpdater().find(InlineDatePicker).simulate('change', after);
+        expect(dateUpdater().state().isOpen).toBe(false);
         expect(onChange).toBeCalledWith(after);
     });
 });

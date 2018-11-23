@@ -10,24 +10,44 @@ jest.mock('../../config', () => ({
 import RetailerDemLists from '../RetailerDemLists';
 import { shallow } from 'enzyme';
 
-describe('<RetailerDemList />', () => 
-{
-    
-    it('renders correct number of lines', () =>
-    {
+describe('<RetailerDemLists />', () => {
+    let props;
+    let mountedRetailerDemLists;
+
+    const retailerDemLists = () => {
+        if (!mountedRetailerDemLists) {
+            mountedRetailerDemLists = shallow(
+                <RetailerDemLists {...props} />
+            );
+        }
+        return mountedRetailerDemLists;
+    };
+
+    beforeEach(() => {
+        props = {};
+        mountedRetailerDemLists = undefined;
+    });
+
+    describe('When dem lists', () => {
         
-
-        let retailerDemLists = {items: ['a', 'list', 'of', 'four']};
-        let wrapper = shallow(<RetailerDemLists retailerDemLists = {retailerDemLists} />);
-        expect(wrapper.find(Loading).length).toBe(0);
-        expect(wrapper.find(RetailerDemListLastReviewedLine).length).toBe(4);
-    });   
-
+        beforeEach(() => {
+            props.retailerDemLists = {items: ['a', 'list', 'of', 'four']};
+        });   
     
-    it('renders loading if no list', () =>
-    {
-        let wrapper = shallow(<RetailerDemLists retailerDemLists={[]} />);
-        expect(wrapper.find(Loading).length).toBe(1);
-    });   
+        it('renders correct number of lines', () => {
+            expect(retailerDemLists().find(Loading).length).toBe(0);
+            expect(retailerDemLists().find(RetailerDemListLastReviewedLine).length).toBe(4);
+        });   
+    });
 
+    describe('When no dem lists', () => {
+        
+        beforeEach(() => {
+            props.retailerDemLists = [];
+        });
+
+        it('renders loading spinner', () => {
+            expect(retailerDemLists().find(Loading).length).toBe(1);
+        });   
+    });
 });

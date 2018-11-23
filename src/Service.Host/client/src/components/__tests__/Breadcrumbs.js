@@ -2,39 +2,56 @@ import React, { Component } from 'react';
 import Breadcrumbs from '../Breadcrumbs'
 import { shallow } from 'enzyme'
 
+describe('<Breadcrumbs />', () => {
 
+    let props;
+    let mountedBreadcrumbs;
+    const mockHistory = { push: jest.fn() };
+    const mockedEvent = { target: {}, preventDefault: jest.fn() }
 
-describe('<Breadcrumbs />',() =>
-{
+    const breadcrumbs = () => {
+        if (!mountedBreadcrumbs) {
+            mountedBreadcrumbs = shallow(
+                <Breadcrumbs {...props} />
+            );
+        }
+        return mountedBreadcrumbs;
+    }
 
-    it('render correct number of breadcrumbs', ()=>
-    {
-        let wrapper = shallow(<Breadcrumbs location = {{pathname: "/a/test/path"}}/>);
+    describe('when path does not end in report', () => {
+        beforeEach(() => {
+            props = {
+                location: { pathname: "/a/test/path" },
+                history: mockHistory
+            };
+            mountedBreadcrumbs = undefined;
+        });
 
-        expect(wrapper.children().length).toBe(4); // home/a/test/path
+        it('renders correct number of breadcrumbs', () => {
+            expect(breadcrumbs().children().length).toBe(4); // home/a/test/path
+        });
+
+        it('handles clicking on a breadcrumb', () => {
+            breadcrumbs().childAt(3).simulate('click', mockedEvent);
+            expect(mockHistory.push).toBeCalledWith('/a/test/path');
+
+            // the browser should handle clicks on the first breadcrumb, i.e. the home path
+            // i.e. there should not be an extra call to history.push if the 0th node is clicked
+            breadcrumbs().childAt(0).simulate('click', mockedEvent);
+            expect(mockHistory.push.mock.calls.length).toBe(1);
+        });
     });
 
-    
-    it('removes report from path before rendering breadcrumbs', () => 
-    {
-        let wrapper = shallow(<Breadcrumbs location = {{pathname: "/a/test/path/report"}}/>);
-        expect(wrapper.children().length).toBe(4);
-    });
+    describe('When path ends in /report', () => {
+        beforeEach(() => {
+            props = {
+                location: { pathname: "/a/test/report" }
+            }
+            mountedBreadcrumbs = undefined;
+        });
 
-
-    it('handles clicking on a breadcrumb', () => 
-    {
-        let mockHistory = {push : jest.fn()};
-        const mockedEvent = { target: {}, preventDefault: jest.fn() }
-        let wrapper = shallow(<Breadcrumbs location = {{pathname: "/a/test/path"}} history = { mockHistory}/>);
-        
-        let item = wrapper.childAt(3).simulate('click', mockedEvent);
-        expect(mockHistory.push).toBeCalledWith('/a/test/path');
-
-        // the browser should handle clicks on the first breadcrumb, i.e. the home path
-        // i.e. there should not be an extra call to history.push if the 0th node is clicked
-        let homeCrumb = wrapper.childAt(0).simulate('click', mockedEvent);
-        expect(mockHistory.push.mock.calls.length).toBe(1);
-
+        it('removes report from path before rendering breadcrumbs', () => {
+            expect(breadcrumbs().children().length).toBe(3); // should remove report from path: home/a/test/path
+        });
     });
 });
