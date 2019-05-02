@@ -23,16 +23,20 @@
 
         private readonly ISalesRegionProxy salesRegionProxy;
 
+        private readonly IProductsProxy productsProxy;
+
         public DemStockService(
             ITransactionManager transactionManager,
             IRetailerDemListRepository retailerDemListRepository,
             IRetailerProxy retailerProxy,
-            ISalesRegionProxy salesRegionProxy)
+            ISalesRegionProxy salesRegionProxy,
+            IProductsProxy productsProxy)
         {
             this.transactionManager = transactionManager;
             this.retailerDemListRepository = retailerDemListRepository;
             this.retailerProxy = retailerProxy;
             this.salesRegionProxy = salesRegionProxy;
+            this.productsProxy = productsProxy;
         }
 
         public IResult<RetailerDemList> GetRetailerDemList(int retailerId)
@@ -119,6 +123,32 @@
 
             return new SuccessResult<IEnumerable<RetailerDemListModel>>(
                 models.OrderBy(a => a.LastReviewed).ThenBy(a => a.RetailerName));
+        }
+
+        public IResult<IEnumerable<RootProductOnDemModel>> GetAllRootProductsOnDem()
+        {
+            var retailers = this.retailerProxy.GetRetailers().ToList();
+            var demLists = this.retailerDemListRepository.GetRetailerDemLists(true).ToArray();
+
+            var rootProductUris = (from demList in demLists
+                                   from rootProduct in demList.RootProducts
+                                   select rootProduct.RootProductUri).ToList();
+
+            var rootProductsResult = this.productsProxy.BatchGetRootProducts(rootProductUris.Distinct()).ToList();
+
+            var rootProductsOnDem = (from demList in demLists
+                           from rootProduct in demList.RootProducts
+                           select new RootProductOnDemModel
+                                      {
+                                             Quantity = rootProduct.Quantity,
+                                             RetailerId = demList.RetailerId,
+                                             RetailerName = retailers.Find(r => r.Id == demList.RetailerId).Name,
+                                             RootProductName = rootProductsResult.Find(rp => rp.Href == rootProduct.RootProductUri).Name,
+                                             RootProductUri = rootProduct.RootProductUri,
+                                             RootProductUpdatedOn = rootProduct.UpdatedOn.ToString("d")
+                                         }).ToList();
+
+            return new SuccessResult<IEnumerable<RootProductOnDemModel>>(rootProductsOnDem);
         }
 
         private IEnumerable<RetailerDemList> GetDemListsExludingProductUri(IEnumerable<RetailerDemList> retailerDemLists, string productUri)

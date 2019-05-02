@@ -25,5 +25,7 @@
         IResult<IEnumerable<RetailerDemList>> GetRetailerDemListsWithoutProduct(string productUri);
 
         IResult<IEnumerable<RetailerDemListModel>> GetRetailerDemListModelsWithoutProduct(string productUri);
+
+        IResult<IEnumerable<RootProductOnDemModel>> GetAllRootProductsOnDem();
     }
 }

@@ -26,6 +26,16 @@
             this.Get("/retailers/dem-stock/last-reviewed/export", _ => this.GetRetailerDemListsByLastReviewedExport());
             this.Get("/retailers/dem-stock/lists-without-product", _ => this.GetRetailerDemListsExcludingProduct());
             this.Get("/retailers/dem-stock/lists-without-product/export", _ => this.GetRetailerDemListsExcludingProductExport());
+            this.Get("/retailers/dem-stock/root-products/export", _ => this.GetAllRootProductsOnDemExport());
+        }
+
+        private object GetAllRootProductsOnDemExport()
+        {
+            var rootProductsOnDem = this.demStockService.GetAllRootProductsOnDem();
+            return this.Negotiate
+                .WithModel(rootProductsOnDem)
+                .WithAllowedMediaRange("text/csv")
+                .WithView("Index");
         }
 
         private object GetRetailerDemListsExcludingProductExport()
