@@ -40,6 +40,7 @@
                     with.ResponseProcessor<RootProductJsonResponseProcessor>();
                     with.ResponseProcessor<RetailerDemListActivitiesJsonResponseProcessor>();
                     with.ResponseProcessor<RetailerDemListsCsvResponseProcessor>();
+                    with.ResponseProcessor<RootProductsOnDemCsvResponseProcessor>();
 
                     with.RequestStartup(
                         (container, pipelines, context) =>

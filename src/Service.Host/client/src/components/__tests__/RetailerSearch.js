@@ -11,6 +11,7 @@ describe('<RetailerSearch />', () => {
     let clearRetailerSearch;
     let fetchRetailerDemList;
     let historyMock;// = { push: jest.fn() };
+    let config;
 
     const retailerSearch = () => {
         if (!mountedRetailerSearch) {
@@ -25,6 +26,9 @@ describe('<RetailerSearch />', () => {
         searchRetailers = jest.fn();
         clearRetailerSearch = jest.fn();
         fetchRetailerDemList = jest.fn();
+        config = jest.fn(() => ({
+            appRoot: 'app.linn.co.uk'
+        }));
         historyMock = { push: jest.fn() };
         props = {
             retailers: [],
@@ -32,7 +36,8 @@ describe('<RetailerSearch />', () => {
             clearRetailerSearch: clearRetailerSearch,
             fetchRetailerDemList: fetchRetailerDemList,
             history: historyMock,
-            searchRetailers: searchRetailers
+            searchRetailers: searchRetailers,
+            config
         };
         mountedRetailerSearch = undefined;
     });

@@ -21,6 +21,8 @@
 
         protected ISalesRegionProxy SalesRegionProxy { get; private set; }
 
+        protected IProductsProxy ProductsProxy { get; private set; }
+
         [SetUp]
         public void SetUpContext()
         {
@@ -28,11 +30,13 @@
             this.TransactionManager = Substitute.For<ITransactionManager>();
             this.RetailerProxy = Substitute.For<IRetailerProxy>();
             this.SalesRegionProxy = Substitute.For<ISalesRegionProxy>();
+            this.ProductsProxy = Substitute.For<IProductsProxy>();
             this.Sut = new DemStockService(
                 this.TransactionManager,
                 this.DemListRepository,
                 this.RetailerProxy,
-                this.SalesRegionProxy);
+                this.SalesRegionProxy,
+                this.ProductsProxy);
         }
     }
 }

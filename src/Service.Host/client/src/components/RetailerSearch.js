@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { FormGroup, FormControl, ControlLabel, ListGroup, ListGroupItem, Label } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, ListGroup, ListGroupItem, Label, Button, OverlayTrigger, Tooltip, Glyphicon } from 'react-bootstrap';
 import { Loading } from './common';
 import { getSelfHref } from '../helpers/utilities';
 
@@ -7,11 +7,19 @@ class RetailerSearch extends Component {
     state = { searchTerm: '' }
 
     render() {
-        const { retailers, loading } = this.props;
+        const { retailers, loading, config } = this.props;
 
         return (
             <div>
-                <h2>Select Retailer</h2 >
+                <OverlayTrigger placement="top" overlay={<Tooltip id="tooltip">Download report of all root products on retailer dem lists</Tooltip>}>
+                    <Button 
+                        style={{ marginTop: '25px', marginBottom: '10px', float: 'right' }} 
+                        href={`${config.appRoot}/retailers/dem-stock/root-products/export`}>
+                        <Glyphicon className="text-muted" glyph="export" /> 
+                        Export
+                    </Button>
+                </OverlayTrigger>
+                <h2>Select Retailer</h2 >                
                 <div>
                     <FormGroup>
                         <ControlLabel>Search for retailer by name</ControlLabel>

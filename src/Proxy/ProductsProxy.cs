@@ -9,7 +9,9 @@
     using Linn.Common.Proxy;
     using Linn.Common.Serialization.Json;
     using Linn.DemStock.Proxy.Exceptions;
+    using Linn.DemStock.Resources;
     using Linn.DemStock.Resources.External;
+    using Linn.DemStock.Resources.RequestResources;
 
     public class ProductsProxy : IProductsProxy
     {
@@ -46,6 +48,27 @@
             var salesPart = json.Deserialize<RetailerResource>(response.Value);
 
             return salesPart.Links.FirstOrDefault(l => l.Rel == "root-product")?.Href;
+        }
+
+        public IEnumerable<RootProductProxyResource> BatchGetRootProducts(IEnumerable<string> rootProductUris)
+        {
+            var uri = new Uri($"{this.rootUri}/products/batch-get", UriKind.RelativeOrAbsolute);
+
+            var body = new
+                           {
+                               urls = rootProductUris,
+                               includePhasedOut = true,
+                               retrieveChildren = false
+                           };
+
+            var response = this.restClient.Post<IEnumerable<RootProductProxyResource>>(CancellationToken.None, uri, body).Result;
+
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new ProxyException($"Error getting root products.");
+            }
+            
+            return response.Value.ToList();
         }
     }
 }
