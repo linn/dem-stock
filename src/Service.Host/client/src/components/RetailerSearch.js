@@ -2,13 +2,13 @@
 import { FormGroup, FormControl, ControlLabel, ListGroup, ListGroupItem, Label, Button, OverlayTrigger, Tooltip, Glyphicon } from 'react-bootstrap';
 import { Loading } from './common';
 import { getSelfHref } from '../helpers/utilities';
-import config from '../config';
+// import config from '../config';
 
 class RetailerSearch extends Component {
     state = { searchTerm: '' }
 
     render() {
-        const { retailers, loading, exportRetailerDemLists } = this.props;
+        const { retailers, loading, config } = this.props;
 
         return (
             <div>

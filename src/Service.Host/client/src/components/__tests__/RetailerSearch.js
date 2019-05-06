@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import RetailerSearch from '../RetailerSearch';
 import { FormControl, ListGroupItem } from 'react-bootstrap';
 import { Loading } from '../common';
+// import config from '../../config';
 
 describe('<RetailerSearch />', () => {
     let props;
@@ -11,6 +12,7 @@ describe('<RetailerSearch />', () => {
     let clearRetailerSearch;
     let fetchRetailerDemList;
     let historyMock;// = { push: jest.fn() };
+    let config;
 
     const retailerSearch = () => {
         if (!mountedRetailerSearch) {
@@ -25,6 +27,9 @@ describe('<RetailerSearch />', () => {
         searchRetailers = jest.fn();
         clearRetailerSearch = jest.fn();
         fetchRetailerDemList = jest.fn();
+        config = jest.fn(() => ({
+            appRoot: 'app.linn.co.uk'
+        }));
         historyMock = { push: jest.fn() };
         props = {
             retailers: [],
@@ -32,7 +37,8 @@ describe('<RetailerSearch />', () => {
             clearRetailerSearch: clearRetailerSearch,
             fetchRetailerDemList: fetchRetailerDemList,
             history: historyMock,
-            searchRetailers: searchRetailers
+            searchRetailers: searchRetailers,
+            config
         };
         mountedRetailerSearch = undefined;
     });

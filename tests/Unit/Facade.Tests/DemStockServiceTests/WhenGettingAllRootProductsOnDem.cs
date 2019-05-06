@@ -80,7 +80,6 @@
         [Test]
         public void ShouldCallProductsProxy()
         {
-            // TODO try and get this working with uri array
             this.ProductsProxy.Received().BatchGetRootProducts(Arg.Any<IEnumerable<string>>());
         }
 
