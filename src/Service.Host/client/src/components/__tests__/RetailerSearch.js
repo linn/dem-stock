@@ -3,7 +3,6 @@ import { shallow } from 'enzyme';
 import RetailerSearch from '../RetailerSearch';
 import { FormControl, ListGroupItem } from 'react-bootstrap';
 import { Loading } from '../common';
-// import config from '../../config';
 
 describe('<RetailerSearch />', () => {
     let props;
