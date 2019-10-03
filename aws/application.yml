@@ -113,7 +113,7 @@ Resources:
         Image: !Sub docker.io/linn/dem-stock:${dockerTag}
         PortMappings:
         - ContainerPort: 5050
-        Memory: '250'
+        Memory: '175'
         LogConfiguration:
           LogDriver: gelf
           Options:
@@ -169,7 +169,7 @@ Resources:
         Image: !Sub docker.io/linn/dem-stock-messaging:${dockerTag}
         PortMappings:
         - ContainerPort: 5050
-        Memory: '150'
+        Memory: '64'
         LogConfiguration:
           LogDriver: gelf
           Options:
