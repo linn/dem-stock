@@ -4,7 +4,7 @@
     using System.Linq;
 
     using FluentAssertions;
-
+    using FluentAssertions.Extensions;
     using Linn.Common.Facade;
     using Linn.DemStock.Domain;
 

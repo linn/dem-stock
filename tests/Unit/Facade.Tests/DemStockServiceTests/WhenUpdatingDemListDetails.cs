@@ -1,7 +1,7 @@
 ﻿namespace Linn.DemStock.Facade.Tests.DemStockServiceTests
 {
     using FluentAssertions;
-
+    using FluentAssertions.Extensions;
     using Linn.Common.Facade;
     using Linn.DemStock.Domain;
 
