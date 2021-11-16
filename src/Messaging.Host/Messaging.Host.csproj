@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <AssemblyName>Linn.DemStock.Messaging.Host</AssemblyName>
     <RootNamespace>Linn.DemStock.Messaging.Host</RootNamespace>
   </PropertyGroup>
