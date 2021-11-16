@@ -10,9 +10,9 @@
 
     public class WhenSettingRootProductQtyToFewerThanZero : ContextBase
     {
-        private string rootProductUri;
-
         private Action action;
+
+        private string rootProductUri;
 
         [SetUp]
         public void SetUp()
@@ -25,7 +25,7 @@
         [Test]
         public void ShouldThrowException()
         {
-            this.action.ShouldThrow<FewerThanZeroException>();
+            this.action.Should().Throw<FewerThanZeroException>();
         }
     }
 }

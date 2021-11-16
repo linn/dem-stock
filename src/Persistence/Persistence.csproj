@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <RuntimeFrameworkVersion>2.1.2</RuntimeFrameworkVersion>
+    <RuntimeFrameworkVersion>2.2</RuntimeFrameworkVersion>
     <AssemblyName>Linn.DemStock.Persistence</AssemblyName>
     <RootNamespace>Linn.DemStock.Persistence</RootNamespace>
   </PropertyGroup>
@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="Linn.Common.Configuration" Version="2.0.0" />
-    <PackageReference Include="Linn.Common.Persistence.EntityFramework" Version="2.0.1" />
+    <PackageReference Include="Linn.Common.Persistence.EntityFramework" Version="2.0.2" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.1.2" />
   </ItemGroup>
 

@@ -3,6 +3,7 @@
     using System;
 
     using FluentAssertions;
+    using FluentAssertions.Extensions;
 
     using Linn.Common.Facade;
     using Linn.DemStock.Domain;
@@ -43,15 +44,15 @@
         }
 
         [Test]
-        public void ShouldReturnOk()
-        {
-            this.Response.StatusCode.Should().Be(HttpStatusCode.OK);
-        }
-
-        [Test]
         public void ShouldCallService()
         {
             this.DemStockService.Received().UpdateRetailerDemListDetails(234, Arg.Any<DateTime?>(), null);
+        }
+
+        [Test]
+        public void ShouldReturnOk()
+        {
+            this.Response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [Test]
