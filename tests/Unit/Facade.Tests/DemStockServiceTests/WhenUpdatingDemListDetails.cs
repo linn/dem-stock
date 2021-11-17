@@ -1,5 +1,7 @@
 ﻿namespace Linn.DemStock.Facade.Tests.DemStockServiceTests
 {
+    using System;
+
     using FluentAssertions;
     using FluentAssertions.Extensions;
     using Linn.Common.Facade;
@@ -29,7 +31,7 @@
         [Test]
         public void ShouldSetLastReviewedOn()
         {
-            this.retailerDemList.LastReviewedOn.Should().BeCloseTo(1.April(2018));
+            this.retailerDemList.LastReviewedOn.Should().BeCloseTo(1.April(2018), new TimeSpan(0, 2, 0, 0));
         }
 
         [Test]

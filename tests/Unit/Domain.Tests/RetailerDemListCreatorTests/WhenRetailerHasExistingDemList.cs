@@ -31,7 +31,7 @@
         [Test]
         public void ShouldThrowException()
         {
-            this.action.ShouldThrow<DuplicateRetailerDemListException>();
+            this.action.Should().Throw<DuplicateRetailerDemListException>();
         }
     }
 }

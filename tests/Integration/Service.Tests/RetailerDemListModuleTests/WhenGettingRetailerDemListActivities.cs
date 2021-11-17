@@ -4,6 +4,7 @@
     using System.Linq;
 
     using FluentAssertions;
+    using FluentAssertions.Extensions;
 
     using Linn.Common.Facade;
     using Linn.DemStock.Domain;
@@ -35,22 +36,19 @@
 
             this.Response = this.Browser.Get(
                 "/retailers/200/dem-stock/activities",
-                with =>
-                    {
-                        with.Header("Accept", "application/json");
-                    }).Result;
-        }
-
-        [Test]
-        public void ShouldReturnOk()
-        {
-            this.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+                with => { with.Header("Accept", "application/json"); }).Result;
         }
 
         [Test]
         public void ShouldCallService()
         {
             this.DemStockService.Received().GetRetailerDemListActivities(200);
+        }
+
+        [Test]
+        public void ShouldReturnOk()
+        {
+            this.Response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [Test]
