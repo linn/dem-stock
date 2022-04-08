@@ -39,7 +39,7 @@ class RetailerDemList extends Component {
             <div>
                 <Grid fluid={false}> 
                     <h2 style={{ display:'inline-block' }}>{retailerName}</h2>
-                    <h6 style={{ display:'inline-block' }}>{retailerAddress}</h6>
+                    <h6 style={{ display:'inline-block', paddingLeft:'20px' }}>({retailerAddress})</h6>
                     <span style={{ paddingLeft:'20px' }}>{updating && <MiniLoading />}</span>
                     <LastReviewedOn
                         title="Last reviewed on "
