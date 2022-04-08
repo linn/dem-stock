@@ -29,7 +29,7 @@ class RetailerSearch extends Component {
                         ? (
                             <ListGroup>
                                 {retailers.map((retailer, i) => (
-                                    <ListGroupItem key={i} onClick={() => this.handleRetailerClick(retailer)}>{retailer.name} <Label className="pull-right" bsStyle="primary">{retailer.id}</Label></ListGroupItem>
+                                    <ListGroupItem key={i} onClick={() => this.handleRetailerClick(retailer)}><b>{retailer.name}</b> ({retailer.address.line1} {retailer.address.line2} {retailer.address.line3} {retailer.address.line4}) <Label className="pull-right" bsStyle="primary">{retailer.id}</Label></ListGroupItem>
                                 ))}
                             </ListGroup>
                         )

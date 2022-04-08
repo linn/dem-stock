@@ -29,7 +29,7 @@ class RetailerDemList extends Component {
     }
 
     render() {
-        const { retailerDemList, retailerDemListRootProducts, retailerName, setRootProduct, retailerUri, activities, loading, updating } = this.props;        
+        const { retailerDemList, retailerDemListRootProducts, retailerName, retailerAddress, setRootProduct, retailerUri, activities, loading, updating } = this.props;        
 
         if (!retailerDemList || loading && !updating) {
             return (<Loading />);
@@ -38,7 +38,9 @@ class RetailerDemList extends Component {
         return (
             <div>
                 <Grid fluid={false}> 
-                    <h2 style={{ display:'inline-block' }}>{retailerName}</h2><span style={{ paddingLeft:'20px' }}>{updating && <MiniLoading />}</span>
+                    <h2 style={{ display:'inline-block' }}>{retailerName}</h2>
+                    <h6 style={{ display:'inline-block' }}>{retailerAddress}</h6>
+                    <span style={{ paddingLeft:'20px' }}>{updating && <MiniLoading />}</span>
                     <LastReviewedOn
                         title="Last reviewed on "
                         value={retailerDemList.lastReviewedOn ? moment(retailerDemList.lastReviewedOn) : null}
