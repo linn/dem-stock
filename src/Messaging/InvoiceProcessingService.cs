@@ -87,13 +87,6 @@
                     rootProduct.RootProductUri,
                     "/employees/100",
                     rootProduct.Quantity);
-
-                /*
-                if (foundDemProducts)
-                {
-                    this.transactionManager.Commit();
-                }
-                */
             }
 
             if (foundDemProducts)
