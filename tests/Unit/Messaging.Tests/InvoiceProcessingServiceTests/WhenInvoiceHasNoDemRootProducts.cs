@@ -32,7 +32,8 @@
                                                             forDemonstration = true,
                                                             links = new List<LinkResource>
                                                                         {
-                                                                            new LinkResource("productUri", "/products/sales-parts/123")
+                                                                            new LinkResource("productUri", "/products/sales-parts/123"),
+                                                                            new LinkResource("sales-customer", "/sales/customers/808")
                                                                         }
                                                         },
                                                     new InvoiceLineResource
@@ -41,7 +42,8 @@
                                                             forDemonstration = true,
                                                             links = new List<LinkResource>
                                                                         {
-                                                                            new LinkResource("productUri", "/products/sales-parts/456")
+                                                                            new LinkResource("productUri", "/products/sales-parts/456"),
+                                                                            new LinkResource("sales-customer", "/sales/customers/808")
                                                                         }
                                                         }
                                                 },
@@ -62,15 +64,15 @@
         }
 
         [Test]
-        public void ShouldNotCallRetailerProxy()
+        public void ShouldCallRetailerProxy()
         {
-            this.RetailerProxy.DidNotReceive().GetRetailerId(Arg.Any<string>());
+            this.RetailerProxy.Received().GetRetailerId(Arg.Any<string>());
         }
 
         [Test]
-        public void ShouldNotCallRetailerDemListRepository()
+        public void ShouldCallRetailerDemListRepository()
         {
-            this.RetailerDemListRepository.DidNotReceive().GetByRetailerId(Arg.Any<int>());
+            this.RetailerDemListRepository.Received().GetByRetailerId(Arg.Any<int>());
         }
 
         [Test]

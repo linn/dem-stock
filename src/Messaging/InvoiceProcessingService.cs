@@ -52,6 +52,25 @@
         {
             var foundDemProducts = false;
 
+            if (!demLines.Any())
+            {
+                return;
+            }
+
+            var salesCustomerHref = demLines.First().links.First(l => l.Rel == "sales-customer")?.Href;
+            if (string.IsNullOrEmpty(salesCustomerHref))
+            {
+                return;
+            }
+
+            var retailerId = this.retailerProxy.GetRetailerId(salesCustomerHref);
+            if (!retailerId.HasValue)
+            {
+                return;
+            }
+
+            var retailerDemList = this.retailerDemListRepository.GetByRetailerId(retailerId.Value);
+
             foreach (var invoiceResourceLine in demLines)
             {
                 RootProduct rootProduct = null;
@@ -71,13 +90,7 @@
                     continue;
                 }
 
-                var retailerId = this.retailerProxy.GetRetailerId(invoiceResourceLine.links.First(l => l.Rel == "sales-customer").Href);
-                if (!retailerId.HasValue)
-                {
-                    continue;
-                }
 
-                var retailerDemList = this.retailerDemListRepository.GetByRetailerId(retailerId.Value);
                 this.log.Info($"Adding root product {rootProduct.RootProductUri} from invoice {invoiceId} line {invoiceResourceLine.number} to dem list {retailerDemList.Id} for retailer {retailerId}.");
                 foundDemProducts = true;
 
