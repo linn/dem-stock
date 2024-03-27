@@ -52,7 +52,18 @@
         {
             var foundDemProducts = false;
 
-            var retailerId = this.retailerProxy.GetRetailerId(demLines.First().links.First(l => l.Rel == "sales-customer").Href);
+            if (!demLines.Any())
+            {
+                return;
+            }
+
+            var salesCustomerHref = demLines.First().links.First(l => l.Rel == "sales-customer")?.Href;
+            if (string.IsNullOrEmpty(salesCustomerHref))
+            {
+                return;
+            }
+
+            var retailerId = this.retailerProxy.GetRetailerId(salesCustomerHref);
             if (!retailerId.HasValue)
             {
                 return;
