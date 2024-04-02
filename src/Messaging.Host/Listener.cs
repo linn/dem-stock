@@ -56,6 +56,17 @@
                         }
                     })
                 .OnRejected(this.LogRejection);
+
+            this.consumer.For("invoicing.invoice.audited")
+                .OnConsumed(m =>
+                    {
+                        using (var handlerScope = scope.BeginLifetimeScope("messageHandler"))
+                        {
+                            var handler = handlerScope.Resolve<InvoiceAuditHandler>();
+                            return handler.Execute(m);
+                        }
+                    })
+                .OnRejected(this.LogRejection);
         }
 
         public void Listen()

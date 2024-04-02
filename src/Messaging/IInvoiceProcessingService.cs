@@ -5,5 +5,7 @@
     public interface IInvoiceProcessingService
     {
         void CaptureDemRootProductsFromInvoice(InvoiceResource invoiceResource);
+
+        void AuditDemRootProductsFromInvoice(InvoiceResource invoiceResource);
     }
 }

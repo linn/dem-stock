@@ -1,5 +1,6 @@
 ﻿namespace Linn.DemStock.Messaging
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -48,7 +49,29 @@
             this.ProcessDemRootProducts(invoiceResource.id, demLines);
         }
 
-        private void ProcessDemRootProducts(int invoiceId, IEnumerable<InvoiceLineResource> demLines)
+        public void AuditDemRootProductsFromInvoice(InvoiceResource invoiceResource)
+        {
+            this.log.Info($"Auditing invoice {invoiceResource.id} for dem stock");
+            var demLines = invoiceResource.lines.Where(a => a.forDemonstration).ToList();
+            if (!demLines.Any())
+            {
+                return;
+            }
+
+            DateTime invDate;
+            if (!DateTime.TryParse(invoiceResource.raised, out invDate))
+            {
+                return;
+            }
+
+            this.ProcessDemRootProducts(invoiceResource.id, demLines, invDate, true);
+        }
+
+        private void ProcessDemRootProducts(
+            int invoiceId,
+            IEnumerable<InvoiceLineResource> demLines,
+            DateTime? invoiceDateTime = null,
+            bool audit = false)
         {
             var foundDemProducts = false;
 
@@ -71,6 +94,12 @@
 
             var retailerDemList = this.retailerDemListRepository.GetByRetailerId(retailerId.Value);
 
+            // if audit mode and retailer dem list has been reviewed since invoice then leave alone
+            if (audit && retailerDemList.LastReviewedOn > invoiceDateTime)
+            {
+                return;
+            }
+
             foreach (var invoiceResourceLine in demLines)
             {
                 RootProduct rootProduct = null;
@@ -82,6 +111,12 @@
                     if (rootProductUri != null)
                     {
                         rootProduct = new RootProduct(rootProductUri, invoiceResourceLine.quantity);
+                    }
+
+                    // if audit and already has the product then don't increment quantity
+                    if (audit && retailerDemList.HasOnList(rootProductUri))
+                    {
+                        continue;
                     }
                 }
 
@@ -96,7 +131,7 @@
 
                 retailerDemList.IncrementRootProductQuantity(
                     rootProduct.RootProductUri,
-                    "/employees/100",
+                    audit ? "/employees/7004" : "/employees/100", // so i can pull out what it has done
                     rootProduct.Quantity);
             }
 

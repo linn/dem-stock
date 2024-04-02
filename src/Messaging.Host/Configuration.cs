@@ -25,6 +25,7 @@
             builder.RegisterType<RetailerCreatedHandler>().AsSelf();
             builder.RegisterType<RetailerUpdatedHandler>().AsSelf();
             builder.RegisterType<InvoiceCreatedHandler>().AsSelf();
+            builder.RegisterType<InvoiceAuditHandler>().AsSelf();
 
             return builder.Build();
         }
